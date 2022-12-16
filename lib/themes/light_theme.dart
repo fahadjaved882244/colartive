@@ -27,6 +27,8 @@ class LightAppTheme {
   static final _colorScheme = ColorScheme.fromSeed(
     seedColor: AppColors.primary,
     brightness: Brightness.light,
+    surface: const Color(0xfff2f2f2),
+    surfaceVariant: const Color(0xffFAFAFA),
   );
 
   // static final _overlayColor = ElevationOverlay.colorWithOverlay(

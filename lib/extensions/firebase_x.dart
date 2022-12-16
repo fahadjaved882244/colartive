@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 extension FirestoreX on FirebaseFirestore {
   DocumentReference<Map<String, dynamic>> get userDoc {
     final user = FirebaseAuth.instance.currentUser!;
-    return collection('users').doc(user.uid);
+    return collection('user').doc(user.uid);
   }
 
   DocumentReference<Map<String, dynamic>> addressDoc(String id) {
@@ -12,7 +12,7 @@ extension FirestoreX on FirebaseFirestore {
   }
 
   CollectionReference<Map<String, dynamic>> get userCollection =>
-      collection('users');
+      collection('user');
 
   CollectionReference<Map<String, dynamic>> get restaurantCollection =>
       collection('restaurant');
@@ -23,7 +23,7 @@ extension FirestoreX on FirebaseFirestore {
 
 extension DocumentReferenceX on DocumentReference {
   CollectionReference<Map<String, dynamic>> get addressCollection =>
-      collection("addresses");
+      collection("address");
   CollectionReference<Map<String, dynamic>> get couponCollection =>
-      collection("coupons");
+      collection("coupon");
 }

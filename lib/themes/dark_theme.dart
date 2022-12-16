@@ -26,6 +26,7 @@ class DarkAppTheme {
   static final _colorScheme = ColorScheme.fromSeed(
     seedColor: AppColors.primary,
     brightness: Brightness.dark,
+    surfaceVariant: const Color(0xff252525),
   );
 
   // static final _overlayColor = ElevationOverlay.colorWithOverlay(

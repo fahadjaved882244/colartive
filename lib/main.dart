@@ -15,30 +15,36 @@ Future<void> main() async {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await GetStorage.init();
 
-  runApp(const App());
+  runApp(App());
 }
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  final controller = Get.put(ThemeController());
+
+  App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: AppColors.transparent,
-        statusBarBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-      child: GetMaterialApp(
-        title: 'Colartive',
-        initialRoute: RouteNames.navigationView,
-        initialBinding: InitialBinding(),
-        getPages: AppRoutes.routes,
-        defaultTransition: Transition.fade,
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.lightTheme,
-        darkTheme: AppTheme.darkTheme,
-        themeMode: ThemeService.theme,
+    return Obx(
+      () => AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle(
+          statusBarColor: AppColors.transparent,
+          statusBarBrightness:
+              controller.isDarkMode ? Brightness.dark : Brightness.light,
+          statusBarIconBrightness:
+              controller.isDarkMode ? Brightness.light : Brightness.dark,
+        ),
+        child: GetMaterialApp(
+          title: 'Colartive',
+          initialRoute: RouteNames.navigationView,
+          initialBinding: InitialBinding(),
+          getPages: AppRoutes.routes,
+          defaultTransition: Transition.fade,
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeMode: ThemeService.theme,
+        ),
       ),
     );
   }

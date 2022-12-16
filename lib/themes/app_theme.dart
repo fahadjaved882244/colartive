@@ -13,8 +13,6 @@ class AppColors {
   static const white = Color(0xFFFFFFFF);
   static const lightGray = Color(0xFFD7D7D7);
   static const darkGray = Color(0xFF939DA0);
-  static const background = Color(0xFFF5F5F5);
-  static const backgroundLight = Color(0xFFF9F9F9);
   static const transparent = Color(0x00000000);
   static const green = Color(0xFF00A651);
   static const red = Color(0xFFF34647);
@@ -22,6 +20,7 @@ class AppColors {
   static const blue = Color(0xFF4285F4);
   static const orange = Color(0xFFE65100);
   static const yellow = Color(0xFFFFCA28);
+
   static const Color homeColor = Color(0xff00CA4E);
   static const Color galleryColor = CupertinoColors.systemOrange;
 //  Color(0xffFFBD44);

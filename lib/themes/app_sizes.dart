@@ -13,7 +13,8 @@ class AppSizes {
 
   static const double textFieldRadius = 4;
   static const double chipRadius = 8;
-  static const double cardRadius = 12;
+  static const double cardRadius = 22.5;
+  // 12;
   static const double fabRadius = 16;
   static const double buttonRadius = 28;
   static const double dialogRadius = 28;

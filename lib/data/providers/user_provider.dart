@@ -23,16 +23,6 @@ class UserProvider {
       final doc = await _firestore.userCollection.doc(uid).get();
       if (doc.data() != null) {
         userX = UserModel.fromMap(doc.data()!);
-      } else {
-        // TODO:
-        final doc = await _firestore.collection('users').doc(uid).get();
-        if (doc.data() != null) {
-          final data = doc.data();
-          final user = UserModel.fromMap(data!)
-              .copyWith(accountStatus: AccountStatus.active);
-          await create(user);
-          userX = user;
-        }
       }
       return userX;
     } on Exception catch (e) {
