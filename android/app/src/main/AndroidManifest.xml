@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.colartive2">
+    package="com.colartive.wallpapers">
    <application
         android:label="colartive2"
         android:name="${applicationName}"

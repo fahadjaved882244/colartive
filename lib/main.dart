@@ -1,50 +1,67 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:colartive2/features/locale/data/utils/app_localizations.dart';
+import 'package:colartive2/utils/controllers/theme_controller.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'routes/app_routes.dart';
-import 'routes/route_names.dart';
-import 'services/basic/initial_binding.dart';
-import 'services/basic/theme_service.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'core_packages.dart';
+import 'routes/app_router.dart';
 import 'themes/app_theme.dart';
+import 'features/locale/view/change_locale_controller.dart';
+
+final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
+  throw UnimplementedError();
+});
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  await GetStorage.init();
 
-  runApp(App());
+  final sharedPreferences = await SharedPreferences.getInstance();
+
+  runApp(
+    ProviderScope(
+      overrides: [
+        sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+      ],
+      child: const App(),
+    ),
+  );
 }
 
-class App extends StatelessWidget {
-  final controller = Get.put(ThemeController());
-
-  App({Key? key}) : super(key: key);
+class App extends ConsumerWidget {
+  const App({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Obx(
-      () => AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle(
-          statusBarColor: AppColors.transparent,
-          statusBarBrightness:
-              controller.isDarkMode ? Brightness.dark : Brightness.light,
-          statusBarIconBrightness:
-              controller.isDarkMode ? Brightness.light : Brightness.dark,
-        ),
-        child: GetMaterialApp(
-          title: 'Colartive',
-          initialRoute: RouteNames.navigationView,
-          initialBinding: InitialBinding(),
-          getPages: AppRoutes.routes,
-          defaultTransition: Transition.fade,
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
-          themeMode: ThemeService.theme,
-        ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(themeControllerProvider);
+    final themeMode = ref.read(themeControllerProvider.notifier).themeMode;
+    final brightness = ref.read(themeControllerProvider.notifier).brightness;
+    final locale = ref.watch(localeControllerProvider);
+
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: AppColors.transparent,
+        statusBarBrightness:
+            brightness == Brightness.dark ? Brightness.dark : Brightness.light,
+        statusBarIconBrightness:
+            brightness == Brightness.dark ? Brightness.light : Brightness.dark,
+      ),
+      child: MaterialApp.router(
+        routerConfig: AppRouter.router,
+        title: 'Colartive',
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        themeMode: themeMode,
+        locale: locale,
+        localizationsDelegates: const [
+          AppLocalizationsDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: AppLocalizations.languages.map((e) => Locale(e)),
+        debugShowCheckedModeBanner: false,
       ),
     );
   }

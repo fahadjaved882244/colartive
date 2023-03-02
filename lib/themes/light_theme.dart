@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'app_sizes.dart';
-import 'app_theme.dart';
+import '../utils/core/app_colors.dart';
+import '../utils/core/app_sizes.dart';
 
 class LightAppTheme {
+  LightAppTheme._();
+
   static final themeData = ThemeData.light(useMaterial3: true).copyWith(
     colorScheme: _colorScheme,
     textTheme: _textTheme,
     scaffoldBackgroundColor: _colorScheme.surface,
-    // appBarTheme: _appBarTheme,
     tabBarTheme: _tabBarTheme,
     dividerTheme: _dividerTheme,
     drawerTheme: _drawerTheme,
-    cardTheme: _cardTheme,
-    floatingActionButtonTheme: _fabTheme,
     listTileTheme: _listTileTheme,
     switchTheme: _switchTheme,
     radioTheme: _radioTheme,
@@ -27,46 +26,18 @@ class LightAppTheme {
   static final _colorScheme = ColorScheme.fromSeed(
     seedColor: AppColors.primary,
     brightness: Brightness.light,
-    surface: const Color(0xfff2f2f2),
-    surfaceVariant: const Color(0xffFAFAFA),
+    // surface: const Color(0xfff2f2f2),
+    // surfaceVariant: const Color(0xffFAFAFA),
   );
 
   // static final _overlayColor = ElevationOverlay.colorWithOverlay(
   //     _colorScheme.surface, _colorScheme.onSurface, 3);
 
   /////////// Text Theme //////////////
-  static final _textTheme = GoogleFonts.latoTextTheme().apply(
+  static final _textTheme = GoogleFonts.robotoSerifTextTheme().apply(
     bodyColor: _colorScheme.onSurface,
     displayColor: _colorScheme.onSurface,
-  );
-
-  /////////// AppBar Theme //////////////
-  // static final _appBarTheme = AppBarTheme(
-  //   systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
-  //     statusBarColor: AppColors.transparent,
-  //   ),
-  //   elevation: 0,
-  //   color: _colorScheme.surface,
-  //   centerTitle: true,
-  //   iconTheme: const IconThemeData(color: AppColors.black),
-  //   titleTextStyle: _textTheme.titleLarge,
-  //   titleSpacing: AppSizes.smallPadding,
-  // );
-
-  /////////// FAB Theme //////////////
-  static final _fabTheme = FloatingActionButtonThemeData(
-    elevation: 3,
-    backgroundColor: _colorScheme.tertiaryContainer,
-    foregroundColor: _colorScheme.onTertiaryContainer,
-    extendedTextStyle: _textTheme.button,
-    extendedIconLabelSpacing: AppSizes.exSmallPadding,
-    extendedPadding: const EdgeInsets.only(
-      left: AppSizes.smallPadding,
-      right: AppSizes.smallPadding + 4,
-    ),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(AppSizes.fabRadius),
-    ),
+    fontFamily: 'SummerPixel',
   );
 
   /////////// Divider Theme //////////////
@@ -102,7 +73,7 @@ class LightAppTheme {
         const EdgeInsets.only(left: 16, right: 24, top: 8, bottom: 8),
     minVerticalPadding: 0,
     minLeadingWidth: 24,
-    horizontalTitleGap: AppSizes.smallPadding,
+    horizontalTitleGap: Paddings.sm,
     tileColor: AppColors.transparent,
     selectedTileColor: _colorScheme.surface,
     selectedColor: _colorScheme.onSurfaceVariant,
@@ -110,15 +81,15 @@ class LightAppTheme {
   );
 
   /////////// Card Theme //////////////
-  static final _cardTheme = CardTheme(
-    elevation: 0,
-    color: _colorScheme.surfaceVariant,
-    margin: EdgeInsets.zero,
-    clipBehavior: Clip.antiAlias,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-    ),
-  );
+  // static final _cardTheme = CardTheme(
+  //   elevation: 0,
+  //   color: _colorScheme.surfaceVariant,
+  //   margin: EdgeInsets.zero,
+  //   clipBehavior: Clip.antiAlias,
+  //   shape: RoundedRectangleBorder(
+  //     borderRadius: BorderRadius.circular(AppSizes.rdxCrd),
+  //   ),
+  // );
 
   /////////// Switch Theme //////////////
   static final _switchTheme = SwitchThemeData(
@@ -173,7 +144,7 @@ class LightAppTheme {
     // filled: true,
     // fillColor: _colorScheme.surfaceVariant,
     errorMaxLines: 2,
-    contentPadding: const EdgeInsets.all(AppSizes.smallPadding),
+    contentPadding: const EdgeInsets.all(Paddings.sm),
     iconColor: _colorScheme.onSurfaceVariant,
     labelStyle:
         _textTheme.bodyLarge!.copyWith(color: _colorScheme.onSurfaceVariant),
@@ -183,33 +154,27 @@ class LightAppTheme {
     helperStyle: _textTheme.bodySmall,
     counterStyle: _textTheme.bodySmall,
     border: OutlineInputBorder(
-      borderRadius:
-          const BorderRadius.all(Radius.circular(AppSizes.textFieldRadius)),
+      borderRadius: const BorderRadius.all(Radius.circular(Corners.tf)),
       borderSide: BorderSide(color: _colorScheme.outline),
     ),
     enabledBorder: OutlineInputBorder(
-      borderRadius:
-          const BorderRadius.all(Radius.circular(AppSizes.textFieldRadius)),
+      borderRadius: const BorderRadius.all(Radius.circular(Corners.tf)),
       borderSide: BorderSide(color: _colorScheme.outline),
     ),
     disabledBorder: OutlineInputBorder(
-      borderRadius:
-          const BorderRadius.all(Radius.circular(AppSizes.textFieldRadius)),
+      borderRadius: const BorderRadius.all(Radius.circular(Corners.tf)),
       borderSide: BorderSide(color: _colorScheme.outline),
     ),
     focusedBorder: OutlineInputBorder(
-      borderRadius:
-          const BorderRadius.all(Radius.circular(AppSizes.textFieldRadius)),
+      borderRadius: const BorderRadius.all(Radius.circular(Corners.tf)),
       borderSide: BorderSide(color: _colorScheme.primary, width: 2),
     ),
     errorBorder: OutlineInputBorder(
-      borderRadius:
-          const BorderRadius.all(Radius.circular(AppSizes.textFieldRadius)),
+      borderRadius: const BorderRadius.all(Radius.circular(Corners.tf)),
       borderSide: BorderSide(color: _colorScheme.error),
     ),
     focusedErrorBorder: OutlineInputBorder(
-      borderRadius:
-          const BorderRadius.all(Radius.circular(AppSizes.textFieldRadius)),
+      borderRadius: const BorderRadius.all(Radius.circular(Corners.tf)),
       borderSide: BorderSide(color: _colorScheme.error),
     ),
   );

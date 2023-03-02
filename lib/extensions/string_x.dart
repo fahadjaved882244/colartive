@@ -1,3 +1,4 @@
+import 'package:colartive2/features/locale/data/utils/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class RoutingData {
@@ -16,6 +17,10 @@ extension StringX on String {
       route: uriData.path,
       queryParameters: uriData.queryParameters,
     );
+  }
+
+  String tr(BuildContext context) {
+    return AppLocalizations.of(context).tr(this);
   }
 
   bool get parseBool {
@@ -42,7 +47,7 @@ extension StringX on String {
   }
 
   String? get nullIfEmpty {
-    return isEmpty ? null : this;
+    return trim().isEmpty ? null : this;
   }
 
   double get zeroIfEmpty {

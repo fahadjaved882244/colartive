@@ -1,0 +1,82 @@
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:ionicons/ionicons.dart';
+
+import '../../../../../../core_packages.dart';
+
+import '../../../../../utils/components/fields/custom_email_field.dart';
+import '../../../../../utils/components/fields/custom_password_field.dart';
+import '../../../../../utils/components/fields/custom_text_form_field.dart';
+import '../../../../../utils/components/scaffolds/form_scaffold.dart';
+import '../../../../../utils/core/text_validator.dart';
+import '../../../data/utils/auth_error_handler.dart';
+import 'signup_controller.dart';
+
+class SignupView extends HookConsumerWidget {
+  const SignupView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(signupControllerProvider);
+
+    final nameController = useTextEditingController();
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
+    final confirmPasswordController = useTextEditingController();
+
+    ref.listen<AsyncValue>(
+      signupControllerProvider,
+      (prev, next) {
+        if (!next.isRefreshing && next.hasError) {
+          AuthErrorHandler.handleError(context, next.error!);
+        } else if (!next.isRefreshing && next.hasValue) {
+          context.go(AppPaths.settings);
+        }
+      },
+    );
+
+    const spacer = SizedBox(height: Paddings.md);
+    return FormScaffold(
+      title: AppStrings.signupTitle,
+      isLoading: state.isLoading,
+      isUpdateForm: false,
+      onSubmitted: () {
+        ref.read(signupControllerProvider.notifier).signup(
+              email: emailController.text.trim(),
+              password: passwordController.text.trim(),
+              name: nameController.text.trim(),
+            );
+      },
+      children: [
+        CustomTextFormField(
+          labelText: AppStrings.name,
+          controller: nameController,
+          prefixIcon: const Icon(Ionicons.person_outline),
+          keyboardType: TextInputType.name,
+          validator: TextValidator.nameValidator,
+        ),
+        spacer,
+        CustomEmailField(
+          labelText: AppStrings.email,
+          controller: emailController,
+        ),
+        const SizedBox(height: Paddings.sm),
+        CustomPasswordField(
+          labelText: AppStrings.password,
+          controller: passwordController,
+          validator: TextValidator.passwordValidator,
+        ),
+        const SizedBox(height: Paddings.sm),
+        CustomPasswordField(
+          labelText: AppStrings.confirmPass,
+          controller: confirmPasswordController,
+          validator: (a) {
+            if (passwordController.text == a) {
+              return null;
+            }
+            return AppStrings.passDontMatch;
+          },
+        ),
+      ],
+    );
+  }
+}
