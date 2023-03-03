@@ -1,4 +1,5 @@
 import 'package:colartive2/core_packages.dart';
+import 'package:colartive2/routes/app_router/app_router.dart';
 import 'package:colartive2/utils/components/cards/custom_outlined_card.dart';
 import 'package:colartive2/utils/components/popups/custom_snackbar.dart';
 import 'package:colartive2/utils/components/widgets/custom_list_tile.dart';
@@ -105,7 +106,7 @@ class SettingsView extends StatelessWidget {
                 title: AppStrings.language,
                 subtitle: AppStrings.languageDes,
                 implyTrailing: true,
-                onTap: () => context.go(AppPaths.updateLocale),
+                onTap: () => const ChangeLocaleRoute().go(context),
               ),
             ),
             const ChangeThemeCard(),

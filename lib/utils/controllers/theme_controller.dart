@@ -50,6 +50,7 @@ class ThemeController extends StateNotifier<ThemeState> {
   }
 }
 
+@immutable
 class ThemeState {
   final bool isDarkMode;
   final bool isForceMode;

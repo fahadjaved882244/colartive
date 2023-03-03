@@ -1,3 +1,4 @@
+import 'package:colartive2/routes/app_router/app_router.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../../../../core_packages.dart';
@@ -6,35 +7,41 @@ import '../../../../../../utils/components/fields/custom_email_field.dart';
 import '../../../../../../utils/components/fields/custom_password_field.dart';
 import '../../../../../../utils/core/text_validator.dart';
 import '../../../../data/utils/auth_error_handler.dart';
-import '../login_controller_view.dart';
+import '../login_controller.dart';
 
-class LoginFormCard extends HookConsumerWidget {
-  LoginFormCard({super.key});
+class AppLoginCard extends HookConsumerWidget {
+  final Function(bool) onTap;
+
+  AppLoginCard({super.key, required this.onTap});
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(loginControllerProvider);
+    final state = ref.watch(appLoginControllerProvider);
 
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
     final autoValidateMode = useState(AutovalidateMode.disabled);
 
     ref.listen<AsyncValue>(
-      loginControllerProvider,
+      appLoginControllerProvider,
       (prev, next) {
-        if (!next.isRefreshing && next.hasError) {
+        if (next.isLoading) {
+          onTap(true);
+        } else if (!next.isRefreshing && next.hasError) {
+          onTap(false);
           AuthErrorHandler.handleError(context, next.error!);
         } else if (!next.isRefreshing && next.hasValue) {
-          context.go(AppPaths.settings);
+          onTap(false);
+          const SettingsRoute().go(context);
         }
       },
     );
 
     void onSubmitted() {
       if (_formKey.currentState?.validate() ?? false) {
-        ref.read(loginControllerProvider.notifier).login(
+        ref.read(appLoginControllerProvider.notifier).login(
               email: emailController.text.trim(),
               password: passwordController.text.trim(),
             );
@@ -85,7 +92,7 @@ class LoginFormCard extends HookConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             TextButton(
-              onPressed: () => context.go(AppPaths.resetPassword),
+              onPressed: () => const ResetPasswordRoute().go(context),
               child: const CustomText(AppStrings.forgPass),
             ),
           ],
@@ -93,9 +100,7 @@ class LoginFormCard extends HookConsumerWidget {
         const SizedBox(height: Paddings.xs),
         CustomFilledButton(
           onPressed: !state.isLoading ? onSubmitted : null,
-          child: state.isLoading
-              ? const CircularProgressIndicator()
-              : const Text(AppStrings.login),
+          child: const Text(AppStrings.login),
         ),
         const SizedBox(height: Paddings.xs),
         Row(
@@ -103,7 +108,7 @@ class LoginFormCard extends HookConsumerWidget {
           children: [
             const CustomText(AppStrings.loginNotMember),
             TextButton(
-              onPressed: () => context.go(AppPaths.signup),
+              onPressed: () => const SignupRoute().go(context),
               child: const CustomText(AppStrings.signup),
             ),
           ],

@@ -1,3 +1,5 @@
+import 'package:colartive2/routes/app_router/app_router.dart';
+
 import '../../../auth/views/auth_controller.dart';
 import '../../../../core_packages.dart';
 import '../../../../utils/components/cards/custom_outlined_card.dart';
@@ -21,12 +23,8 @@ class UserInfoCard extends ConsumerWidget {
         subtitle: isLoggedIn ? user.email : AppStrings.contribute,
         implyTrailing: true,
         onTap: () => isLoggedIn
-            ? context.go(Uri(path: AppPaths.userProfile, queryParameters: {
-                'id': user.id,
-                'name': user.name,
-                'photoUrl': user.photoUrl
-              }).toString())
-            : context.go(AppPaths.login),
+            ? ProfileRoute(id: user.id).go(context)
+            : const LoginRoute().go(context),
       ),
     );
   }

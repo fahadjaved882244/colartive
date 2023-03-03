@@ -1,15 +1,32 @@
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../../../core_packages.dart';
-import '../login_controller_view.dart';
+import '../../../../../../routes/app_router/app_router.dart';
+import '../../../../data/utils/auth_error_handler.dart';
+import '../login_controller.dart';
 import 'external_login_button.dart';
 
 class ExternalLoginCard extends ConsumerWidget {
-  const ExternalLoginCard({super.key});
+  final Function(bool) onTap;
+  const ExternalLoginCard({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(loginControllerProvider);
+    ref.listen<AsyncValue>(
+      externalLoginControllerProvider,
+      (prev, next) {
+        if (next.isLoading) {
+          onTap(true);
+        } else if (!next.isRefreshing && next.hasError) {
+          onTap(false);
+          AuthErrorHandler.handleError(context, next.error!);
+        } else if (!next.isRefreshing && next.hasValue) {
+          onTap(false);
+          const SettingsRoute().go(context);
+        }
+      },
+    );
+
     return Column(children: [
       Row(children: const [
         Expanded(child: Divider()),
@@ -36,8 +53,8 @@ class ExternalLoginCard extends ConsumerWidget {
               Ionicons.logo_google,
               color: context.colors.onSecondaryContainer,
             ),
-            onPressed: () async {
-              // await controller.googleLoginPressed();
+            onPressed: () {
+              ref.read(externalLoginControllerProvider.notifier).googleSignIn();
             },
           ),
           ExternalLoginButton(
@@ -46,8 +63,10 @@ class ExternalLoginCard extends ConsumerWidget {
               Ionicons.logo_facebook,
               color: context.colors.onSecondaryContainer,
             ),
-            onPressed: () async {
-              // await controller.facebookLoginPressed();
+            onPressed: () {
+              ref
+                  .read(externalLoginControllerProvider.notifier)
+                  .facebookSignIn();
             },
           ),
           ExternalLoginButton(
@@ -56,8 +75,8 @@ class ExternalLoginCard extends ConsumerWidget {
               Ionicons.logo_apple,
               color: context.colors.onSecondaryContainer,
             ),
-            onPressed: () async {
-              // await controller.appleLoginPressed();
+            onPressed: () {
+              ref.read(externalLoginControllerProvider.notifier).appleSignIn();
             },
           ),
         ],

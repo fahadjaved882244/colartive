@@ -1,6 +1,5 @@
 import 'package:colartive2/core_packages.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import '../popups/custom_dialog.dart';
 import 'base_scaffold.dart';
 
 class FormScaffold extends HookWidget {
@@ -37,49 +36,38 @@ class FormScaffold extends HookWidget {
   Widget build(BuildContext context) {
     final autoValidateMode = useState(AutovalidateMode.disabled);
 
-    return WillPopScope(
-      onWillPop: () async {
-        return await showCustomDialog(
-          context: context,
-          title: "Exit form?",
-          subTitle: "Are you sure, If you exit all the changes will be lost.",
-        );
-      },
-      child: BaseScaffold(
-        noPadding: true,
-        isCancel: true,
-        title: title,
-        titleSpacing: titleSpacing,
-        titleWidget: titleWidget,
-        centerTitle: centerTitle,
-        appBarElevation: appBarElevation,
-        bottomSheet: bottomSheet,
-        persistentFooterButtons: persistentFooterButtons,
-        actions: [
-          TextButton(
-            onPressed: !isLoading && onSubmitted != null
-                ? () {
-                    if (_formKey.currentState?.validate() ?? false) {
-                      onSubmitted?.call();
-                    } else {
-                      autoValidateMode.value =
-                          AutovalidateMode.onUserInteraction;
-                    }
+    return BaseScaffold(
+      noPadding: true,
+      isCancel: true,
+      title: title,
+      isLoading: isLoading,
+      titleSpacing: titleSpacing,
+      titleWidget: titleWidget,
+      centerTitle: centerTitle,
+      appBarElevation: appBarElevation,
+      bottomSheet: bottomSheet,
+      persistentFooterButtons: persistentFooterButtons,
+      actions: [
+        TextButton(
+          onPressed: !isLoading && onSubmitted != null
+              ? () {
+                  if (_formKey.currentState?.validate() ?? false) {
+                    onSubmitted?.call();
+                  } else {
+                    autoValidateMode.value = AutovalidateMode.onUserInteraction;
                   }
-                : null,
-            child: isLoading
-                ? const CircularProgressIndicator()
-                : Text(isUpdateForm ? AppStrings.save : AppStrings.submit),
-          ),
-        ],
-        child: Form(
-          key: _formKey,
-          autovalidateMode: autoValidateMode.value,
-          child: ListView(
-            padding: const EdgeInsets.all(Paddings.sm),
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            children: children,
-          ),
+                }
+              : null,
+          child: Text(isUpdateForm ? AppStrings.save : AppStrings.submit),
+        ),
+      ],
+      child: Form(
+        key: _formKey,
+        autovalidateMode: autoValidateMode.value,
+        child: ListView(
+          padding: const EdgeInsets.all(Paddings.sm),
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          children: children,
         ),
       ),
     );

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:colartive2/extensions/firebase_x.dart';
 
@@ -29,9 +27,5 @@ class UserRepository {
   Future<bool> delete(String uid) async {
     await _firestore.userCollection.doc(uid).delete();
     return true;
-  }
-
-  Future<bool> uploadProfileImage(String userId, File profileImage) {
-    throw UnimplementedError();
   }
 }

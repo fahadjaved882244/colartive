@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'core_packages.dart';
-import 'routes/app_router.dart';
+import 'routes/app_router/app_router.dart';
 import 'themes/app_theme.dart';
 import 'features/locale/view/change_locale_controller.dart';
 
@@ -37,6 +37,7 @@ class App extends ConsumerWidget {
     ref.watch(themeControllerProvider);
     final themeMode = ref.read(themeControllerProvider.notifier).themeMode;
     final brightness = ref.read(themeControllerProvider.notifier).brightness;
+
     final locale = ref.watch(localeControllerProvider);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -48,7 +49,7 @@ class App extends ConsumerWidget {
             brightness == Brightness.dark ? Brightness.light : Brightness.dark,
       ),
       child: MaterialApp.router(
-        routerConfig: AppRouter.router,
+        routerConfig: router,
         title: 'Colartive',
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,

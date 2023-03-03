@@ -1,3 +1,4 @@
+import 'package:colartive2/routes/app_router/app_router.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../../../core_packages.dart';
@@ -5,13 +6,29 @@ import '../../../../../utils/components/cards/custom_outlined_card.dart';
 import '../../../../../utils/components/popups/custom_dialog.dart';
 import '../../../../../utils/components/scaffolds/base_scaffold.dart';
 import '../../../../../utils/components/widgets/custom_list_tile.dart';
+import '../../../data/utils/auth_error_handler.dart';
 import 'components/update_user_image.dart';
+import 'update_profile_controller.dart';
 
-class UpdateProfileView extends StatelessWidget {
-  const UpdateProfileView({Key? key}) : super(key: key);
+class UpdateProfileView extends ConsumerWidget {
+  final String id;
+  const UpdateProfileView({Key? key, required this.id}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(updateProfileControllerProvider);
+
+    ref.listen<AsyncValue>(
+      updateProfileControllerProvider,
+      (prev, next) {
+        if (!next.isRefreshing && next.hasError) {
+          AuthErrorHandler.handleError(context, next.error!);
+        } else if (!next.isRefreshing && next.hasValue) {
+          const SettingsRoute().go(context);
+        }
+      },
+    );
+
     const divider = Divider(
       height: 0,
       indent: 60,
@@ -20,6 +37,7 @@ class UpdateProfileView extends StatelessWidget {
     return BaseScaffold(
       title: AppStrings.userAcc,
       noPadding: true,
+      isLoading: state.isLoading,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: Paddings.xs),
         child: Column(
@@ -32,21 +50,21 @@ class UpdateProfileView extends StatelessWidget {
                     title: AppStrings.editAcc,
                     leading: const Icon(Ionicons.person_circle),
                     implyTrailing: true,
-                    onTap: () => context.go(AppPaths.editName),
+                    onTap: () => EditNameRoute(id: id).go(context),
                   ),
                   divider,
                   CustomListTile(
                     title: AppStrings.updateEmail,
                     leading: const Icon(Ionicons.mail_outline),
                     implyTrailing: true,
-                    onTap: () => context.go(AppPaths.updateEmail),
+                    onTap: () => UpdateEmailRoute(id: id).go(context),
                   ),
                   divider,
                   CustomListTile(
                     title: AppStrings.changePass,
                     leading: const Icon(Ionicons.lock_closed_outline),
                     implyTrailing: true,
-                    onTap: () => context.go(AppPaths.changePassword),
+                    onTap: () => ChangePasswordRoute(id: id).go(context),
                   ),
                 ],
               ),
@@ -78,9 +96,7 @@ class UpdateProfileView extends StatelessWidget {
       leftButtonTitle: "Cancel",
     );
     if (result && context.mounted) {
-      // await GetStorage().erase();
-      // ref.read(authControllerProvider);
-      context.go(AppPaths.home);
+      ref.read(updateProfileControllerProvider.notifier).logout();
     }
   }
 }

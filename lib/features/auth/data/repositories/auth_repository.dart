@@ -124,6 +124,8 @@ class AuthRepository extends IAuthRepository {
       if (e.code == "account-exists-with-different-credential") {
         throw EmailInUseException(code: e.code);
       } else if (e.code == "operation-not-allowed") {
+        throw ServerException(code: e.code);
+      } else if (e.code == "user-disabled") {
         throw AccountLockedException(code: e.code);
       } else {
         throw ServerException(code: e.code);

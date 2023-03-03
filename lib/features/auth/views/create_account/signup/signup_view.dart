@@ -1,3 +1,4 @@
+import 'package:colartive2/routes/app_router/app_router.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -29,7 +30,7 @@ class SignupView extends HookConsumerWidget {
         if (!next.isRefreshing && next.hasError) {
           AuthErrorHandler.handleError(context, next.error!);
         } else if (!next.isRefreshing && next.hasValue) {
-          context.go(AppPaths.settings);
+          const SettingsRoute().go(context);
         }
       },
     );

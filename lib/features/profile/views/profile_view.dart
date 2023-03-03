@@ -1,20 +1,14 @@
 import 'package:colartive2/features/profile/views/profile_controller.dart';
+import 'package:colartive2/routes/app_router/app_router.dart';
 import 'package:colartive2/utils/components/scaffolds/base_scaffold.dart';
-import 'package:colartive2/utils/components/widgets/avatar_image_text.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../core_packages.dart';
 
 class ProfileView extends StatelessWidget {
   final String id;
-  final String name;
-  final String? photoUrl;
 
-  const ProfileView(
-      {super.key,
-      required this.id,
-      required this.name,
-      required this.photoUrl});
+  const ProfileView({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +16,7 @@ class ProfileView extends StatelessWidget {
       title: AppStrings.profile,
       actions: [
         IconButton(
-          onPressed: () => context.go(AppPaths.updateProfile),
+          onPressed: () => UpdateProfileRoute(id: id).go(context),
           icon: const Icon(Ionicons.settings_outline),
         ),
       ],
@@ -40,15 +34,15 @@ class ProfileView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Column(
-                                children: [
-                                  AvatarImageText(
-                                    name: name,
-                                    photoUrl: photoUrl,
-                                  ),
-                                  Text(
-                                    name,
-                                    style: context.textTheme.titleMedium,
-                                  ),
+                                children: const [
+                                  // AvatarImageText(
+                                  //   name: name,
+                                  //   photoUrl: photoUrl,
+                                  // ),
+                                  // Text(
+                                  //   name,
+                                  //   style: context.textTheme.titleMedium,
+                                  // ),
                                 ],
                               ),
                               Text(user.contributions.toString()),

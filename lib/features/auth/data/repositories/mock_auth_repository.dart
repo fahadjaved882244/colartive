@@ -15,8 +15,9 @@ class MockAuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<void> externalSignIn(authCred) {
-    throw UnimplementedError();
+  Future<void> externalSignIn(authCred) async {
+    await Future.delayed(AppTimes.xs);
+    throw AccountLockedException(code: '24');
   }
 
   @override
@@ -28,7 +29,7 @@ class MockAuthRepository implements IAuthRepository {
   @override
   Future<void> login({required String email, required String password}) async {
     await Future.delayed(AppTimes.sl);
-    // throw CredentialException(code: "320");
+    throw CredentialException(code: "320");
   }
 
   @override
@@ -58,13 +59,13 @@ class MockAuthRepository implements IAuthRepository {
 
   @override
   Stream<AuthUser?> get authStateChange async* {
-    await Future.delayed(AppTimes.xs);
-    yield AuthUser(
-      id: 'qeqweqweqweqwe',
-      email: 'fahad@gmail.com',
-      name: 'Muhammad fahad Javed',
-      isVerified: false,
-    );
+    // await Future.delayed(AppTimes.xs);
+    // yield AuthUser(
+    //   id: 'qeqweqweqweqwe',
+    //   email: 'fahad@gmail.com',
+    //   name: 'Muhammad fahad Javed',
+    //   isVerified: false,
+    // );
     // throw UnimplementedError();
   }
 
