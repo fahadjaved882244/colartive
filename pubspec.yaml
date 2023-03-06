@@ -55,7 +55,6 @@ dev_dependencies:
   flutter_lints: ^2.0.1
   riverpod_generator:
   build_runner:
-  go_router_builder:
   build_verify:
   flutter_test:
     sdk: flutter

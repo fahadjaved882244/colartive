@@ -5,7 +5,9 @@ import '../utils/auth_exceptions.dart';
 import 'i_auth_repository.dart';
 
 class AuthRepository extends IAuthRepository {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuth _firebaseAuth;
+  AuthRepository(this._firebaseAuth);
+
   @override
   AuthUser? get currentUser => _firebaseAuth.currentUser?.toAppUser;
 

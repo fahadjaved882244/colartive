@@ -1,14 +1,13 @@
 import 'package:colartive2/features/profile/views/profile_controller.dart';
-import 'package:colartive2/routes/app_router/app_router.dart';
 import 'package:colartive2/utils/components/scaffolds/base_scaffold.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../core_packages.dart';
 
 class ProfileView extends StatelessWidget {
-  final String id;
+  final String userId;
 
-  const ProfileView({super.key, required this.id});
+  const ProfileView({super.key, required this.userId});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,8 @@ class ProfileView extends StatelessWidget {
       title: AppStrings.profile,
       actions: [
         IconButton(
-          onPressed: () => UpdateProfileRoute(id: id).go(context),
+          onPressed: () => context
+              .goNamed(RouteNames.updateProfile, params: {"userId": userId}),
           icon: const Icon(Ionicons.settings_outline),
         ),
       ],
@@ -26,7 +26,7 @@ class ProfileView extends StatelessWidget {
             height: 200,
             child: Consumer(
               builder: (context, ref, child) {
-                return ref.watch(appUserStreamProvider(id)).when(
+                return ref.watch(appUserStreamProvider(userId)).when(
                       data: (user) => Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [

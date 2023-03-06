@@ -1,6 +1,7 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../../../../core_packages.dart';
+import '../../../../../utils/components/buttons/custom_filled_button.dart';
 import '../../../../../utils/components/fields/custom_email_field.dart';
 import '../../../../../utils/components/scaffolds/form_scaffold.dart';
 import '../../../data/utils/auth_error_handler.dart';
@@ -24,18 +25,24 @@ class ResetPasswordView extends HookConsumerWidget {
       },
     );
 
-    void onSubmitForm() {
-      ref
-          .read(resetPasswordControllerProvider.notifier)
-          .resetPassword(email: emailController.text.trim());
+    void onSubmitted(GlobalKey<FormState> formKey,
+        ValueNotifier<AutovalidateMode> autovalidateMode) {
+      if (formKey.currentState?.validate() ?? false) {
+        ref
+            .read(resetPasswordControllerProvider.notifier)
+            .resetPassword(email: emailController.text.trim());
+      } else {
+        autovalidateMode.value = AutovalidateMode.onUserInteraction;
+      }
     }
 
     return FormScaffold(
-        title: AppStrings.resetPass,
-        isUpdateForm: false,
-        isLoading: state.isLoading,
-        onSubmitted: () => onSubmitForm(),
-        children: [
+      title: AppStrings.resetPass,
+      isUpdateForm: false,
+      isLoading: state.isLoading,
+      builder: (BuildContext context, GlobalKey<FormState> formKey,
+          ValueNotifier<AutovalidateMode> validateMode) {
+        return [
           const Padding(
             padding: EdgeInsets.symmetric(
                 vertical: Paddings.sm, horizontal: Paddings.md),
@@ -49,6 +56,26 @@ class ResetPasswordView extends HookConsumerWidget {
             controller: emailController,
             textInputAction: TextInputAction.done,
           ),
-        ]);
+          const SizedBox(height: Paddings.md),
+          CustomFilledButton(
+            onPressed: !state.isLoading
+                ? () => onSubmitted(formKey, validateMode)
+                : null,
+            text: AppStrings.submit,
+          ),
+          const SizedBox(height: Paddings.md),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CustomText(AppStrings.loginTitle),
+              TextButton(
+                onPressed: () => context.goNamed(RouteNames.login),
+                child: const CustomText(AppStrings.login),
+              ),
+            ],
+          ),
+        ];
+      },
+    );
   }
 }

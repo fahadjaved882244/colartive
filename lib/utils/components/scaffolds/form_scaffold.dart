@@ -11,14 +11,15 @@ class FormScaffold extends HookWidget {
   final Widget? bottomSheet;
   final List<Widget>? persistentFooterButtons;
   final bool isUpdateForm;
-  final List<Widget> children;
-  final VoidCallback? onSubmitted;
   final bool isLoading;
+  final List<Widget> Function(
+      BuildContext context,
+      GlobalKey<FormState> formKey,
+      ValueNotifier<AutovalidateMode> autovalidateMode) builder;
 
   FormScaffold({
     Key? key,
-    required this.children,
-    required this.onSubmitted,
+    required this.builder,
     this.isLoading = false,
     this.isUpdateForm = true,
     this.title,
@@ -38,7 +39,6 @@ class FormScaffold extends HookWidget {
 
     return BaseScaffold(
       noPadding: true,
-      isCancel: true,
       title: title,
       isLoading: isLoading,
       titleSpacing: titleSpacing,
@@ -47,27 +47,18 @@ class FormScaffold extends HookWidget {
       appBarElevation: appBarElevation,
       bottomSheet: bottomSheet,
       persistentFooterButtons: persistentFooterButtons,
-      actions: [
-        TextButton(
-          onPressed: !isLoading && onSubmitted != null
-              ? () {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    onSubmitted?.call();
-                  } else {
-                    autoValidateMode.value = AutovalidateMode.onUserInteraction;
-                  }
-                }
-              : null,
-          child: Text(isUpdateForm ? AppStrings.save : AppStrings.submit),
-        ),
-      ],
-      child: Form(
-        key: _formKey,
-        autovalidateMode: autoValidateMode.value,
-        child: ListView(
-          padding: const EdgeInsets.all(Paddings.sm),
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          children: children,
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: AppSizes.maxWidth),
+          child: Form(
+            key: _formKey,
+            autovalidateMode: autoValidateMode.value,
+            child: ListView(
+              padding: const EdgeInsets.all(Paddings.sm),
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              children: builder(context, _formKey, autoValidateMode),
+            ),
+          ),
         ),
       ),
     );

@@ -9,8 +9,7 @@ class UpdateUserImage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(authStateProvider);
-
+    final user = ref.watch(authStateProvider).valueOrNull;
     if (user != null) {
       return Column(
         children: [

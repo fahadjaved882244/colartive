@@ -1,5 +1,3 @@
-import 'package:colartive2/routes/app_router/app_router.dart';
-
 import '../../../auth/views/auth_controller.dart';
 import '../../../../core_packages.dart';
 import '../../../../utils/components/cards/custom_outlined_card.dart';
@@ -10,7 +8,7 @@ class UserInfoCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(authStateProvider);
+    final user = ref.watch(authStateProvider).valueOrNull;
     final isLoggedIn = user != null;
     return CustomOutlinedCard(
       outlineColor: AppColors.green,
@@ -23,8 +21,8 @@ class UserInfoCard extends ConsumerWidget {
         subtitle: isLoggedIn ? user.email : AppStrings.contribute,
         implyTrailing: true,
         onTap: () => isLoggedIn
-            ? ProfileRoute(id: user.id).go(context)
-            : const LoginRoute().go(context),
+            ? context.goNamed(RouteNames.profile, params: {"userId": user.id})
+            : context.goNamed(RouteNames.login),
       ),
     );
   }

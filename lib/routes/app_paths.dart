@@ -1,22 +1,25 @@
+// To define the route names in AppRouter(GoRouter)
+// these are just the end route of the Full-Path defined above in AppPaths
+
 class RouteNames {
   RouteNames._();
 ///////////////////////////////////////////////////////
 ///// Append '/' at the start of initial routes //////
 /////////////////////////////////////////////////////
-  static const String home = '/home';
-  static const String search = '/search';
-  static const String showcase = '/showcase';
-
-  // Settings
-  static const String settings = '/settings';
-
-  static const String changeLocale = 'change-locale';
 
   static const String login = 'login';
   static const String signup = 'signup';
   static const String resetPassword = 'reset-password';
 
-  static const String profile = 'profile/:id';
+  static const String home = 'home';
+  static const String search = 'search';
+  static const String showcase = 'showcase';
+
+  // Settings
+  static const String settings = 'settings';
+  static const String changeLocale = 'change-locale';
+
+  static const String profile = 'profile';
   static const String updateProfile = 'update-profile';
   static const String editName = 'edit-name';
   static const String updateEmail = 'update-email';
@@ -25,36 +28,24 @@ class RouteNames {
 
 // To Use for navigation in the app like context.go(AppPath.updateLocale)
 // Full path from root to end-point
-// class AppPaths {
-//   AppPaths._();
-//   static const String home = RouteNames.home;
-//   static const String search = RouteNames.search;
-//   static const String showcase = RouteNames.showcase;
-//   static const String settings = RouteNames.settings;
+class AppPaths {
+  AppPaths._();
+  static const String login = "/${RouteNames.login}";
+  static const String signup = "/${RouteNames.signup}";
+  static const String resetPassword = "/${RouteNames.resetPassword}";
 
-//   static const String updateLocale =
-//       '${RouteNames.settings}/${RouteNames.changeLocale}';
+  static const String home = "/${RouteNames.home}";
+  static const String search = "/${RouteNames.search}";
+  static const String showcase = "/${RouteNames.showcase}";
+  static const String settings = "/${RouteNames.settings}";
 
-//   static const String login = '${RouteNames.settings}/${RouteNames.login}';
-//   static const String resetPassword =
-//       '${RouteNames.settings}/${RouteNames.login}/${RouteNames.resetPassword}';
-//   static const String signup =
-//       '${RouteNames.settings}/${RouteNames.login}/${RouteNames.signup}';
+  static const String changeLocale = RouteNames.changeLocale;
 
-//   static const String userProfile =
-//       '${RouteNames.settings}/${RouteNames.profile}';
+  static const String profile = '${RouteNames.profile}/:userId';
 
-//   static const String updateProfile =
-//       '${RouteNames.settings}/${RouteNames.profile}/${RouteNames.updateProfile}';
+  static const String updateProfile = RouteNames.updateProfile;
 
-//   static const String editName =
-//       '${RouteNames.settings}/${RouteNames.profile}/${RouteNames.updateProfile}/${RouteNames.editName}';
-//   static const String updateEmail =
-//       '${RouteNames.settings}/${RouteNames.profile}/${RouteNames.updateProfile}/${RouteNames.updateEmail}';
-//   static const String changePassword =
-//       '${RouteNames.settings}/${RouteNames.profile}/${RouteNames.updateProfile}/${RouteNames.changePassword}';
-// }
-
-// To define the route names in AppRouter(GoRouter)
-// these are just the end route of the Full-Path defined above in AppPaths
-
+  static const String editName = RouteNames.editName;
+  static const String updateEmail = RouteNames.updateEmail;
+  static const String changePassword = RouteNames.changePassword;
+}

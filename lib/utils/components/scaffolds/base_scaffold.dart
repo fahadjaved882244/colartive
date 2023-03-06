@@ -13,7 +13,6 @@ class BaseScaffold extends StatelessWidget {
   final Widget child;
   final bool resizeToAvoidBottomInset;
   final bool noPadding;
-  final bool isCancel;
   final bool automaticallyImplyLeading;
   final PreferredSizeWidget? bottom;
   final Widget? floatingActionButton;
@@ -38,7 +37,6 @@ class BaseScaffold extends StatelessWidget {
     this.automaticallyImplyLeading = true,
     this.resizeToAvoidBottomInset = true,
     this.noPadding = false,
-    this.isCancel = false,
     this.bottom,
   })  : assert(title != null || titleWidget != null),
         assert(title == null || titleWidget == null),
@@ -60,12 +58,6 @@ class BaseScaffold extends StatelessWidget {
           centerTitle: centerTitle,
           actions: actions,
           automaticallyImplyLeading: automaticallyImplyLeading,
-          leading: isCancel && context.canPop()
-              ? IconButton(
-                  icon: const Icon(Icons.close),
-                  onPressed: () => context.pop(),
-                )
-              : null,
           bottom: bottom,
         ),
         drawer: drawer,

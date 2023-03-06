@@ -1,8 +1,8 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:ionicons/ionicons.dart';
 
 import '../../../../../core_packages.dart';
 
+import '../../../../../utils/components/buttons/custom_filled_button.dart';
 import '../../../../../utils/components/fields/custom_text_form_field.dart';
 import '../../../../../utils/components/scaffolds/form_scaffold.dart';
 import '../../../../../utils/core/text_validator.dart';
@@ -17,34 +17,41 @@ class EditNameView extends HookConsumerWidget {
     final nameController = useTextEditingController();
     final bioController = useTextEditingController();
 
-    return FormScaffold(
-      title: AppStrings.editAcc,
-      isLoading: state.isLoading,
-      onSubmitted: () {
+    void onSubmitted(GlobalKey<FormState> formKey,
+        ValueNotifier<AutovalidateMode> autovalidateMode) {
+      if (formKey.currentState?.validate() ?? false) {
         ref
             .read(editNameControllerProvider.notifier)
             .updateName(name: nameController.text.trim());
-      },
-      children: [
-        const Text(AppStrings.name),
-        const SizedBox(height: Paddings.xs),
+      } else {
+        autovalidateMode.value = AutovalidateMode.onUserInteraction;
+      }
+    }
+
+    return FormScaffold(
+      title: AppStrings.editAcc,
+      isLoading: state.isLoading,
+      builder: (context, formKey, autovalidateMode) => [
         CustomTextFormField(
           labelText: AppStrings.name,
           controller: nameController,
           keyboardType: TextInputType.name,
           validator: TextValidator.nameValidator,
-          prefixIcon: const Icon(Ionicons.person_outline),
         ),
         const SizedBox(height: Paddings.md),
-        const Text(AppStrings.bio),
-        const SizedBox(height: Paddings.xs),
         CustomTextFormField(
           labelText: AppStrings.bio,
           controller: bioController,
           keyboardType: TextInputType.name,
           minLines: 5,
           maxLength: 300,
-          prefixIcon: const Icon(Ionicons.sparkles_outline),
+        ),
+        const SizedBox(height: Paddings.md),
+        CustomFilledButton(
+          onPressed: !state.isLoading
+              ? () => onSubmitted(formKey, autovalidateMode)
+              : null,
+          text: AppStrings.save,
         ),
       ],
     );

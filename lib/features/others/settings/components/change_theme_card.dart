@@ -1,5 +1,4 @@
 import 'package:colartive2/utils/components/cards/custom_outlined_card.dart';
-import 'package:colartive2/utils/components/widgets/custom_list_tile.dart';
 import 'package:colartive2/utils/components/widgets/custom_tile_divider.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -26,27 +25,23 @@ class ChangeThemeCard extends ConsumerWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          CustomListTile(
-            enabled: !themeState.isForceMode,
-            title: AppStrings.darkMode,
-            leading: const Icon(Ionicons.moon),
-            trailing: Switch.adaptive(
-              value: themeState.isForceMode ? false : themeState.isDarkMode,
-              onChanged: (value) =>
-                  !themeState.isForceMode ? onThemeSwitched(ref, value) : null,
-            ),
+          SwitchListTile.adaptive(
+            controlAffinity: ListTileControlAffinity.trailing,
+            value: themeState.isForceMode ? false : themeState.isDarkMode,
+            onChanged: (value) =>
+                !themeState.isForceMode ? onThemeSwitched(ref, value) : null,
+            title: const CustomText(AppStrings.darkMode),
+            secondary: const Icon(Ionicons.moon),
           ),
           const CustomTileDivider(),
-          CustomListTile(
-            leading: const Icon(
+          CheckboxListTile(
+            value: themeState.isForceMode,
+            onChanged: (value) => onCheckForeMode(ref, value),
+            title: const CustomText(AppStrings.sync),
+            subtitle: const CustomText(AppStrings.syncDes),
+            secondary: const Icon(
               Ionicons.sync_outline,
               color: Colors.blueGrey,
-            ),
-            title: AppStrings.sync,
-            subtitle: AppStrings.syncDes,
-            trailing: Checkbox(
-              value: themeState.isForceMode,
-              onChanged: (value) => onCheckForeMode(ref, value),
             ),
           ),
         ],

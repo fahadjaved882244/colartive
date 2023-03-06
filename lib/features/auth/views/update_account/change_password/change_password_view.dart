@@ -2,6 +2,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../../../core_packages.dart';
 
+import '../../../../../utils/components/buttons/custom_filled_button.dart';
 import '../../../../../utils/components/fields/custom_password_field.dart';
 import '../../../../../utils/components/scaffolds/form_scaffold.dart';
 import '../../../../../utils/core/text_validator.dart';
@@ -18,42 +19,38 @@ class ChangePasswordView extends HookConsumerWidget {
     final newController = useTextEditingController();
     final confirmController = useTextEditingController();
 
-    return FormScaffold(
-      title: AppStrings.changePass,
-      isLoading: state.isLoading,
-      onSubmitted: () {
+    void onSubmitted(GlobalKey<FormState> formKey,
+        ValueNotifier<AutovalidateMode> autovalidateMode) {
+      if (formKey.currentState?.validate() ?? false) {
         ref.read(changePasswordControllerProvider.notifier).changePassword(
               old: oldController.text.trim(),
               next: newController.text.trim(),
             );
-      },
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const CustomText(AppStrings.current),
-            const SizedBox(height: Paddings.xs),
-            CustomPasswordField(
-              labelText: AppStrings.currentPass,
-              controller: oldController,
-              validator: TextValidator.optionalPasswordValidator,
-              textInputAction: TextInputAction.next,
-            ),
-          ],
+      } else {
+        autovalidateMode.value = AutovalidateMode.onUserInteraction;
+      }
+    }
+
+    return FormScaffold(
+      title: AppStrings.changePass,
+      isLoading: state.isLoading,
+      builder: (context, formKey, autovalidateMode) => [
+        const CustomText(AppStrings.current),
+        const SizedBox(height: Paddings.xs),
+        CustomPasswordField(
+          labelText: AppStrings.currentPass,
+          controller: oldController,
+          validator: TextValidator.optionalPasswordValidator,
+          textInputAction: TextInputAction.next,
         ),
         const SizedBox(height: Paddings.md),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(AppStrings.neww),
-            const SizedBox(height: Paddings.xs),
-            CustomPasswordField(
-              labelText: AppStrings.newPass,
-              controller: newController,
-              validator: TextValidator.passwordValidator,
-              textInputAction: TextInputAction.next,
-            ),
-          ],
+        const CustomText(AppStrings.neww),
+        const SizedBox(height: Paddings.xs),
+        CustomPasswordField(
+          labelText: AppStrings.newPass,
+          controller: newController,
+          validator: TextValidator.passwordValidator,
+          textInputAction: TextInputAction.next,
         ),
         const SizedBox(height: Paddings.sm),
         CustomPasswordField(
@@ -64,6 +61,13 @@ class ChangePasswordView extends HookConsumerWidget {
             return AppStrings.passDontMatch;
           },
           textInputAction: TextInputAction.done,
+        ),
+        const SizedBox(height: Paddings.md),
+        CustomFilledButton(
+          onPressed: !state.isLoading
+              ? () => onSubmitted(formKey, autovalidateMode)
+              : null,
+          text: AppStrings.submit,
         ),
       ],
     );

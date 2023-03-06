@@ -1,4 +1,3 @@
-import 'package:colartive2/routes/app_router/app_router.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../../../core_packages.dart';
@@ -6,13 +5,14 @@ import '../../../../../utils/components/cards/custom_outlined_card.dart';
 import '../../../../../utils/components/popups/custom_dialog.dart';
 import '../../../../../utils/components/scaffolds/base_scaffold.dart';
 import '../../../../../utils/components/widgets/custom_list_tile.dart';
+import '../../../../../utils/components/widgets/custom_tile_divider.dart';
 import '../../../data/utils/auth_error_handler.dart';
 import 'components/update_user_image.dart';
 import 'update_profile_controller.dart';
 
 class UpdateProfileView extends ConsumerWidget {
-  final String id;
-  const UpdateProfileView({Key? key, required this.id}) : super(key: key);
+  final String userId;
+  const UpdateProfileView({Key? key, required this.userId}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,25 +24,22 @@ class UpdateProfileView extends ConsumerWidget {
         if (!next.isRefreshing && next.hasError) {
           AuthErrorHandler.handleError(context, next.error!);
         } else if (!next.isRefreshing && next.hasValue) {
-          const SettingsRoute().go(context);
+          context.goNamed(RouteNames.settings);
         }
       },
     );
 
-    const divider = Divider(
-      height: 0,
-      indent: 60,
-      thickness: 0.5,
-    );
     return BaseScaffold(
       title: AppStrings.userAcc,
       noPadding: true,
       isLoading: state.isLoading,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: Paddings.xs),
+        padding: const EdgeInsets.all(Paddings.xs),
         child: Column(
           children: [
-            const Expanded(child: Center(child: UpdateUserImage())),
+            const Spacer(),
+            const UpdateUserImage(),
+            const Spacer(),
             CustomOutlinedCard(
               child: Column(
                 children: [
@@ -50,21 +47,24 @@ class UpdateProfileView extends ConsumerWidget {
                     title: AppStrings.editAcc,
                     leading: const Icon(Ionicons.person_circle),
                     implyTrailing: true,
-                    onTap: () => EditNameRoute(id: id).go(context),
+                    onTap: () => context
+                        .goNamed(AppPaths.editName, params: {"userId": userId}),
                   ),
-                  divider,
+                  const CustomTileDivider(),
                   CustomListTile(
                     title: AppStrings.updateEmail,
                     leading: const Icon(Ionicons.mail_outline),
                     implyTrailing: true,
-                    onTap: () => UpdateEmailRoute(id: id).go(context),
+                    onTap: () => context.goNamed(RouteNames.updateEmail,
+                        params: {"userId": userId}),
                   ),
-                  divider,
+                  const CustomTileDivider(),
                   CustomListTile(
                     title: AppStrings.changePass,
                     leading: const Icon(Ionicons.lock_closed_outline),
                     implyTrailing: true,
-                    onTap: () => ChangePasswordRoute(id: id).go(context),
+                    onTap: () => context.goNamed(RouteNames.changePassword,
+                        params: {"userId": userId}),
                   ),
                 ],
               ),

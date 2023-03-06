@@ -1,5 +1,6 @@
 class AppSizes {
   AppSizes._();
+  static const double maxWidth = 448.0;
   static const double appBarSize = 56.0;
   static const double tabHeight = 56;
   static const double tabWidth = 65;
@@ -48,6 +49,6 @@ class AppTimes {
   static const xf = Duration(milliseconds: 150);
   static const fs = Duration(milliseconds: 250);
   static const md = Duration(milliseconds: 350);
-  static const sl = Duration(milliseconds: 700);
+  static const sl = Duration(milliseconds: 500);
   static const xs = Duration(milliseconds: 1000);
 }

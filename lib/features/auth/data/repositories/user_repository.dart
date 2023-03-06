@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:colartive2/extensions/firebase_x.dart';
 
-import '../model/auth_user.dart';
+import '../../model/auth_user.dart';
 
 class UserRepository {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore;
+
+  UserRepository(this._firestore);
 
   Future<bool> create(AuthUser userModel) async {
     await _firestore.userCollection.doc(userModel.id).set(userModel.toMap());
@@ -24,8 +26,8 @@ class UserRepository {
     return true;
   }
 
-  Future<bool> delete(String uid) async {
-    await _firestore.userCollection.doc(uid).delete();
-    return true;
-  }
+  // Future<bool> delete(String uid) async {
+  //   await _firestore.userCollection.doc(uid).delete();
+  //   return true;
+  // }
 }

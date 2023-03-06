@@ -1,7 +1,9 @@
 import 'package:colartive2/core_packages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../main.dart';
+final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
+  throw UnimplementedError();
+});
 
 final localStorageRepositoryProvider = Provider<LocalStorageRepository>((ref) {
   final sharedPrefs = ref.read(sharedPreferencesProvider);

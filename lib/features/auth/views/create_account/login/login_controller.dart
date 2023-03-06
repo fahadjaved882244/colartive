@@ -2,22 +2,15 @@ import '../../../../../core_packages.dart';
 import '../../../data/repositories/i_auth_repository.dart';
 import '../../auth_controller.dart';
 
-final appLoginControllerProvider =
-    StateNotifierProvider.autoDispose<AppLoginController, AsyncValue<void>>(
-        (ref) {
+final loginControllerProvider =
+    StateNotifierProvider.autoDispose<LoginController, AsyncValue<void>>((ref) {
   final authRepo = ref.watch(authRepoProvider);
-  return AppLoginController(authRepo);
+  return LoginController(authRepo);
 });
 
-final externalLoginControllerProvider = StateNotifierProvider.autoDispose<
-    ExternalLoginController, AsyncValue<void>>((ref) {
-  final authRepo = ref.watch(authRepoProvider);
-  return ExternalLoginController(authRepo);
-});
-
-class AppLoginController extends StateNotifier<AsyncValue<void>> {
+class LoginController extends StateNotifier<AsyncValue<void>> {
   final IAuthRepository _authRepo;
-  AppLoginController(this._authRepo) : super(const AsyncData(null));
+  LoginController(this._authRepo) : super(const AsyncData(null));
 
   Future<void> login({required String email, required String password}) async {
     FocusManager.instance.primaryFocus?.unfocus();
@@ -27,20 +20,6 @@ class AppLoginController extends StateNotifier<AsyncValue<void>> {
       () => _authRepo.login(email: email, password: password),
     );
   }
-}
-
-class ExternalLoginController extends StateNotifier<AsyncValue<void>> {
-  final IAuthRepository _authRepo;
-  ExternalLoginController(this._authRepo) : super(const AsyncData(null));
-
-  // TODO: Write Google, Apple, Facebook Signin functions here...
-
-  // final _googleSignIn = GoogleSignIn(
-  //   scopes: [
-  //     'email',
-  //     'https://www.googleapis.com/auth/contacts.readonly',
-  //   ],
-  // );
 
   Future<void> googleSignIn() async {
     // state = const AsyncLoading();

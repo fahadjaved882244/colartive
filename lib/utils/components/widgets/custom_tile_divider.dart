@@ -7,7 +7,7 @@ class CustomTileDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Divider(
       height: 0,
-      indent: 60,
+      indent: 52,
       thickness: 0.5,
     );
   }

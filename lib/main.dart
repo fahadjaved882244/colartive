@@ -7,10 +7,7 @@ import 'core_packages.dart';
 import 'routes/app_router/app_router.dart';
 import 'themes/app_theme.dart';
 import 'features/locale/view/change_locale_controller.dart';
-
-final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
-  throw UnimplementedError();
-});
+import 'utils/repositories/storage_repository.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +36,8 @@ class App extends ConsumerWidget {
     final brightness = ref.read(themeControllerProvider.notifier).brightness;
 
     final locale = ref.watch(localeControllerProvider);
+
+    final router = ref.watch(routerProvider);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
