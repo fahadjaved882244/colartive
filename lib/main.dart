@@ -6,28 +6,32 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'core_packages.dart';
+import 'firebase_options.dart';
 import 'routes/app_router/app_router.dart';
 import 'themes/app_theme.dart';
-import 'firebase_options.dart';
 import 'features/locale/view/change_locale_controller.dart';
 import 'utils/repositories/storage_repository.dart';
 
-Future<void> mainCommon() async {
+enum AppFlavor { dev, prod }
+
+Future<void> mainCommon(AppFlavor flavor) async {
   WidgetsFlutterBinding.ensureInitialized();
+  if (flavor == AppFlavor.dev && kIsWeb) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.devPlatform,
+    );
+  } else if (flavor == AppFlavor.prod && kIsWeb) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.prodPlatform,
+    );
+  } else {
+    await Firebase.initializeApp();
+  }
+
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   final sharedPreferences = await SharedPreferences.getInstance();
-  if (kIsWeb) {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  } else {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  }
-
   runApp(
     ProviderScope(
       overrides: [

@@ -14,10 +14,13 @@ import 'package:flutter/foundation.dart'
 ///   options: DefaultFirebaseOptions.currentPlatform,
 /// );
 /// ```
+///
+
 class DefaultFirebaseOptions {
-  static FirebaseOptions get currentPlatform {
+  //Web Dev Specific Configuration Initialization
+  static FirebaseOptions get devPlatform {
     if (kIsWeb) {
-      return web;
+      return webDev;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -52,7 +55,45 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
+  //Web Prod Specific Configuration Initialization
+  static FirebaseOptions get prodPlatform {
+    if (kIsWeb) {
+      return webProd;
+    }
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for android'
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      case TargetPlatform.iOS:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      case TargetPlatform.macOS:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      case TargetPlatform.windows:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      case TargetPlatform.linux:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for linux - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      default:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions are not supported for this platform.',
+        );
+    }
+  }
+
+  static const FirebaseOptions webDev = FirebaseOptions(
       apiKey: "AIzaSyCLgwL0Ykk-U2lWzkW7EhzfKVzbI4hMJYI",
       authDomain: "colartive-dev.firebaseapp.com",
       projectId: "colartive-dev",
@@ -60,6 +101,15 @@ class DefaultFirebaseOptions {
       messagingSenderId: "456625951975",
       appId: "1:456625951975:web:e1949c3cbe17660f093e42",
       measurementId: "G-6FXTHTQH0Y");
+
+  static const FirebaseOptions webProd = FirebaseOptions(
+      apiKey: "AIzaSyBTuQrB7z6h-6_LkLMmv5O2Vrm3DGuFsQQ",
+      authDomain: "colartive-prod.firebaseapp.com",
+      projectId: "colartive-prod",
+      storageBucket: "colartive-prod.appspot.com",
+      messagingSenderId: "1018351929149",
+      appId: "1:1018351929149:web:52bced683557c9cd2aa754",
+      measurementId: "G-BCBZK8C78J");
 
   // static const FirebaseOptions android = FirebaseOptions(
   //   apiKey: 'AIzaSyB49nFOEp0nl2Nal-LRVwRVmnRClUr-5vk',
