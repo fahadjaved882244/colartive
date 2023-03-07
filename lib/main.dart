@@ -1,22 +1,32 @@
 import 'package:colartive2/features/locale/data/utils/app_localizations.dart';
 import 'package:colartive2/utils/controllers/theme_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'core_packages.dart';
 import 'routes/app_router/app_router.dart';
 import 'themes/app_theme.dart';
+import 'firebase_options.dart';
 import 'features/locale/view/change_locale_controller.dart';
 import 'utils/repositories/storage_repository.dart';
 
 Future<void> mainCommon() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   final sharedPreferences = await SharedPreferences.getInstance();
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } else {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
 
   runApp(
     ProviderScope(

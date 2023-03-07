@@ -28,10 +28,21 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-	<key>CFBundleURLSchemes</key>
-	<array>
-	<string>$(GOOGLE_SERVICE_REVERSED_CLIENT_ID)</string>
-	</array>
+	<!-- Google Sign-in Section -->
+	<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+					<string>Editor</string>
+						<key>CFBundleURLSchemes</key>
+					<array>
+			<!-- TODO Replace this value: -->
+			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+					<string>$(GOOGLE_SERVICE_REVERSED_CLIENT_ID)</string>
+					</array>
+			</dict>
+		</array>
+	<!-- End of the Google Sign-in Section -->
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
