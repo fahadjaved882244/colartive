@@ -1,14 +1,15 @@
+import 'package:colartive2/features/auth/data/repositories/auth_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import '../../../utils/providers/firebase_providers.dart';
+import '../../../utils/providers/core_providers.dart';
 import '../data/repositories/i_auth_repository.dart';
-import '../data/repositories/mock_auth_repository.dart';
 import '../data/repositories/user_repository.dart';
 import '../model/auth_user.dart';
 
-final authRepoProvider = Provider<IAuthRepository>((_) {
+final authRepoProvider = Provider<IAuthRepository>((ref) {
   // TODO: Change the Repository you want to use
-  return MockAuthRepository();
+  // return MockAuthRepository();
+  final firebaseAuth = ref.watch(firebaseAuthProvider);
+  return AuthRepository(firebaseAuth);
 });
 
 final userRepoProvider = Provider(
@@ -20,14 +21,14 @@ final userRepoProvider = Provider(
 
 final authStateProvider = StreamProvider<AuthUser?>((ref) {
   final authRepo = ref.watch(authRepoProvider);
-  final userRepo = ref.watch(userRepoProvider);
 
   return authRepo.authStateChange.distinct()
     ..listen((user) async {
       if (user != null) {
+        final userRepo = ref.read(userRepoProvider);
         final data = await userRepo.read(user.id);
         if (data != user) {
-          userRepo.create(user);
+          await userRepo.create(user);
         }
       }
     });

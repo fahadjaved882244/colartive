@@ -1,17 +1,14 @@
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import '../../../../../core_packages.dart';
-import '../../../data/repositories/i_auth_repository.dart';
 import '../../auth_controller.dart';
 
-final signupControllerProvider =
-    StateNotifierProvider.autoDispose<SignupController, AsyncValue<void>>(
-        (ref) {
-  final authRepo = ref.watch(authRepoProvider);
-  return SignupController(authRepo);
-});
+part 'signup_controller.g.dart';
 
-class SignupController extends StateNotifier<AsyncValue<void>> {
-  final IAuthRepository _authRepo;
-  SignupController(this._authRepo) : super(const AsyncData(null));
+@riverpod
+class SignupController extends _$SignupController {
+  @override
+  FutureOr build() {}
 
   Future<void> signup({
     required String email,
@@ -22,7 +19,7 @@ class SignupController extends StateNotifier<AsyncValue<void>> {
 
     state = const AsyncLoading();
     state = await AsyncValue.guard(
-      () => _authRepo.signup(
+      () => ref.read(authRepoProvider).signup(
         email: email,
         password: password,
         body: {"name": name},

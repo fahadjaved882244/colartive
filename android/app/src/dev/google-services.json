@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "456625951975",
+    "project_id": "colartive-dev",
+    "storage_bucket": "colartive-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456625951975:android:040d8ef0ba81e8cf093e42",
+        "android_client_info": {
+          "package_name": "com.colartive.wallpapers.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "456625951975-lltfhbqmoojvbl1vbg7nl94p5qcanck1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.colartive.wallpapers.dev",
+            "certificate_hash": "c60a2e3d2280fab8989e8f18a3e0be6fd86bc4ac"
+          }
+        },
+        {
+          "client_id": "456625951975-bcv3eg3a3hddhmhpceaamnkfj6adu6or.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKZ0PlpCHB3Df_DKpP75tupBO_pxayZlg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456625951975-bcv3eg3a3hddhmhpceaamnkfj6adu6or.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>456625951975-ctmqtl0nj8r934gh5uc5lp8ohubvu6dc.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.456625951975-ctmqtl0nj8r934gh5uc5lp8ohubvu6dc</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>456625951975-lltfhbqmoojvbl1vbg7nl94p5qcanck1.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDXIDj7nW4viit4_1powHJEyFZo2KUz23o</string>
+	<key>GCM_SENDER_ID</key>
+	<string>456625951975</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.colartive.wallpapers.dev</string>
+	<key>PROJECT_ID</key>
+	<string>colartive-dev</string>
+	<key>STORAGE_BUCKET</key>
+	<string>colartive-dev.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:456625951975:ios:651d3a5f3da06abf093e42</string>
+</dict>
+</plist>

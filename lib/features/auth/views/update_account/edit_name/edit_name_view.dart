@@ -1,3 +1,4 @@
+import 'package:colartive2/extensions/async_value.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../../../core_packages.dart';
@@ -16,6 +17,13 @@ class EditNameView extends HookConsumerWidget {
     final state = ref.watch(editNameControllerProvider);
     final nameController = useTextEditingController();
     final bioController = useTextEditingController();
+
+    ref.listen<AsyncValue<void>>(
+      editNameControllerProvider,
+      (_, next) {
+        next.showErrorOrNavigate(context, routeName: RouteNames.settings);
+      },
+    );
 
     void onSubmitted(GlobalKey<FormState> formKey,
         ValueNotifier<AutovalidateMode> autovalidateMode) {

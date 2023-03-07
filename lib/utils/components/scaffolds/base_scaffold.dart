@@ -69,10 +69,7 @@ class BaseScaffold extends StatelessWidget {
                 ignoring: isLoading,
                 child: Padding(
                   padding: !noPadding
-                      ? const EdgeInsets.symmetric(
-                          vertical: Paddings.xs,
-                          horizontal: Paddings.sm,
-                        )
+                      ? const EdgeInsets.all(Paddings.xs)
                       : EdgeInsets.zero,
                   child: child,
                 ),

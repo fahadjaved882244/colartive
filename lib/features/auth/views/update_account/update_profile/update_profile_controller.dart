@@ -1,21 +1,26 @@
-import '../../../../../core_packages.dart';
-import '../../../data/repositories/i_auth_repository.dart';
+import 'dart:async';
+
+import 'package:colartive2/utils/providers/core_providers.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import '../../auth_controller.dart';
 
-final updateProfileControllerProvider = StateNotifierProvider.autoDispose<
-    UpdateProfileController, AsyncValue<void>>((ref) {
-  final authRepo = ref.watch(authRepoProvider);
-  return UpdateProfileController(authRepo);
-});
+part 'update_profile_controller.g.dart';
 
-class UpdateProfileController extends StateNotifier<AsyncValue<void>> {
-  final IAuthRepository _authRepo;
-  UpdateProfileController(this._authRepo) : super(const AsyncData(null));
+@riverpod
+class UpdateProfileController extends _$UpdateProfileController {
+  @override
+  FutureOr<void> build() {}
 
   Future<void> logout() async {
     state = const AsyncLoading();
+
+    final googleSignIn = ref.read(googleSignInProvider);
+    if (await googleSignIn.isSignedIn()) {
+      await googleSignIn.signOut();
+    }
     state = await AsyncValue.guard(
-      () => _authRepo.signOut(),
+      () => ref.read(authRepoProvider).signOut(),
     );
   }
 }

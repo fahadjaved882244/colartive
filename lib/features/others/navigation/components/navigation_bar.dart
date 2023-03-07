@@ -15,6 +15,9 @@ class CustomNavigationBar extends StatelessWidget {
   @override
   Widget build(context) {
     return SafeArea(
+      left: false,
+      right: false,
+      top: false,
       child: Container(
         height: 80,
         padding: const EdgeInsets.only(top: 13),

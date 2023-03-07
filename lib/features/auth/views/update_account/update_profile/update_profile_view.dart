@@ -1,3 +1,4 @@
+import 'package:colartive2/extensions/async_value.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../../../core_packages.dart';
@@ -6,7 +7,6 @@ import '../../../../../utils/components/popups/custom_dialog.dart';
 import '../../../../../utils/components/scaffolds/base_scaffold.dart';
 import '../../../../../utils/components/widgets/custom_list_tile.dart';
 import '../../../../../utils/components/widgets/custom_tile_divider.dart';
-import '../../../data/utils/auth_error_handler.dart';
 import 'components/update_user_image.dart';
 import 'update_profile_controller.dart';
 
@@ -18,14 +18,10 @@ class UpdateProfileView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(updateProfileControllerProvider);
 
-    ref.listen<AsyncValue>(
+    ref.listen<AsyncValue<void>>(
       updateProfileControllerProvider,
-      (prev, next) {
-        if (!next.isRefreshing && next.hasError) {
-          AuthErrorHandler.handleError(context, next.error!);
-        } else if (!next.isRefreshing && next.hasValue) {
-          context.goNamed(RouteNames.settings);
-        }
+      (_, next) {
+        next.showErrorOrNavigate(context, routeName: RouteNames.settings);
       },
     );
 

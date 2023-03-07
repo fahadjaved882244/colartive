@@ -1,3 +1,4 @@
+import 'package:colartive2/extensions/async_value.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../../../core_packages.dart';
@@ -18,6 +19,13 @@ class ChangePasswordView extends HookConsumerWidget {
     final oldController = useTextEditingController();
     final newController = useTextEditingController();
     final confirmController = useTextEditingController();
+
+    ref.listen<AsyncValue<void>>(
+      changePasswordControllerProvider,
+      (_, next) {
+        next.showErrorOrNavigate(context, routeName: RouteNames.settings);
+      },
+    );
 
     void onSubmitted(GlobalKey<FormState> formKey,
         ValueNotifier<AutovalidateMode> autovalidateMode) {

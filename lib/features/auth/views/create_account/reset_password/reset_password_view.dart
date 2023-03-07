@@ -1,10 +1,10 @@
+import 'package:colartive2/extensions/async_value.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../../../../core_packages.dart';
 import '../../../../../utils/components/buttons/custom_filled_button.dart';
 import '../../../../../utils/components/fields/custom_email_field.dart';
 import '../../../../../utils/components/scaffolds/form_scaffold.dart';
-import '../../../data/utils/auth_error_handler.dart';
 import 'reset_password_controller.dart';
 
 class ResetPasswordView extends HookConsumerWidget {
@@ -16,12 +16,11 @@ class ResetPasswordView extends HookConsumerWidget {
 
     final emailController = useTextEditingController();
 
-    ref.listen<AsyncValue>(
+    ref.listen<AsyncValue<void>>(
       resetPasswordControllerProvider,
-      (prev, next) {
-        if (!next.isRefreshing && next.hasError) {
-          AuthErrorHandler.handleError(context, next.error!);
-        }
+      (_, next) {
+        next.showErrorOrSuccess(context,
+            successMsg: AppStrings.forgPassEmailSent);
       },
     );
 

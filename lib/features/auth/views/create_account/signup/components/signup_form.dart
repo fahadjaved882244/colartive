@@ -1,3 +1,4 @@
+import 'package:colartive2/extensions/async_value.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -7,7 +8,6 @@ import '../../../../../../utils/components/fields/custom_email_field.dart';
 import '../../../../../../utils/components/fields/custom_password_field.dart';
 import '../../../../../../utils/components/fields/custom_text_form_field.dart';
 import '../../../../../../utils/core/text_validator.dart';
-import '../../../../data/utils/auth_error_handler.dart';
 import '../signup_controller.dart';
 
 class SignupForm extends HookConsumerWidget {
@@ -28,14 +28,10 @@ class SignupForm extends HookConsumerWidget {
     final passwordController = useTextEditingController();
     final confirmPasswordController = useTextEditingController();
 
-    ref.listen<AsyncValue>(
+    ref.listen<AsyncValue<void>>(
       signupControllerProvider,
-      (prev, next) {
-        if (!next.isRefreshing && next.hasError) {
-          AuthErrorHandler.handleError(context, next.error!);
-        } else if (!next.isRefreshing && next.hasValue) {
-          context.goNamed(RouteNames.settings);
-        }
+      (_, next) {
+        next.showErrorOrNavigate(context, routeName: RouteNames.settings);
       },
     );
 
