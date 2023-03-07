@@ -16,6 +16,7 @@ class AppStrings {
   static const String accLocked = 'accLocked';
   static const String accNotVer = 'accNotVer';
   static const String noUserFound = 'noUserFound';
+  static const String cancelledByUser = 'cancelledByUser';
 
   // Auth General
   static const String email = 'email';
@@ -101,6 +102,7 @@ class AppStrings {
       accLocked: 'Account is locked!',
       accNotVer: 'Account not verified!',
       noUserFound: 'No User Found!',
+      cancelledByUser: 'Cancelled By User!',
       passDontMatch: "Passwords don't match",
       email: "Email",
       password: "Password",

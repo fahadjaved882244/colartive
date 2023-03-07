@@ -4,23 +4,24 @@ import '../../../../../../core_packages.dart';
 import '../../../../../../utils/components/buttons/custom_filled_button.dart';
 import '../../../../../../utils/components/fields/custom_email_field.dart';
 import '../../../../../../utils/components/fields/custom_password_field.dart';
+import '../../../../../../utils/components/widgets/custom_divider_text.dart';
 import '../../../../../../utils/core/text_validator.dart';
 import '../login_controller.dart';
 
 class AppLoginCard extends HookWidget {
   final LoginController controller;
-  AppLoginCard({super.key, required this.controller});
-
-  final _formKey = GlobalKey<FormState>();
+  const AppLoginCard({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
+    final formKey = useMemoized(GlobalKey<FormState>.new, const []);
+
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
     final autoValidateMode = useState(AutovalidateMode.disabled);
 
     void onSubmitted() {
-      if (_formKey.currentState?.validate() ?? false) {
+      if (formKey.currentState?.validate() ?? false) {
         controller.login(
           email: emailController.text.trim(),
           password: passwordController.text.trim(),
@@ -32,24 +33,10 @@ class AppLoginCard extends HookWidget {
 
     return Column(
       children: [
-        Row(children: const [
-          Expanded(child: Divider()),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: Paddings.sm),
-            child: Text(
-              "Already have an account",
-              style: TextStyle(
-                color: AppColors.darkGray,
-                fontSize: 13,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-          Expanded(child: Divider()),
-        ]),
+        const CustomDividerText(text: "Already have an account?"),
         const SizedBox(height: Paddings.md),
         Form(
-          key: _formKey,
+          key: formKey,
           autovalidateMode: autoValidateMode.value,
           child: Column(
             children: [

@@ -10,12 +10,17 @@ import 'firebase_options.dart';
 import 'routes/app_router/app_router.dart';
 import 'themes/app_theme.dart';
 import 'features/locale/view/change_locale_controller.dart';
-import 'utils/repositories/storage_repository.dart';
+import 'utils/providers/core_providers.dart';
 
 enum AppFlavor { dev, prod }
 
 Future<void> mainCommon(AppFlavor flavor) async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
+  final sharedPreferences = await SharedPreferences.getInstance();
+
   if (flavor == AppFlavor.dev && kIsWeb) {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.devPlatform,
@@ -28,10 +33,6 @@ Future<void> mainCommon(AppFlavor flavor) async {
     await Firebase.initializeApp();
   }
 
-  await SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-
-  final sharedPreferences = await SharedPreferences.getInstance();
   runApp(
     ProviderScope(
       overrides: [

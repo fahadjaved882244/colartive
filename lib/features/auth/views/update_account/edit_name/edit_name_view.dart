@@ -15,6 +15,9 @@ class EditNameView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(editNameControllerProvider);
+
+    final formKey = useMemoized(GlobalKey<FormState>.new, const []);
+    final autovalidateMode = useState(AutovalidateMode.onUserInteraction);
     final nameController = useTextEditingController();
     final bioController = useTextEditingController();
 
@@ -37,9 +40,11 @@ class EditNameView extends HookConsumerWidget {
     }
 
     return FormScaffold(
+      formKey: formKey,
+      autoValidateMode: autovalidateMode.value,
       title: AppStrings.editAcc,
       isLoading: state.isLoading,
-      builder: (context, formKey, autovalidateMode) => [
+      children: [
         CustomTextFormField(
           labelText: AppStrings.name,
           controller: nameController,

@@ -14,9 +14,12 @@ class ResetPasswordView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(resetPasswordControllerProvider);
 
+    final formKey = useMemoized(GlobalKey<FormState>.new, const []);
+    final autovalidateMode = useState(AutovalidateMode.onUserInteraction);
+
     final emailController = useTextEditingController();
 
-    ref.listen<AsyncValue<void>>(
+    ref.listen<AsyncValue>(
       resetPasswordControllerProvider,
       (_, next) {
         next.showErrorOrSuccess(context,
@@ -24,8 +27,7 @@ class ResetPasswordView extends HookConsumerWidget {
       },
     );
 
-    void onSubmitted(GlobalKey<FormState> formKey,
-        ValueNotifier<AutovalidateMode> autovalidateMode) {
+    void onSubmitted() {
       if (formKey.currentState?.validate() ?? false) {
         ref
             .read(resetPasswordControllerProvider.notifier)
@@ -36,45 +38,42 @@ class ResetPasswordView extends HookConsumerWidget {
     }
 
     return FormScaffold(
+      formKey: formKey,
+      autoValidateMode: autovalidateMode.value,
       title: AppStrings.resetPass,
       isUpdateForm: false,
       isLoading: state.isLoading,
-      builder: (BuildContext context, GlobalKey<FormState> formKey,
-          ValueNotifier<AutovalidateMode> validateMode) {
-        return [
-          const Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: Paddings.sm, horizontal: Paddings.md),
-            child: CustomText(
-              AppStrings.forgPassDes,
-              textAlign: TextAlign.center,
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(
+              vertical: Paddings.sm, horizontal: Paddings.md),
+          child: CustomText(
+            AppStrings.forgPassDes,
+            textAlign: TextAlign.center,
+          ),
+        ),
+        CustomEmailField(
+          labelText: AppStrings.email,
+          controller: emailController,
+          textInputAction: TextInputAction.done,
+        ),
+        const SizedBox(height: Paddings.md),
+        CustomFilledButton(
+          onPressed: !state.isLoading ? () => onSubmitted() : null,
+          text: AppStrings.submit,
+        ),
+        const SizedBox(height: Paddings.md),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const CustomText(AppStrings.loginTitle),
+            TextButton(
+              onPressed: () => context.goNamed(RouteNames.login),
+              child: const CustomText(AppStrings.login),
             ),
-          ),
-          CustomEmailField(
-            labelText: AppStrings.email,
-            controller: emailController,
-            textInputAction: TextInputAction.done,
-          ),
-          const SizedBox(height: Paddings.md),
-          CustomFilledButton(
-            onPressed: !state.isLoading
-                ? () => onSubmitted(formKey, validateMode)
-                : null,
-            text: AppStrings.submit,
-          ),
-          const SizedBox(height: Paddings.md),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const CustomText(AppStrings.loginTitle),
-              TextButton(
-                onPressed: () => context.goNamed(RouteNames.login),
-                child: const CustomText(AppStrings.login),
-              ),
-            ],
-          ),
-        ];
-      },
+          ],
+        ),
+      ],
     );
   }
 }

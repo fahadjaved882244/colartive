@@ -7,12 +7,12 @@ part of 'update_profile_controller.dart';
 // **************************************************************************
 
 String _$updateProfileControllerHash() =>
-    r'a3b8de75970f59d0a54b4986ee97adedc58f43c0';
+    r'32be40b39d6353c1304eda2e6f7793fc7ee746e6';
 
 /// See also [UpdateProfileController].
 @ProviderFor(UpdateProfileController)
-final updateProfileControllerProvider =
-    AutoDisposeAsyncNotifierProvider<UpdateProfileController, void>.internal(
+final updateProfileControllerProvider = AutoDisposeNotifierProvider<
+    UpdateProfileController, AsyncValue<void>>.internal(
   UpdateProfileController.new,
   name: r'updateProfileControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,5 +22,5 @@ final updateProfileControllerProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$UpdateProfileController = AutoDisposeAsyncNotifier<void>;
+typedef _$UpdateProfileController = AutoDisposeNotifier<AsyncValue<void>>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

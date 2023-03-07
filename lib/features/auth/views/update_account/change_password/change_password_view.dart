@@ -16,6 +16,8 @@ class ChangePasswordView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(changePasswordControllerProvider);
 
+    final formKey = useMemoized(GlobalKey<FormState>.new, const []);
+    final autovalidateMode = useState(AutovalidateMode.onUserInteraction);
     final oldController = useTextEditingController();
     final newController = useTextEditingController();
     final confirmController = useTextEditingController();
@@ -40,9 +42,11 @@ class ChangePasswordView extends HookConsumerWidget {
     }
 
     return FormScaffold(
+      formKey: formKey,
+      autoValidateMode: autovalidateMode.value,
       title: AppStrings.changePass,
       isLoading: state.isLoading,
-      builder: (context, formKey, autovalidateMode) => [
+      children: [
         const CustomText(AppStrings.current),
         const SizedBox(height: Paddings.xs),
         CustomPasswordField(

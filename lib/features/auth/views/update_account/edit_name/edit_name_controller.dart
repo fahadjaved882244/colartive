@@ -1,22 +1,23 @@
+import 'package:colartive2/features/auth/views/auth_controller.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import '../../../../../core_packages.dart';
-import '../../../data/repositories/i_auth_repository.dart';
-import '../../auth_controller.dart';
 
-final editNameControllerProvider =
-    StateNotifierProvider.autoDispose<EditNameController, AsyncValue<void>>(
-        (ref) {
-  final authRepo = ref.watch(authRepoProvider);
-  return EditNameController(authRepo);
-});
+part 'edit_name_controller.g.dart';
 
-class EditNameController extends StateNotifier<AsyncValue<void>> {
-  final IAuthRepository _authRepo;
-  EditNameController(this._authRepo) : super(const AsyncData(null));
+@riverpod
+class EditNameController extends _$EditNameController {
+  @override
+  AsyncValue build() {
+    return const AsyncData(null);
+  }
 
   Future<void> updateName({required String name}) async {
     FocusManager.instance.primaryFocus?.unfocus();
 
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => _authRepo.updateName(name));
+    state = await AsyncValue.guard(
+      () => ref.read(authRepoProvider).updateName(name),
+    );
   }
 }

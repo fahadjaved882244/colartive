@@ -10,7 +10,9 @@ part 'reset_password_controller.g.dart';
 @riverpod
 class ResetPasswordController extends _$ResetPasswordController {
   @override
-  FutureOr build() {}
+  AsyncValue build() {
+    return const AsyncData(null);
+  }
 
   Future<void> resetPassword({required String email}) async {
     FocusManager.instance.primaryFocus?.unfocus();

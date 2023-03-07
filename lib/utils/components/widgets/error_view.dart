@@ -1,15 +1,18 @@
 import 'package:colartive2/core_packages.dart';
 import 'package:colartive2/utils/components/buttons/custom_filled_button.dart';
 
+import '../scaffolds/base_scaffold.dart';
+
 class ErrorView extends StatelessWidget {
   final String message;
   const ErrorView({Key? key, required this.message}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Column(
+    return BaseScaffold(
+      title: 'Error 404!',
+      centerTitle: true,
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(

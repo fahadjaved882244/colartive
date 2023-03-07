@@ -10,7 +10,9 @@ part 'update_profile_controller.g.dart';
 @riverpod
 class UpdateProfileController extends _$UpdateProfileController {
   @override
-  FutureOr<void> build() {}
+  AsyncValue<void> build() {
+    return const AsyncData(null);
+  }
 
   Future<void> logout() async {
     state = const AsyncLoading();

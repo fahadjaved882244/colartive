@@ -1,3 +1,4 @@
+import 'package:colartive2/utils/components/widgets/custom_divider_text.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../../../core_packages.dart';
@@ -11,21 +12,7 @@ class ExternalLoginCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(children: [
-      Row(children: const [
-        Expanded(child: Divider()),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: Paddings.sm),
-          child: Text(
-            "Use your social account",
-            style: TextStyle(
-              color: AppColors.darkGray,
-              fontSize: 13,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ),
-        Expanded(child: Divider()),
-      ]),
+      const CustomDividerText(text: "Use your social account"),
       const SizedBox(height: Paddings.md),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

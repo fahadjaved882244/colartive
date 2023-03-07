@@ -41,3 +41,8 @@ class NoUserFoundException extends AuthException {
   NoUserFoundException({required String code})
       : super(code: code, message: AppStrings.noUserFound);
 }
+
+class CancelledByUserException extends AuthException {
+  CancelledByUserException({required String code})
+      : super(code: code, message: AppStrings.cancelledByUser);
+}

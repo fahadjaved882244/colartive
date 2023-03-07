@@ -1,16 +1,16 @@
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import '../../../../../core_packages.dart';
-import '../../../data/repositories/i_auth_repository.dart';
 import '../../auth_controller.dart';
 
-final changePasswordControllerProvider = StateNotifierProvider.autoDispose<
-    ChangePasswordController, AsyncValue<void>>((ref) {
-  final authRepo = ref.watch(authRepoProvider);
-  return ChangePasswordController(authRepo);
-});
+part 'change_password_controller.g.dart';
 
-class ChangePasswordController extends StateNotifier<AsyncValue<void>> {
-  final IAuthRepository _authRepo;
-  ChangePasswordController(this._authRepo) : super(const AsyncData(null));
+@riverpod
+class ChangePasswordController extends _$ChangePasswordController {
+  @override
+  AsyncValue build() {
+    return const AsyncData(null);
+  }
 
   Future<void> changePassword(
       {required String old, required String next}) async {
@@ -18,6 +18,9 @@ class ChangePasswordController extends StateNotifier<AsyncValue<void>> {
 
     state = const AsyncLoading();
     state = await AsyncValue.guard(
-        () => _authRepo.changePassword(newPassword: next, oldPassword: old));
+      () => ref
+          .read(authRepoProvider)
+          .changePassword(newPassword: next, oldPassword: old),
+    );
   }
 }

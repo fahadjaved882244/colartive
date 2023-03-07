@@ -17,6 +17,8 @@ class UpdateEmailView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(updateEmailControllerProvider);
 
+    final formKey = useMemoized(GlobalKey<FormState>.new, const []);
+    final autovalidateMode = useState(AutovalidateMode.onUserInteraction);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
 
@@ -40,9 +42,11 @@ class UpdateEmailView extends HookConsumerWidget {
     }
 
     return FormScaffold(
+      formKey: formKey,
+      autoValidateMode: autovalidateMode.value,
       title: AppStrings.updateEmail,
       isLoading: state.isLoading,
-      builder: (context, formKey, autovalidateMode) => [
+      children: [
         CustomEmailField(
           labelText: AppStrings.newEmail,
           controller: emailController,

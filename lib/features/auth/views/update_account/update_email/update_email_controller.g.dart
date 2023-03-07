@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'reset_password_controller.dart';
+part of 'update_email_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$resetPasswordControllerHash() =>
-    r'913929e776d92607ece70d8f9085879072d85c8c';
+String _$updateEmailControllerHash() =>
+    r'bfaa5f0e0028d41299a70f24f45629ac68ad0bab';
 
-/// See also [ResetPasswordController].
-@ProviderFor(ResetPasswordController)
-final resetPasswordControllerProvider = AutoDisposeNotifierProvider<
-    ResetPasswordController, AsyncValue<dynamic>>.internal(
-  ResetPasswordController.new,
-  name: r'resetPasswordControllerProvider',
+/// See also [UpdateEmailController].
+@ProviderFor(UpdateEmailController)
+final updateEmailControllerProvider = AutoDisposeNotifierProvider<
+    UpdateEmailController, AsyncValue<dynamic>>.internal(
+  UpdateEmailController.new,
+  name: r'updateEmailControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$resetPasswordControllerHash,
+      : _$updateEmailControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$ResetPasswordController = AutoDisposeNotifier<AsyncValue<dynamic>>;
+typedef _$UpdateEmailController = AutoDisposeNotifier<AsyncValue<dynamic>>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

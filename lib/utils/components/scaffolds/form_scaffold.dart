@@ -1,8 +1,9 @@
 import 'package:colartive2/core_packages.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'base_scaffold.dart';
 
-class FormScaffold extends HookWidget {
+class FormScaffold extends StatelessWidget {
+  final GlobalKey<FormState> formKey;
+  final AutovalidateMode autoValidateMode;
   final String? title;
   final Widget? titleWidget;
   final double? titleSpacing;
@@ -12,14 +13,13 @@ class FormScaffold extends HookWidget {
   final List<Widget>? persistentFooterButtons;
   final bool isUpdateForm;
   final bool isLoading;
-  final List<Widget> Function(
-      BuildContext context,
-      GlobalKey<FormState> formKey,
-      ValueNotifier<AutovalidateMode> autovalidateMode) builder;
+  final List<Widget> children;
 
-  FormScaffold({
+  const FormScaffold({
     Key? key,
-    required this.builder,
+    required this.formKey,
+    required this.autoValidateMode,
+    required this.children,
     this.isLoading = false,
     this.isUpdateForm = true,
     this.title,
@@ -31,12 +31,8 @@ class FormScaffold extends HookWidget {
     this.bottomSheet,
   }) : super(key: key);
 
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
-    final autoValidateMode = useState(AutovalidateMode.disabled);
-
     return BaseScaffold(
       noPadding: true,
       title: title,
@@ -51,12 +47,12 @@ class FormScaffold extends HookWidget {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: AppSizes.maxWidth),
           child: Form(
-            key: _formKey,
-            autovalidateMode: autoValidateMode.value,
+            key: formKey,
+            autovalidateMode: autoValidateMode,
             child: ListView(
               padding: const EdgeInsets.all(Paddings.sm),
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              children: builder(context, _formKey, autoValidateMode),
+              children: children,
             ),
           ),
         ),
