@@ -3,11 +3,11 @@ import 'package:colartive2/features/locale/data/repositories/locale_repository.d
 import 'package:colartive2/features/locale/model/app_language.dart';
 import 'package:colartive2/utils/repositories/storage_repository.dart';
 
-final localeRepoProvider = Provider<LocaleRepository>((ref) {
+final localeRepoProvider = Provider.autoDispose<LocaleRepository>((ref) {
   return LocaleRepository();
 });
 
-final localeServiceProvider = Provider<LocaleService>((ref) {
+final localeServiceProvider = Provider.autoDispose<LocaleService>((ref) {
   final storage = ref.watch(localStorageRepositoryProvider);
   final localeRepo = ref.watch(localeRepoProvider);
   return LocaleService(storage, localeRepo);

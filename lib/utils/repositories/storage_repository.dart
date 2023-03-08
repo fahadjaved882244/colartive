@@ -3,7 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../providers/core_providers.dart';
 
-final localStorageRepositoryProvider = Provider<LocalStorageRepository>((ref) {
+final localStorageRepositoryProvider =
+    Provider.autoDispose<LocalStorageRepository>((ref) {
   final sharedPrefs = ref.watch(sharedPreferencesProvider);
   return LocalStorageRepository(sharedPrefs);
 });

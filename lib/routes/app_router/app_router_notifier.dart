@@ -1,5 +1,6 @@
 import 'package:colartive2/core_packages.dart';
 import 'package:colartive2/features/auth/views/auth_controller.dart';
+import 'package:colartive2/features/vector_art/views/home_view.dart';
 
 import '../../app_keys.dart';
 import '../../features/auth/views/create_account/login/login_view.dart';
@@ -87,7 +88,7 @@ class RouterNotifier extends AutoDisposeAsyncNotifier<void>
               name: RouteNames.home,
               path: AppPaths.home,
               builder: (BuildContext context, GoRouterState state) {
-                return HomeView(path: state.location);
+                return const HomPainterView();
               },
             ),
             GoRoute(

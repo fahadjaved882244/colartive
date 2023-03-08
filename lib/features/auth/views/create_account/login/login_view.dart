@@ -22,12 +22,6 @@ class LoginView extends ConsumerWidget {
     return BaseScaffold(
       title: AppStrings.loginTitle,
       isLoading: state.isLoading,
-      actions: [
-        TextButton(
-          onPressed: () => context.goNamed(RouteNames.home),
-          child: const Text("Not now"),
-        ),
-      ],
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: AppSizes.maxWidth),
@@ -38,6 +32,11 @@ class LoginView extends ConsumerWidget {
               ),
               AppLoginCard(
                 controller: ref.read(loginControllerProvider.notifier),
+              ),
+              const SizedBox(height: Paddings.lg),
+              TextButton(
+                onPressed: () => context.goNamed(RouteNames.home),
+                child: const Text("Not now"),
               ),
             ],
           ),

@@ -20,7 +20,7 @@ class CustomFilledButton extends StatelessWidget {
     this.text,
     this.elevation = 0,
     this.isTonal = false,
-    this.heightScale = 0.9,
+    this.heightScale = 0.85,
     this.width = double.maxFinite,
     this.icon,
     this.child,

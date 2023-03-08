@@ -1,9 +1,11 @@
+import 'package:colartive2/app_keys.dart';
 import 'package:colartive2/features/locale/data/utils/app_localizations.dart';
 import 'package:colartive2/utils/controllers/theme_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'core_packages.dart';
 import 'firebase_options.dart';
@@ -37,6 +39,18 @@ Future<void> mainCommon(AppFlavor flavor) async {
     ProviderScope(
       overrides: [
         sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+        if (kIsWeb)
+          googleSignInProvider.overrideWithValue(
+            GoogleSignIn(
+              clientId: flavor == AppFlavor.dev
+                  ? AppKeys.googleSignInDev
+                  : AppKeys.googleSignInProd,
+              scopes: [
+                'email',
+                'https://www.googleapis.com/auth/contacts.readonly',
+              ],
+            ),
+          ),
       ],
       child: const App(),
     ),

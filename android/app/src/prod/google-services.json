@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1018351929149-cmsfk0enscp32qhb7ua80q63eookijoo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.colartive.wallpapers",
+            "certificate_hash": "9b4edfa2d65c8e2d41f12a7f1fe14e8a3663d945"
+          }
+        },
+        {
           "client_id": "1018351929149-dv3ee19rm17sbbn1ln1gj3tc9v2urcdp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -22,7 +30,7 @@
           }
         },
         {
-          "client_id": "1018351929149-1bvmhe8dsggjsgtvjhlm5gd4v5v1n95e.apps.googleusercontent.com",
+          "client_id": "1018351929149-lgnmjsg7c6fnearqobb2tckcte2hajid.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -37,6 +45,13 @@
             {
               "client_id": "1018351929149-1bvmhe8dsggjsgtvjhlm5gd4v5v1n95e.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1018351929149-j3tehi0855jb5rlt3clnlu1onao9n7mk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.colartive.wallpapers"
+              }
             }
           ]
         }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final localeControllerProvider =
-    StateNotifierProvider<LocaleController, Locale>((ref) {
+    StateNotifierProvider.autoDispose<LocaleController, Locale>((ref) {
   final service = ref.watch(localeServiceProvider);
   return LocaleController(service);
 });
