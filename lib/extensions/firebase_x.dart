@@ -6,19 +6,21 @@ extension FirestoreX on FirebaseFirestore {
   //   return collection('user').doc(user.uid);
   // }
 
-  CollectionReference<Map<String, dynamic>> get userCollection =>
-      collection('user');
+  CollectionReference<Map<String, dynamic>> get userColl => collection('user');
 
-  CollectionReference<Map<String, dynamic>> get restaurantCollection =>
-      collection('restaurant');
+  CollectionReference<Map<String, dynamic>> get artistColl =>
+      collection('artist');
 
-  CollectionReference<Map<String, dynamic>> get butcherCollection =>
-      collection('butcher');
+  CollectionReference<Map<String, dynamic>> get vectorColl =>
+      collection('vector');
 }
 
 extension DocumentReferenceX on DocumentReference {
-  CollectionReference<Map<String, dynamic>> get addressCollection =>
-      collection("address");
-  CollectionReference<Map<String, dynamic>> get couponCollection =>
-      collection("coupon");
+  CollectionReference<Map<String, dynamic>> get contributionColl =>
+      collection("contribution");
+
+  CollectionReference<Map<String, dynamic>> get artColl => collection("art");
+
+  CollectionReference<Map<String, dynamic>> get defaultColl =>
+      collection("default");
 }

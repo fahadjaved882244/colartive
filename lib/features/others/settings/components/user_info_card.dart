@@ -8,7 +8,7 @@ class UserInfoCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(authStateProvider).valueOrNull;
+    final user = ref.watch(authControllerProvider).toNullable();
     final isLoggedIn = user != null;
     return CustomOutlinedCard(
       outlineColor: AppColors.green,
@@ -21,7 +21,7 @@ class UserInfoCard extends ConsumerWidget {
         subtitle: isLoggedIn ? user.email : AppStrings.contribute,
         implyTrailing: true,
         onTap: () => isLoggedIn
-            ? context.goNamed(RouteNames.profile, params: {"userId": user.id})
+            ? context.goNamed(RouteNames.userProfile)
             : context.goNamed(RouteNames.login),
       ),
     );

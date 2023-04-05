@@ -24,7 +24,9 @@ class CustomFilledButton extends StatelessWidget {
     this.width = double.maxFinite,
     this.icon,
     this.child,
-  }) : super(key: key);
+  })  : assert(text != null || child != null),
+        assert(heightScale >= 0 && heightScale <= 1),
+        super(key: key);
   @override
   Widget build(BuildContext context) {
     final enabled = onPressed != null;

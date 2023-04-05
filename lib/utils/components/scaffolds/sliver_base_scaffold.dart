@@ -1,64 +1,46 @@
 import 'package:colartive2/core_packages.dart';
 
-import '../buttons/custom_icon_button.dart';
-import '../widgets/custom_image_view.dart';
-
 class SliverBaseScaffold extends StatelessWidget {
-  final String imagePath;
-  final double expandedHeight;
-  final Widget expandedWidget;
-  final Widget child;
+  final String? title;
+  final Widget? titleWidget;
+  final bool? centerTitle;
+  final List<Widget>? actions;
+  final Widget? header;
+  final Widget sliver;
+  final PreferredSizeWidget? bottom;
+
   const SliverBaseScaffold({
     Key? key,
-    required this.imagePath,
-    required this.expandedHeight,
-    required this.expandedWidget,
-    required this.child,
-  }) : super(key: key);
+    required this.sliver,
+    this.title,
+    this.header,
+    this.titleWidget,
+    this.centerTitle,
+    this.actions,
+    this.bottom,
+  })  : assert(title != null || titleWidget != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const double imageHeight = 230;
     return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              expandedHeight: imageHeight + expandedHeight,
-              elevation: 3,
-              pinned: true,
-              forceElevated: true,
-              leading: CustomIconButton(
-                onPressed: () => context.pop(),
-                icon: const Icon(Icons.arrow_back),
-              ),
-              actions: [
-                CustomIconButton(
-                  onPressed: () => context.pop(),
-                  icon: const Icon(Icons.share),
-                ),
-                CustomIconButton(
-                  onPressed: () => context.pop(),
-                  icon: const Icon(Icons.more_vert_outlined),
-                ),
-              ],
-              flexibleSpace: FlexibleSpaceBar(
-                background: ListView(
-                  padding: EdgeInsets.zero,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    CustomImageView(
-                      height: imageHeight,
-                      imagePath: imagePath,
-                    ),
-                    expandedWidget,
-                  ],
-                ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            title: titleWidget ?? CustomText(title!),
+            centerTitle: centerTitle,
+            actions: actions,
+            bottom: bottom,
+          ),
+          if (header != null)
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(Paddings.sm),
+                child: header,
               ),
             ),
-          ];
-        },
-        body: child,
+          sliver,
+        ],
       ),
     );
   }

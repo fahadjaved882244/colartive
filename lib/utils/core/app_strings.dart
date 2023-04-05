@@ -9,7 +9,9 @@ class AppStrings {
   static const String passDontMatch = 'passDontMatch';
 
   // Auth Exception
-  static const String serverError = 'serverError';
+  static const String errUnexpAuth = 'errUnexpAuth';
+  static const String errUnexpGoogAuth = 'errUnexpGoogAuth';
+
   static const String invalidEmailPass = 'invalidEmailPass';
   static const String wrongPassword = 'wrongPass';
   static const String emailAlreadyInUse = 'emailAlreadyInUse';
@@ -17,6 +19,13 @@ class AppStrings {
   static const String accNotVer = 'accNotVer';
   static const String noUserFound = 'noUserFound';
   static const String cancelledByUser = 'cancelledByUser';
+  static const String opNotAllowed = 'opNotAllowed';
+  static const String requireReAuth = 'requireReAuth';
+  static const String errPickFile = 'errPickFile';
+  static const String errSaveFile = 'errSaveFile';
+  static const String errDbInsert = 'errDbInsert';
+  static const String errDbFetch = 'errDbFetch';
+  static const String errDbUpdate = 'errDbUpdate';
 
   // Auth General
   static const String email = 'email';
@@ -76,6 +85,10 @@ class AppStrings {
   static const String sync = 'sync';
   static const String syncDes = 'syncDes';
 
+  static const String contributor = 'contributor';
+  static const String artist = 'artist';
+  static const String leaderboard = 'leaderboard';
+
   // form scaffold
   static const String save = 'save';
   static const String submit = 'submit';
@@ -95,14 +108,22 @@ class AppStrings {
       weakPassword: 'Weak Password',
       invalidPhoneNum: 'Invalid Phone Number',
       invalidCode: 'Invalid Code',
-      serverError: 'Server Error! or No internet connection!',
+      errUnexpAuth: 'Unexpected Error! during authentication',
+      errUnexpGoogAuth: 'Unexpected Error! during google authentication',
       invalidEmailPass: 'Invalid email or password!',
       emailAlreadyInUse: 'Email already in use!',
       wrongPassword: 'Wrong password!',
       accLocked: 'Account is locked!',
       accNotVer: 'Account not verified!',
+      requireReAuth: 'Re-authentication required!',
+      errPickFile: 'Error! unable to pick file from device',
+      errSaveFile: 'Error! unable to save file to device storage',
+      errDbFetch: 'Error! Requested data not found',
+      errDbInsert: 'Error! Can not insert data',
+      errDbUpdate: 'Error! can not update data',
       noUserFound: 'No User Found!',
       cancelledByUser: 'Cancelled By User!',
+      opNotAllowed: "Requested operation not allowed",
       passDontMatch: "Passwords don't match",
       email: "Email",
       password: "Password",
@@ -149,6 +170,9 @@ class AppStrings {
       darkMode: 'Dark Mode',
       sync: 'Sync',
       syncDes: 'Sync mode with your device',
+      contributor: 'Contributor',
+      artist: 'Artist',
+      leaderboard: 'Leaderboard',
       save: 'Save',
       submit: 'Submit',
       ok: 'OK',

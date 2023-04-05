@@ -1,11 +1,12 @@
-import 'package:colartive2/extensions/async_value.dart';
+import 'package:colartive2/extensions/base_state_x.dart';
+import 'package:colartive2/features/auth/views/create_account/reset_password/reset_password_controller.dart';
+import 'package:colartive2/utils/state/base_state.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../../../../core_packages.dart';
 import '../../../../../utils/components/buttons/custom_filled_button.dart';
 import '../../../../../utils/components/fields/custom_email_field.dart';
 import '../../../../../utils/components/scaffolds/form_scaffold.dart';
-import 'reset_password_controller.dart';
 
 class ResetPasswordView extends HookConsumerWidget {
   const ResetPasswordView({Key? key}) : super(key: key);
@@ -15,15 +16,18 @@ class ResetPasswordView extends HookConsumerWidget {
     final state = ref.watch(resetPasswordControllerProvider);
 
     final formKey = useMemoized(GlobalKey<FormState>.new, const []);
-    final autovalidateMode = useState(AutovalidateMode.onUserInteraction);
+    final autovalidateMode = useState(AutovalidateMode.disabled);
 
     final emailController = useTextEditingController();
 
-    ref.listen<AsyncValue>(
+    ref.listen<BaseState>(
       resetPasswordControllerProvider,
       (_, next) {
-        next.showErrorOrSuccess(context,
-            successMsg: AppStrings.forgPassEmailSent);
+        next.showErrorOrSuccOrNav(
+          context,
+          success: AppStrings.forgPassEmailSent,
+          routeName: RouteNames.settings,
+        );
       },
     );
 
@@ -39,9 +43,8 @@ class ResetPasswordView extends HookConsumerWidget {
 
     return FormScaffold(
       formKey: formKey,
-      autoValidateMode: autovalidateMode.value,
+      autovalidateMode: autovalidateMode.value,
       title: AppStrings.resetPass,
-      isUpdateForm: false,
       isLoading: state.isLoading,
       children: [
         const Padding(
@@ -56,6 +59,7 @@ class ResetPasswordView extends HookConsumerWidget {
           labelText: AppStrings.email,
           controller: emailController,
           textInputAction: TextInputAction.done,
+          onSubmitted: (_) => onSubmitted(),
         ),
         const SizedBox(height: Paddings.md),
         CustomFilledButton(

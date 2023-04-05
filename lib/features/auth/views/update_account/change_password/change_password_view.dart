@@ -1,4 +1,4 @@
-import 'package:colartive2/extensions/async_value.dart';
+import 'package:colartive2/extensions/base_state_x.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../../../core_packages.dart';
@@ -7,6 +7,7 @@ import '../../../../../utils/components/buttons/custom_filled_button.dart';
 import '../../../../../utils/components/fields/custom_password_field.dart';
 import '../../../../../utils/components/scaffolds/form_scaffold.dart';
 import '../../../../../utils/core/text_validator.dart';
+import '../../../../../utils/state/base_state.dart';
 import 'change_password_controller.dart';
 
 class ChangePasswordView extends HookConsumerWidget {
@@ -17,15 +18,19 @@ class ChangePasswordView extends HookConsumerWidget {
     final state = ref.watch(changePasswordControllerProvider);
 
     final formKey = useMemoized(GlobalKey<FormState>.new, const []);
-    final autovalidateMode = useState(AutovalidateMode.onUserInteraction);
+    final autovalidateMode = useState(AutovalidateMode.disabled);
     final oldController = useTextEditingController();
     final newController = useTextEditingController();
     final confirmController = useTextEditingController();
 
-    ref.listen<AsyncValue<void>>(
+    ref.listen<BaseState>(
       changePasswordControllerProvider,
       (_, next) {
-        next.showErrorOrNavigate(context, routeName: RouteNames.settings);
+        next.showErrorOrSuccOrNav(
+          context,
+          success: AppStrings.passUpdated,
+          routeName: RouteNames.userProfile,
+        );
       },
     );
 
@@ -43,7 +48,7 @@ class ChangePasswordView extends HookConsumerWidget {
 
     return FormScaffold(
       formKey: formKey,
-      autoValidateMode: autovalidateMode.value,
+      autovalidateMode: autovalidateMode.value,
       title: AppStrings.changePass,
       isLoading: state.isLoading,
       children: [

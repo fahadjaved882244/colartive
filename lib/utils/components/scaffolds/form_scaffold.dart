@@ -3,7 +3,7 @@ import 'base_scaffold.dart';
 
 class FormScaffold extends StatelessWidget {
   final GlobalKey<FormState> formKey;
-  final AutovalidateMode autoValidateMode;
+  final AutovalidateMode autovalidateMode;
   final String? title;
   final Widget? titleWidget;
   final double? titleSpacing;
@@ -11,17 +11,16 @@ class FormScaffold extends StatelessWidget {
   final double? appBarElevation;
   final Widget? bottomSheet;
   final List<Widget>? persistentFooterButtons;
-  final bool isUpdateForm;
+
   final bool isLoading;
   final List<Widget> children;
 
   const FormScaffold({
     Key? key,
     required this.formKey,
-    required this.autoValidateMode,
+    required this.autovalidateMode,
     required this.children,
     this.isLoading = false,
-    this.isUpdateForm = true,
     this.title,
     this.titleWidget,
     this.centerTitle,
@@ -34,28 +33,38 @@ class FormScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      noPadding: true,
       title: title,
-      isLoading: isLoading,
       titleSpacing: titleSpacing,
       titleWidget: titleWidget,
       centerTitle: centerTitle,
       appBarElevation: appBarElevation,
       bottomSheet: bottomSheet,
       persistentFooterButtons: persistentFooterButtons,
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: AppSizes.maxWidth),
-          child: Form(
-            key: formKey,
-            autovalidateMode: autoValidateMode,
-            child: ListView(
-              padding: const EdgeInsets.all(Paddings.sm),
-              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              children: children,
+      child: Column(
+        children: [
+          if (isLoading) const LinearProgressIndicator(),
+          Expanded(
+            child: IgnorePointer(
+              ignoring: isLoading,
+              child: Center(
+                child: ConstrainedBox(
+                  constraints:
+                      const BoxConstraints(maxWidth: AppSizes.maxWidth),
+                  child: Form(
+                    key: formKey,
+                    autovalidateMode: autovalidateMode,
+                    child: ListView(
+                      padding: const EdgeInsets.all(Paddings.sm),
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
+                      children: children,
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

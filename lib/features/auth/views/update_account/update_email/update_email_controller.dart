@@ -1,3 +1,4 @@
+import 'package:colartive2/utils/state/base_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../../core_packages.dart';
@@ -8,18 +9,20 @@ part 'update_email_controller.g.dart';
 @riverpod
 class UpdateEmailController extends _$UpdateEmailController {
   @override
-  AsyncValue build() {
-    return const AsyncData(null);
+  BaseState build() {
+    return const BaseState.initial();
   }
 
-  Future<void> updateEmail(
-      {required String email, required String password}) async {
+  Future<void> updateEmail({
+    required String email,
+    required String password,
+  }) async {
     FocusManager.instance.primaryFocus?.unfocus();
 
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(
-      () => ref
-          .read(authRepoProvider)
+    state = const BaseState.loading();
+    state = await BaseState.guard(
+      ref
+          .read(authControllerProvider.notifier)
           .updateEmail(newEmail: email, password: password),
     );
   }

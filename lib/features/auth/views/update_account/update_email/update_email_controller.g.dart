@@ -7,12 +7,12 @@ part of 'update_email_controller.dart';
 // **************************************************************************
 
 String _$updateEmailControllerHash() =>
-    r'bfaa5f0e0028d41299a70f24f45629ac68ad0bab';
+    r'8d7a925795eea6a18f640e34f2a10b720834436b';
 
 /// See also [UpdateEmailController].
 @ProviderFor(UpdateEmailController)
 final updateEmailControllerProvider = AutoDisposeNotifierProvider<
-    UpdateEmailController, AsyncValue<dynamic>>.internal(
+    UpdateEmailController, BaseState<dynamic>>.internal(
   UpdateEmailController.new,
   name: r'updateEmailControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,5 +22,5 @@ final updateEmailControllerProvider = AutoDisposeNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$UpdateEmailController = AutoDisposeNotifier<AsyncValue<dynamic>>;
+typedef _$UpdateEmailController = AutoDisposeNotifier<BaseState<dynamic>>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

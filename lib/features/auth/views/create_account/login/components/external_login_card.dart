@@ -1,16 +1,16 @@
+import 'package:colartive2/features/auth/views/create_account/login/login_controller.dart';
 import 'package:colartive2/utils/components/widgets/custom_divider_text.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../../../core_packages.dart';
-import '../login_controller.dart';
 import 'external_login_button.dart';
 
-class ExternalLoginCard extends ConsumerWidget {
+class ExternalLoginCard extends StatelessWidget {
   final LoginController controller;
   const ExternalLoginCard({super.key, required this.controller});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Column(children: [
       const CustomDividerText(text: "Use your social account"),
       const SizedBox(height: Paddings.md),
@@ -23,7 +23,7 @@ class ExternalLoginCard extends ConsumerWidget {
               Ionicons.logo_google,
               color: context.colors.onSecondaryContainer,
             ),
-            onPressed: () => controller.googleSignIn(),
+            onPressed: () => controller.signInWithGoogle(),
           ),
           ExternalLoginButton(
             text: "Facebook",
@@ -31,7 +31,7 @@ class ExternalLoginCard extends ConsumerWidget {
               Ionicons.logo_facebook,
               color: context.colors.onSecondaryContainer,
             ),
-            onPressed: () => controller.facebookSignIn(),
+            onPressed: () => controller.signInWithGoogle(),
           ),
           ExternalLoginButton(
             text: "Apple",
@@ -39,7 +39,7 @@ class ExternalLoginCard extends ConsumerWidget {
               Ionicons.logo_apple,
               color: context.colors.onSecondaryContainer,
             ),
-            onPressed: () => controller.appleSignIn(),
+            onPressed: () => controller.signInWithGoogle(),
           ),
         ],
       ),

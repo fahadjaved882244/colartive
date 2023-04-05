@@ -39,6 +39,7 @@ Future<void> mainCommon(AppFlavor flavor) async {
     ProviderScope(
       overrides: [
         sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+        flavorProvider.overrideWithValue(flavor),
         if (kIsWeb)
           googleSignInProvider.overrideWithValue(
             GoogleSignIn(

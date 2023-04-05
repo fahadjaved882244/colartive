@@ -16,4 +16,12 @@ extension ContextX on BuildContext {
   double get height {
     return MediaQuery.of(this).size.height;
   }
+
+  double get shortestSide {
+    return MediaQuery.of(this).size.shortestSide;
+  }
+
+  double get longestSide {
+    return MediaQuery.of(this).size.longestSide;
+  }
 }

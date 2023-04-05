@@ -5,7 +5,8 @@ import '../../core/app_colors.dart';
 import '../../core/app_sizes.dart';
 
 class CustomImageView extends StatelessWidget {
-  final String imagePath;
+  final String? title;
+  final String? imagePath;
   final double width;
   final double height;
   final BoxFit fit;
@@ -14,7 +15,8 @@ class CustomImageView extends StatelessWidget {
 
   const CustomImageView({
     Key? key,
-    required this.imagePath,
+    this.title,
+    this.imagePath,
     this.width = double.maxFinite,
     this.height = double.maxFinite,
     this.fit = BoxFit.cover,
@@ -25,32 +27,47 @@ class CustomImageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: BoxDecoration(color: context.colors.secondaryContainer),
+      decoration: BoxDecoration(
+        color: context.colors.tertiaryContainer,
+        borderRadius: BorderRadius.circular(Corners.crd),
+      ),
       child: Stack(
         alignment: Alignment.center,
         children: [
-          FadeInImage.assetNetwork(
-            height: height,
-            width: width,
-            fit: fit,
-            fadeInDuration: const Duration(milliseconds: 100),
-            placeholder: isDarkBg
-                ? 'assets/general/darkPlaceholder.png'
-                : 'assets/general/placeholder.png',
-            image: imagePath,
-            imageErrorBuilder: (context, exception, stackTrace) {
-              return DecoratedBox(
-                decoration: BoxDecoration(color: context.colors.errorContainer),
-                child: Image.asset(
-                  'assets/general/error.png',
-                  height: height,
-                  width: width,
-                  color: context.colors.onErrorContainer,
-                  fit: BoxFit.contain,
-                ),
-              );
-            },
-          ),
+          if (imagePath != null)
+            FadeInImage.assetNetwork(
+              height: height,
+              width: width,
+              fit: fit,
+              fadeInDuration: const Duration(milliseconds: 100),
+              placeholder: isDarkBg
+                  ? 'assets/general/darkPlaceholder.png'
+                  : 'assets/general/placeholder.png',
+              image: imagePath!,
+              imageErrorBuilder: (context, exception, stackTrace) {
+                return DecoratedBox(
+                  decoration:
+                      BoxDecoration(color: context.colors.errorContainer),
+                  child: Image.asset(
+                    'assets/general/error.png',
+                    height: height,
+                    width: width,
+                    color: context.colors.onErrorContainer,
+                    fit: BoxFit.contain,
+                  ),
+                );
+              },
+            ),
+          if (title != null)
+            SizedBox(
+              width: width,
+              height: height,
+              child: Center(
+                  child: Text(
+                title!.toUpperCase()[0],
+                style: context.textTheme.titleLarge,
+              )),
+            ),
           if (isVideo)
             Container(
               padding: const EdgeInsets.all(Paddings.xs + 2),

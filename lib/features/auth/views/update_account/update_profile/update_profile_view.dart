@@ -1,4 +1,5 @@
-import 'package:colartive2/extensions/async_value.dart';
+import 'package:colartive2/extensions/base_state_x.dart';
+import 'package:colartive2/utils/state/base_state.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../../../core_packages.dart';
@@ -11,24 +12,19 @@ import 'components/update_user_image.dart';
 import 'update_profile_controller.dart';
 
 class UpdateProfileView extends ConsumerWidget {
-  final String userId;
-  const UpdateProfileView({Key? key, required this.userId}) : super(key: key);
+  const UpdateProfileView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(updateProfileControllerProvider);
-
-    ref.listen<AsyncValue<void>>(
+    ref.listen<BaseState>(
       updateProfileControllerProvider,
       (_, next) {
-        next.showErrorOrNavigate(context, routeName: RouteNames.settings);
+        next.showErrorOrNav(context, RouteNames.settings);
       },
     );
 
     return BaseScaffold(
       title: AppStrings.userAcc,
-      noPadding: true,
-      isLoading: state.isLoading,
       child: Padding(
         padding: const EdgeInsets.all(Paddings.xs),
         child: Column(
@@ -43,24 +39,21 @@ class UpdateProfileView extends ConsumerWidget {
                     title: AppStrings.editAcc,
                     leading: const Icon(Ionicons.person_circle),
                     implyTrailing: true,
-                    onTap: () => context
-                        .goNamed(AppPaths.editName, params: {"userId": userId}),
+                    onTap: () => context.goNamed(AppPaths.editName),
                   ),
                   const CustomTileDivider(),
                   CustomListTile(
                     title: AppStrings.updateEmail,
                     leading: const Icon(Ionicons.mail_outline),
                     implyTrailing: true,
-                    onTap: () => context.goNamed(RouteNames.updateEmail,
-                        params: {"userId": userId}),
+                    onTap: () => context.goNamed(RouteNames.updateEmail),
                   ),
                   const CustomTileDivider(),
                   CustomListTile(
                     title: AppStrings.changePass,
                     leading: const Icon(Ionicons.lock_closed_outline),
                     implyTrailing: true,
-                    onTap: () => context.goNamed(RouteNames.changePassword,
-                        params: {"userId": userId}),
+                    onTap: () => context.goNamed(RouteNames.changePassword),
                   ),
                 ],
               ),
@@ -92,7 +85,7 @@ class UpdateProfileView extends ConsumerWidget {
       leftButtonTitle: "Cancel",
     );
     if (result && context.mounted) {
-      ref.read(updateProfileControllerProvider.notifier).logout();
+      ref.read(updateProfileControllerProvider.notifier).signOut();
     }
   }
 }

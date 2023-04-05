@@ -20,10 +20,7 @@ class NavigationView extends StatelessWidget {
             ),
             Breakpoints.mediumAndUp: SlotLayout.from(
               key: const Key('medium-body'),
-              builder: (_) => Padding(
-                padding: const EdgeInsets.all(Paddings.sm),
-                child: child,
-              ),
+              builder: (_) => child,
             ),
           },
         ),

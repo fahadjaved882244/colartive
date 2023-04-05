@@ -12,20 +12,25 @@ class ErrorView extends StatelessWidget {
     return BaseScaffold(
       title: 'Error 404!',
       centerTitle: true,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            message,
-            style: Theme.of(context).textTheme.titleMedium,
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: AppSizes.maxWidth),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                message,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: Paddings.sm),
+              CustomFilledButton(
+                isTonal: true,
+                text: 'Back to home',
+                onPressed: () => context.goNamed(RouteNames.home),
+              )
+            ],
           ),
-          const SizedBox(height: Paddings.sm),
-          CustomFilledButton(
-            isTonal: true,
-            text: 'Back to home',
-            onPressed: () => context.goNamed(RouteNames.home),
-          )
-        ],
+        ),
       ),
     );
   }

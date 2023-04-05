@@ -1,3 +1,5 @@
+import 'package:colartive2/utils/state/base_state.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../../core_packages.dart';
@@ -8,8 +10,8 @@ part 'signup_controller.g.dart';
 @riverpod
 class SignupController extends _$SignupController {
   @override
-  AsyncValue build() {
-    return const AsyncData(null);
+  BaseState<Unit> build() {
+    return const BaseState<Unit>.initial();
   }
 
   Future<void> signup({
@@ -19,13 +21,13 @@ class SignupController extends _$SignupController {
   }) async {
     FocusManager.instance.primaryFocus?.unfocus();
 
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(
-      () => ref.read(authRepoProvider).signup(
-        email: email,
-        password: password,
-        body: {"name": name},
-      ),
+    state = const BaseState<Unit>.loading();
+    state = await BaseState.guard<Unit>(
+      ref.read(authControllerProvider.notifier).signup(
+            email: email,
+            password: password,
+            name: name,
+          ),
     );
   }
 }

@@ -38,10 +38,10 @@ class Corners {
 
 class AvatarRadius {
   AvatarRadius._();
-  static const double xs = 8;
-  static const double sm = 16;
-  static const double md = 24;
-  static const double lg = 32;
+  static const double xs = 16;
+  static const double sm = 32;
+  static const double md = 48;
+  static const double lg = 64;
 }
 
 class AppTimes {

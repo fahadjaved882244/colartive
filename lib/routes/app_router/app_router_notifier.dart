@@ -1,21 +1,23 @@
 import 'package:colartive2/core_packages.dart';
 import 'package:colartive2/features/auth/views/auth_controller.dart';
-import 'package:colartive2/features/vector_art/views/home_view.dart';
+import 'package:colartive2/features/profile/views/contributor_profile/contributor_profile_view.dart';
+import 'package:colartive2/features/vector_art/views/search/search_view.dart';
+import 'package:colartive2/features/vector_art/views/showcase/showcase_view.dart';
 
 import '../../app_keys.dart';
 import '../../features/auth/views/create_account/login/login_view.dart';
 import '../../features/auth/views/create_account/reset_password/reset_password_view.dart';
 import '../../features/auth/views/create_account/signup/signup_view.dart';
 import '../../features/auth/views/update_account/change_password/change_password_view.dart';
-import '../../features/auth/views/update_account/edit_name/edit_name_view.dart';
 import '../../features/auth/views/update_account/update_email/update_email_view.dart';
 import '../../features/auth/views/update_account/update_profile/update_profile_view.dart';
+import '../../features/auth/views/update_account/update_user_details/update_user_details_view.dart';
 import '../../features/locale/view/change_locale_view.dart';
 import '../../features/others/navigation/navigation_view.dart';
 import '../../features/others/settings/settings_view.dart';
-import '../../features/profile/views/profile_view.dart';
+import '../../features/profile/views/user_profile/user_profile_view.dart';
+import '../../features/vector_art/views/home/home_view.dart';
 import '../../utils/components/widgets/error_view.dart';
-import 'app_router.dart';
 
 final routerNotifierProvider =
     AutoDisposeAsyncNotifierProvider<RouterNotifier, void>(() {
@@ -30,10 +32,8 @@ class RouterNotifier extends AutoDisposeAsyncNotifier<void>
   @override
   Future<void> build() async {
     // One could watch more providers and write logic accordingly
-
-    isAuth = await ref.watch(
-      authStateProvider.selectAsync((data) => data != null),
-    );
+    final state = ref.watch(authStateProvider);
+    state.whenOrNull(data: (value) => isAuth = value);
 
     ref.listenSelf((_, __) {
       // One could write more conditional logic for when to call redirection
@@ -77,6 +77,31 @@ class RouterNotifier extends AutoDisposeAsyncNotifier<void>
             return const ResetPasswordView();
           },
         ),
+        GoRoute(
+          name: RouteNames.contributorProfile,
+          path: AppPaths.contributor,
+          parentNavigatorKey: AppKeys.rootNavigatorKey,
+          builder: (BuildContext context, GoRouterState state) {
+            final uid = state.params["userId"];
+            if (uid != null) {
+              return ContributorProfileView(uid);
+            } else {
+              return const ErrorView(message: "User Id not found");
+            }
+          },
+        ),
+        GoRoute(
+          name: RouteNames.artistProfile,
+          path: AppPaths.designer,
+          parentNavigatorKey: AppKeys.rootNavigatorKey,
+          builder: (BuildContext context, GoRouterState state) {
+            if (state.params["userId"] != null) {
+              return const ResetPasswordView();
+            } else {
+              return const ErrorView(message: "User Id not found");
+            }
+          },
+        ),
         ShellRoute(
           navigatorKey: AppKeys.shellNavigatorKey,
           builder: (context, state, child) {
@@ -88,21 +113,21 @@ class RouterNotifier extends AutoDisposeAsyncNotifier<void>
               name: RouteNames.home,
               path: AppPaths.home,
               builder: (BuildContext context, GoRouterState state) {
-                return const HomPainterView();
+                return const HomeView();
               },
             ),
             GoRoute(
               name: RouteNames.search,
               path: AppPaths.search,
               builder: (BuildContext context, GoRouterState state) {
-                return HomeView(path: state.location);
+                return const SearchView();
               },
             ),
             GoRoute(
               name: RouteNames.showcase,
               path: AppPaths.showcase,
               builder: (BuildContext context, GoRouterState state) {
-                return HomeView(path: state.location);
+                return const ShowCaseView();
               },
             ),
             GoRoute(
@@ -120,26 +145,21 @@ class RouterNotifier extends AutoDisposeAsyncNotifier<void>
                   },
                 ),
                 GoRoute(
-                  name: RouteNames.profile,
-                  path: AppPaths.profile,
+                  name: RouteNames.userProfile,
+                  path: AppPaths.userProfile,
+                  redirect: (context, state) {
+                    if (isAuth) return null;
+                    return AppPaths.login;
+                  },
                   builder: (BuildContext context, GoRouterState state) {
-                    final id = state.params['userId'];
-                    if (id != null) {
-                      return ProfileView(userId: id);
-                    }
-                    return const ErrorView(message: 'All params not found!');
+                    return const UserProfileView();
                   },
                   routes: [
                     GoRoute(
                       name: RouteNames.updateProfile,
                       path: AppPaths.updateProfile,
                       builder: (BuildContext context, GoRouterState state) {
-                        final id = state.params['userId'];
-                        if (id != null) {
-                          return UpdateProfileView(userId: id);
-                        }
-                        return const ErrorView(
-                            message: 'All params not found!');
+                        return const UpdateProfileView();
                       },
                       redirect: (context, state) {
                         if (isAuth) return null;
@@ -150,7 +170,7 @@ class RouterNotifier extends AutoDisposeAsyncNotifier<void>
                           name: RouteNames.editName,
                           path: AppPaths.editName,
                           builder: (BuildContext context, GoRouterState state) {
-                            return const EditNameView();
+                            return const UpdateUserDetailsView();
                           },
                         ),
                         GoRoute(

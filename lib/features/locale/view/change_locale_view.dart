@@ -18,7 +18,6 @@ class ChangeLocaleView extends ConsumerWidget {
     final languages =
         ref.read(localeControllerProvider.notifier).getSupportedLanguages();
     return BaseScaffold(
-      noPadding: true,
       title: AppStrings.language,
       child: ListView.separated(
         padding: const EdgeInsets.all(Paddings.xs),

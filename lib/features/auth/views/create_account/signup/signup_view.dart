@@ -1,6 +1,7 @@
 import 'package:colartive2/core_packages.dart';
-import 'package:colartive2/extensions/async_value.dart';
+import 'package:colartive2/extensions/base_state_x.dart';
 import 'package:colartive2/features/auth/views/create_account/signup/signup_controller.dart';
+import 'package:colartive2/utils/state/base_state.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -19,17 +20,17 @@ class SignupView extends HookConsumerWidget {
     final state = ref.watch(signupControllerProvider);
 
     final formKey = useMemoized(GlobalKey<FormState>.new, const []);
-    final autovalidateMode = useState(AutovalidateMode.onUserInteraction);
+    final autovalidateMode = useState(AutovalidateMode.disabled);
 
     final nameController = useTextEditingController();
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
     final confirmPasswordController = useTextEditingController();
 
-    ref.listen<AsyncValue<void>>(
+    ref.listen<BaseState>(
       signupControllerProvider,
       (_, next) {
-        next.showErrorOrNavigate(context, routeName: RouteNames.settings);
+        next.showErrorOrNav(context, RouteNames.settings);
       },
     );
 
@@ -48,10 +49,9 @@ class SignupView extends HookConsumerWidget {
     const spacer = SizedBox(height: Paddings.md);
     return FormScaffold(
       formKey: formKey,
-      autoValidateMode: autovalidateMode.value,
+      autovalidateMode: autovalidateMode.value,
       title: AppStrings.signupTitle,
       isLoading: state.isLoading,
-      isUpdateForm: false,
       children: [
         CustomTextFormField(
           labelText: AppStrings.name,

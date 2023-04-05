@@ -1,6 +1,5 @@
 import 'package:colartive2/core_packages.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:ionicons/ionicons.dart';
 
 import 'navigation_item/navigation_item.dart';
 
@@ -30,20 +29,20 @@ class CustomNavigationRail extends HookWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
         color: context.colors.surface,
-        border: Border(
-          right: !isRTLDirection
-              ? BorderSide(
-                  width: 1,
-                  color: context.colors.outline.withOpacity(0.25),
-                )
-              : BorderSide.none,
-          left: isRTLDirection
-              ? BorderSide(
-                  width: 1,
-                  color: context.colors.outline.withOpacity(0.25),
-                )
-              : BorderSide.none,
-        ),
+        // border: Border(
+        //   right: !isRTLDirection
+        //       ? BorderSide(
+        //           width: 1,
+        //           color: context.colors.outline.withOpacity(0.25),
+        //         )
+        //       : BorderSide.none,
+        //   left: isRTLDirection
+        //       ? BorderSide(
+        //           width: 1,
+        //           color: context.colors.outline.withOpacity(0.25),
+        //         )
+        //       : BorderSide.none,
+        // ),
       ),
       child: SafeArea(
         right: isRTLDirection,
@@ -82,32 +81,32 @@ class CustomNavigationRail extends HookWidget {
   }
 }
 
-class _Leading extends StatelessWidget {
-  final bool extended;
-  const _Leading({
-    required this.extended,
-  });
+// class _Leading extends StatelessWidget {
+//   final bool extended;
+//   const _Leading({
+//     required this.extended,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    if (extended) {
-      return ListTile(
-        contentPadding: const EdgeInsets.fromLTRB(16, 4, 24, 4),
-        dense: true,
-        title: Text(
-          "ColArtive",
-          style: context.textTheme.headlineLarge,
-        ),
-        trailing: Icon(
-          Ionicons.menu,
-          color: context.colors.onSurfaceVariant,
-        ),
-      );
-    } else {
-      return Icon(
-        Ionicons.menu,
-        color: context.colors.onSurfaceVariant,
-      );
-    }
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     if (extended) {
+//       return ListTile(
+//         contentPadding: const EdgeInsets.fromLTRB(16, 4, 24, 4),
+//         dense: true,
+//         title: Text(
+//           "ColArtive",
+//           style: context.textTheme.headlineLarge,
+//         ),
+//         trailing: Icon(
+//           Ionicons.menu,
+//           color: context.colors.onSurfaceVariant,
+//         ),
+//       );
+//     } else {
+//       return Icon(
+//         Ionicons.menu,
+//         color: context.colors.onSurfaceVariant,
+//       );
+//     }
+//   }
+// }

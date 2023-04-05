@@ -1,3 +1,4 @@
+import 'package:colartive2/features/auth/views/create_account/login/login_controller.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../../../../core_packages.dart';
@@ -6,19 +7,22 @@ import '../../../../../../utils/components/fields/custom_email_field.dart';
 import '../../../../../../utils/components/fields/custom_password_field.dart';
 import '../../../../../../utils/components/widgets/custom_divider_text.dart';
 import '../../../../../../utils/core/text_validator.dart';
-import '../login_controller.dart';
 
 class AppLoginCard extends HookWidget {
   final LoginController controller;
-  const AppLoginCard({super.key, required this.controller});
+  final GlobalKey<FormState> formKey;
+  final ValueNotifier<AutovalidateMode> autovalidateMode;
+  const AppLoginCard({
+    super.key,
+    required this.formKey,
+    required this.autovalidateMode,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final formKey = useMemoized(GlobalKey<FormState>.new, const []);
-
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
-    final autoValidateMode = useState(AutovalidateMode.disabled);
 
     void onSubmitted() {
       if (formKey.currentState?.validate() ?? false) {
@@ -27,7 +31,7 @@ class AppLoginCard extends HookWidget {
           password: passwordController.text.trim(),
         );
       } else {
-        autoValidateMode.value = AutovalidateMode.onUserInteraction;
+        autovalidateMode.value = AutovalidateMode.onUserInteraction;
       }
     }
 
@@ -35,25 +39,21 @@ class AppLoginCard extends HookWidget {
       children: [
         const CustomDividerText(text: "Already have an account?"),
         const SizedBox(height: Paddings.md),
-        Form(
-          key: formKey,
-          autovalidateMode: autoValidateMode.value,
-          child: Column(
-            children: [
-              CustomEmailField(
-                labelText: AppStrings.email,
-                controller: emailController,
-              ),
-              const SizedBox(height: Paddings.sm),
-              CustomPasswordField(
-                labelText: AppStrings.password,
-                controller: passwordController,
-                validator: TextValidator.optionalPasswordValidator,
-                textInputAction: TextInputAction.done,
-                onSubmitted: (_) => onSubmitted(),
-              ),
-            ],
-          ),
+        Column(
+          children: [
+            CustomEmailField(
+              labelText: AppStrings.email,
+              controller: emailController,
+            ),
+            const SizedBox(height: Paddings.sm),
+            CustomPasswordField(
+              labelText: AppStrings.password,
+              controller: passwordController,
+              validator: TextValidator.optionalPasswordValidator,
+              textInputAction: TextInputAction.done,
+              onSubmitted: (_) => onSubmitted(),
+            ),
+          ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -69,7 +69,7 @@ class AppLoginCard extends HookWidget {
           onPressed: onSubmitted,
           child: const Text(AppStrings.login),
         ),
-        const SizedBox(height: Paddings.md),
+        const SizedBox(height: Paddings.sm),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

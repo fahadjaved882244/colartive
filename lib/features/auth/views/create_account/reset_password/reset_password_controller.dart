@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:colartive2/utils/state/base_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../../core_packages.dart';
@@ -10,16 +11,16 @@ part 'reset_password_controller.g.dart';
 @riverpod
 class ResetPasswordController extends _$ResetPasswordController {
   @override
-  AsyncValue build() {
-    return const AsyncData(null);
+  BaseState build() {
+    return const BaseState.initial();
   }
 
   Future<void> resetPassword({required String email}) async {
     FocusManager.instance.primaryFocus?.unfocus();
 
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(
-      () => ref.read(authRepoProvider).forgotPassword(email),
+    state = const BaseState.loading();
+    state = await BaseState.guard(
+      ref.read(authControllerProvider.notifier).resetPassword(email),
     );
   }
 }

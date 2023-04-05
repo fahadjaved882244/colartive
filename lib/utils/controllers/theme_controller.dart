@@ -1,4 +1,4 @@
-import 'package:colartive2/utils/repositories/storage_repository.dart';
+import 'package:colartive2/utils/repositories/local_storage_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

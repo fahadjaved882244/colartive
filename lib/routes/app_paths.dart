@@ -11,6 +11,9 @@ class RouteNames {
   static const String signup = 'signup';
   static const String resetPassword = 'reset-password';
 
+  static const String contributorProfile = 'contributor';
+  static const String artistProfile = 'artist';
+
   static const String home = 'home';
   static const String search = 'search';
   static const String showcase = 'showcase';
@@ -19,7 +22,7 @@ class RouteNames {
   static const String settings = 'settings';
   static const String changeLocale = 'change-locale';
 
-  static const String profile = 'profile';
+  static const String userProfile = 'user';
   static const String updateProfile = 'update-profile';
   static const String editName = 'edit-name';
   static const String updateEmail = 'update-email';
@@ -34,6 +37,9 @@ class AppPaths {
   static const String signup = "/${RouteNames.signup}";
   static const String resetPassword = "/${RouteNames.resetPassword}";
 
+  static const String contributor = '/${RouteNames.contributorProfile}/:userId';
+  static const String designer = '/${RouteNames.artistProfile}/:userId';
+
   static const String home = "/${RouteNames.home}";
   static const String search = "/${RouteNames.search}";
   static const String showcase = "/${RouteNames.showcase}";
@@ -41,7 +47,7 @@ class AppPaths {
 
   static const String changeLocale = RouteNames.changeLocale;
 
-  static const String profile = '${RouteNames.profile}/:userId';
+  static const String userProfile = RouteNames.userProfile;
 
   static const String updateProfile = RouteNames.updateProfile;
 

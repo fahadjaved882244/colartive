@@ -1,4 +1,5 @@
-import 'package:colartive2/extensions/async_value.dart';
+import 'package:colartive2/extensions/base_state_x.dart';
+import 'package:colartive2/utils/state/base_state.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../../../core_packages.dart';
@@ -18,14 +19,18 @@ class UpdateEmailView extends HookConsumerWidget {
     final state = ref.watch(updateEmailControllerProvider);
 
     final formKey = useMemoized(GlobalKey<FormState>.new, const []);
-    final autovalidateMode = useState(AutovalidateMode.onUserInteraction);
+    final autovalidateMode = useState(AutovalidateMode.disabled);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
 
-    ref.listen<AsyncValue<void>>(
+    ref.listen<BaseState>(
       updateEmailControllerProvider,
       (_, next) {
-        next.showErrorOrSuccess(context, successMsg: AppStrings.emailUpdated);
+        next.showErrorOrSuccOrNav(
+          context,
+          routeName: RouteNames.updateProfile,
+          success: AppStrings.emailUpdated,
+        );
       },
     );
 
@@ -43,7 +48,7 @@ class UpdateEmailView extends HookConsumerWidget {
 
     return FormScaffold(
       formKey: formKey,
-      autoValidateMode: autovalidateMode.value,
+      autovalidateMode: autovalidateMode.value,
       title: AppStrings.updateEmail,
       isLoading: state.isLoading,
       children: [

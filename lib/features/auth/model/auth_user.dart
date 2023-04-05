@@ -3,14 +3,15 @@ import 'dart:convert';
 class AuthUser {
   final String id;
   final String email;
-  final String name;
+  final String? name;
   final bool isVerified;
   final String? phoneNumber;
   final String? photoUrl;
+
   AuthUser({
     required this.id,
     required this.email,
-    required this.name,
+    this.name,
     required this.isVerified,
     this.phoneNumber,
     this.photoUrl,
@@ -49,7 +50,7 @@ class AuthUser {
     return AuthUser(
       id: map['id'] ?? '',
       email: map['email'] ?? '',
-      name: map['name'] ?? '',
+      name: map['name'],
       isVerified: map['isVerified'] ?? false,
       phoneNumber: map['phoneNumber'],
       photoUrl: map['photoUrl'],
@@ -63,7 +64,7 @@ class AuthUser {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, email: $email, name: $name, isVerified: $isVerified, phoneNumber: $phoneNumber, photoUrl: $photoUrl)';
+    return 'AuthUser(id: $id, email: $email, name: $name, isVerified: $isVerified, phoneNumber: $phoneNumber, photoUrl: $photoUrl)';
   }
 
   @override

@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -7,18 +6,6 @@ import '../../app_keys.dart';
 import '../../utils/components/widgets/error_view.dart';
 import '../app_paths.dart';
 import 'app_router_notifier.dart';
-
-class HomeView extends StatelessWidget {
-  final String path;
-
-  const HomeView({super.key, required this.path});
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(path),
-    );
-  }
-}
 
 //////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////
