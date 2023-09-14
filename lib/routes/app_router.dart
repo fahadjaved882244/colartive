@@ -44,19 +44,19 @@ class AppRouter {
           GoRoute(
             path: RouteNames.home,
             builder: (BuildContext context, GoRouterState state) {
-              return HomeView(path: state.location);
+              return HomeView(path: state.uri.toString());
             },
           ),
           GoRoute(
             path: RouteNames.search,
             builder: (BuildContext context, GoRouterState state) {
-              return HomeView(path: state.location);
+              return HomeView(path: state.uri.toString());
             },
           ),
           GoRoute(
             path: RouteNames.showcase,
             builder: (BuildContext context, GoRouterState state) {
-              return HomeView(path: state.location);
+              return HomeView(path: state.uri.toString());
             },
           ),
           GoRoute(
@@ -94,9 +94,10 @@ class AppRouter {
               GoRoute(
                 path: RouteNames.userProfile,
                 builder: (BuildContext context, GoRouterState state) {
-                  final id = state.queryParams['id'];
-                  final name = state.queryParams['name'];
-                  final photoUrl = state.queryParams['photoUrl']?.nullIfEmpty;
+                  final id = state.uri.queryParameters['id'];
+                  final name = state.uri.queryParameters['name'];
+                  final photoUrl =
+                      state.uri.queryParameters['photoUrl']?.nullIfEmpty;
                   if (id != null && name != null) {
                     return ProfileView(
                       id: id,

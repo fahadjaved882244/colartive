@@ -11,7 +11,7 @@ class ExternalLoginCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(loginControllerProvider);
     return Column(children: [
-      Row(children: const [
+      const Row(children: [
         Expanded(child: Divider()),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: Paddings.sm),

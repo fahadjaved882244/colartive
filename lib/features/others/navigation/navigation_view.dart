@@ -17,7 +17,7 @@ class NavigationView extends StatelessWidget {
   }
 
   static int _calculateSelectedIndex(BuildContext context) {
-    final String location = GoRouterState.of(context).location;
+    final String location = GoRouterState.of(context).uri.toString();
     if (location.startsWith(AppPaths.home)) {
       return 0;
     } else if (location.startsWith(AppPaths.showcase)) {

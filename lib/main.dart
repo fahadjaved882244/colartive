@@ -1,7 +1,6 @@
 import 'package:colartive2/features/locale/data/utils/app_localizations.dart';
 import 'package:colartive2/utils/controllers/theme_controller.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'core_packages.dart';
 import 'routes/app_router.dart';
@@ -56,9 +55,6 @@ class App extends ConsumerWidget {
         locale: locale,
         localizationsDelegates: const [
           AppLocalizationsDelegate(),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: AppLocalizations.languages.map((e) => Locale(e)),
         debugShowCheckedModeBanner: false,

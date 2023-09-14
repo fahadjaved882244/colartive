@@ -45,7 +45,7 @@ class LoginFormCard extends HookConsumerWidget {
 
     return Column(
       children: [
-        Row(children: const [
+        const Row(children: [
           Expanded(child: Divider()),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: Paddings.sm),
