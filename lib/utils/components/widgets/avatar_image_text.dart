@@ -1,4 +1,7 @@
-import 'package:colartive2/core_packages.dart';
+import 'package:colartive2/extensions/context_x.dart';
+import 'package:colartive2/utils/core/app_sizes.dart';
+import 'package:flutter/material.dart';
+
 import 'custom_image_view.dart';
 
 class AvatarImageText extends StatelessWidget {

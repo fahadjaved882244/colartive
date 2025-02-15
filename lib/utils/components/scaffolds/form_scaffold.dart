@@ -1,5 +1,8 @@
-import 'package:colartive2/core_packages.dart';
+import 'package:colartive2/utils/core/app_sizes.dart';
+import 'package:colartive2/utils/core/app_strings.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import '../popups/custom_dialog.dart';
 import 'base_scaffold.dart';
 
@@ -37,13 +40,17 @@ class FormScaffold extends HookWidget {
   Widget build(BuildContext context) {
     final autoValidateMode = useState(AutovalidateMode.disabled);
 
-    return WillPopScope(
-      onWillPop: () async {
-        return await showCustomDialog(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (_, __) async {
+        final poped = await showCustomDialog(
           context: context,
           title: "Exit form?",
           subTitle: "Are you sure, If you exit all the changes will be lost.",
         );
+        if (context.mounted && context.canPop() && poped) {
+          context.pop();
+        }
       },
       child: BaseScaffold(
         noPadding: true,

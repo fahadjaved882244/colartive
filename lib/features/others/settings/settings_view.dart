@@ -1,9 +1,14 @@
-import 'package:colartive2/core_packages.dart';
+import 'package:colartive2/extensions/context_x.dart';
+import 'package:colartive2/routes/app_paths.dart';
 import 'package:colartive2/utils/components/cards/custom_outlined_card.dart';
 import 'package:colartive2/utils/components/popups/custom_snackbar.dart';
 import 'package:colartive2/utils/components/widgets/custom_list_tile.dart';
 import 'package:colartive2/utils/components/widgets/custom_tile_divider.dart';
 import 'package:colartive2/features/others/settings/components/change_theme_card.dart';
+import 'package:colartive2/utils/core/app_sizes.dart';
+import 'package:colartive2/utils/core/app_strings.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
 import 'package:url_launcher/url_launcher.dart';

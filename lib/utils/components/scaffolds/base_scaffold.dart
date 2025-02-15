@@ -1,4 +1,7 @@
-import '../../../core_packages.dart';
+import 'package:colartive2/utils/components/widgets/custom_text.dart';
+import 'package:colartive2/utils/core/app_sizes.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class BaseScaffold extends StatelessWidget {
   final String? title;

@@ -1,4 +1,5 @@
-import '../../../../../core_packages.dart';
+import 'package:colartive2/utils/core/app_strings.dart';
+import 'package:flutter/material.dart';
 import '../../../../../utils/components/scaffolds/base_scaffold.dart';
 import 'components/login_form_card.dart';
 import 'components/external_login_card.dart';

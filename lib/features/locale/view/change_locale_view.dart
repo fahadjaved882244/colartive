@@ -1,4 +1,6 @@
-import 'package:colartive2/core_packages.dart';
+import 'package:colartive2/utils/core/app_strings.dart';
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:colartive2/utils/components/scaffolds/base_scaffold.dart';
 import 'package:colartive2/features/locale/view/change_locale_controller.dart';
 

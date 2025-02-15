@@ -1,6 +1,11 @@
 import 'package:ionicons/ionicons.dart';
 
-import '../../../../../../core_packages.dart';
+import 'package:colartive2/routes/app_paths.dart';
+import 'package:colartive2/utils/core/app_sizes.dart';
+import 'package:colartive2/utils/core/app_strings.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../../utils/components/cards/custom_outlined_card.dart';
 import '../../../../../utils/components/popups/custom_dialog.dart';
 import '../../../../../utils/components/scaffolds/base_scaffold.dart';

@@ -1,7 +1,7 @@
 import 'package:colartive2/features/auth/views/auth_controller.dart';
-
-import '../../../../../../core_packages.dart';
-import '../../../../../../utils/components/buttons/custom_icon_button.dart';
+import 'package:colartive2/utils/core/app_sizes.dart';
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../../../utils/components/widgets/avatar_image_text.dart';
 
 class UpdateUserImage extends ConsumerWidget {
@@ -22,13 +22,13 @@ class UpdateUserImage extends ConsumerWidget {
                 photoUrl: user.photoUrl,
                 radius: 65,
               ),
-              CustomIconButton(
-                backgroundColor: context.colors.primary,
+              IconButton.filled(
                 icon: Icon(
                   Icons.edit,
                   size: IconSizes.sm,
                   color: Theme.of(context).colorScheme.onPrimary,
                 ),
+                onPressed: () {},
               ),
             ],
           ),

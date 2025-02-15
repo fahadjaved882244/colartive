@@ -1,6 +1,11 @@
+import 'package:colartive2/extensions/context_x.dart';
+import 'package:colartive2/utils/core/app_colors.dart';
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../../../../../../core_packages.dart';
+import 'package:colartive2/utils/core/app_sizes.dart';
+
 import '../login_controller_view.dart';
 import 'external_login_button.dart';
 

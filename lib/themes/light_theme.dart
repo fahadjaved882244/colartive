@@ -15,11 +15,7 @@ class LightAppTheme {
     dividerTheme: _dividerTheme,
     drawerTheme: _drawerTheme,
     listTileTheme: _listTileTheme,
-    switchTheme: _switchTheme,
-    radioTheme: _radioTheme,
-    checkboxTheme: _checkboxTheme,
     inputDecorationTheme: _inputDecorationTheme,
-    useMaterial3: true,
   );
 
   /////////// Color Theme //////////////
@@ -78,65 +74,6 @@ class LightAppTheme {
     selectedTileColor: _colorScheme.surface,
     selectedColor: _colorScheme.onSurfaceVariant,
     iconColor: _colorScheme.onSurfaceVariant,
-  );
-
-  /////////// Card Theme //////////////
-  // static final _cardTheme = CardTheme(
-  //   elevation: 0,
-  //   color: _colorScheme.surfaceVariant,
-  //   margin: EdgeInsets.zero,
-  //   clipBehavior: Clip.antiAlias,
-  //   shape: RoundedRectangleBorder(
-  //     borderRadius: BorderRadius.circular(AppSizes.rdxCrd),
-  //   ),
-  // );
-
-  /////////// Switch Theme //////////////
-  static final _switchTheme = SwitchThemeData(
-    thumbColor: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.selected)) {
-        return _colorScheme.primary;
-      } else if (states.contains(MaterialState.disabled)) {
-        return AppColors.lightGray;
-      } else {
-        return AppColors.white;
-      }
-    }),
-    trackColor: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.selected)) {
-        return _colorScheme.secondary;
-      } else if (states.contains(MaterialState.disabled)) {
-        return AppColors.lightGray;
-      } else {
-        return AppColors.darkGray;
-      }
-    }),
-  );
-
-  /////////// Radio Theme //////////////
-  static final _radioTheme = RadioThemeData(
-    fillColor: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.selected)) {
-        return _colorScheme.primary;
-      } else if (states.contains(MaterialState.disabled)) {
-        return AppColors.lightGray;
-      } else {
-        return AppColors.darkGray;
-      }
-    }),
-  );
-
-  /////////// Radio Theme //////////////
-  static final _checkboxTheme = CheckboxThemeData(
-    fillColor: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.selected)) {
-        return _colorScheme.primary;
-      } else if (states.contains(MaterialState.disabled)) {
-        return AppColors.lightGray;
-      } else {
-        return AppColors.darkGray;
-      }
-    }),
   );
 
   /////////// Input Decoration Theme //////////////

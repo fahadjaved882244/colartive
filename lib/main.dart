@@ -1,8 +1,10 @@
 import 'package:colartive2/features/locale/data/utils/app_localizations.dart';
 import 'package:colartive2/utils/controllers/theme_controller.dart';
+import 'package:colartive2/utils/core/app_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'core_packages.dart';
 import 'routes/app_router.dart';
 import 'themes/app_theme.dart';
 import 'features/locale/view/change_locale_controller.dart';

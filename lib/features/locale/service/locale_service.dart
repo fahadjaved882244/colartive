@@ -1,7 +1,9 @@
-import 'package:colartive2/core_packages.dart';
+import 'dart:ui';
+
 import 'package:colartive2/features/locale/data/repositories/locale_repository.dart';
 import 'package:colartive2/features/locale/model/app_language.dart';
 import 'package:colartive2/utils/repositories/storage_repository.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final localeRepoProvider = Provider<LocaleRepository>((ref) {
   return LocaleRepository();

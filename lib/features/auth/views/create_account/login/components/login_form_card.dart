@@ -1,7 +1,13 @@
+import 'package:colartive2/utils/components/widgets/custom_text.dart';
+import 'package:colartive2/utils/core/app_colors.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../../../../../../core_packages.dart';
-import '../../../../../../utils/components/buttons/custom_filled_button.dart';
+import 'package:colartive2/routes/app_paths.dart';
+import 'package:colartive2/utils/core/app_sizes.dart';
+import 'package:colartive2/utils/core/app_strings.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../../../utils/components/fields/custom_email_field.dart';
 import '../../../../../../utils/components/fields/custom_password_field.dart';
 import '../../../../../../utils/core/text_validator.dart';
@@ -91,7 +97,7 @@ class LoginFormCard extends HookConsumerWidget {
           ],
         ),
         const SizedBox(height: Paddings.xs),
-        CustomFilledButton(
+        FilledButton(
           onPressed: !state.isLoading ? onSubmitted : null,
           child: state.isLoading
               ? const CircularProgressIndicator()

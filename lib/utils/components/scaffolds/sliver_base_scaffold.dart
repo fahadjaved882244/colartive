@@ -1,6 +1,6 @@
-import 'package:colartive2/core_packages.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-import '../buttons/custom_icon_button.dart';
 import '../widgets/custom_image_view.dart';
 
 class SliverBaseScaffold extends StatelessWidget {
@@ -28,16 +28,16 @@ class SliverBaseScaffold extends StatelessWidget {
               elevation: 3,
               pinned: true,
               forceElevated: true,
-              leading: CustomIconButton(
+              leading: IconButton.filledTonal(
                 onPressed: () => context.pop(),
                 icon: const Icon(Icons.arrow_back),
               ),
               actions: [
-                CustomIconButton(
+                IconButton.filledTonal(
                   onPressed: () => context.pop(),
                   icon: const Icon(Icons.share),
                 ),
-                CustomIconButton(
+                IconButton.filledTonal(
                   onPressed: () => context.pop(),
                   icon: const Icon(Icons.more_vert_outlined),
                 ),

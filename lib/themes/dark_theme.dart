@@ -15,11 +15,7 @@ class DarkAppTheme {
     dividerTheme: _dividerTheme,
     drawerTheme: _drawerTheme,
     listTileTheme: _listTileTheme,
-    switchTheme: _switchTheme,
-    radioTheme: _radioTheme,
-    checkboxTheme: _checkboxTheme,
     inputDecorationTheme: _inputDecorationTheme,
-    useMaterial3: true,
   );
 
   static final _colorScheme = ColorScheme.fromSeed(
@@ -72,54 +68,6 @@ class DarkAppTheme {
     selectedTileColor: _colorScheme.surface,
     selectedColor: _colorScheme.onSurfaceVariant,
     iconColor: _colorScheme.onSurfaceVariant,
-  );
-
-  /////////// Switch Theme //////////////
-  static final _switchTheme = SwitchThemeData(
-    thumbColor: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.selected)) {
-        return _colorScheme.primary;
-      } else if (states.contains(MaterialState.disabled)) {
-        return AppColors.lightGray;
-      } else {
-        return AppColors.white;
-      }
-    }),
-    trackColor: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.selected)) {
-        return _colorScheme.primaryContainer;
-      } else if (states.contains(MaterialState.disabled)) {
-        return AppColors.lightGray;
-      } else {
-        return AppColors.darkGray;
-      }
-    }),
-  );
-
-  /////////// Radio Theme //////////////
-  static final _radioTheme = RadioThemeData(
-    fillColor: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.selected)) {
-        return _colorScheme.primary;
-      } else if (states.contains(MaterialState.disabled)) {
-        return AppColors.lightGray;
-      } else {
-        return AppColors.darkGray;
-      }
-    }),
-  );
-
-  /////////// Radio Theme //////////////
-  static final _checkboxTheme = CheckboxThemeData(
-    fillColor: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.selected)) {
-        return _colorScheme.primary;
-      } else if (states.contains(MaterialState.disabled)) {
-        return AppColors.lightGray;
-      } else {
-        return AppColors.darkGray;
-      }
-    }),
   );
 
   static final _inputDecorationTheme = InputDecorationTheme(

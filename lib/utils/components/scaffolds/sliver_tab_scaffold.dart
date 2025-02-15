@@ -1,6 +1,8 @@
-import '../../../../core_packages.dart';
+import 'package:colartive2/extensions/context_x.dart';
+import 'package:colartive2/utils/core/app_sizes.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-import '../buttons/custom_icon_button.dart';
 import '../widgets/custom_image_view.dart';
 import '../widgets/custom_loader.dart';
 
@@ -45,7 +47,7 @@ class SliverTabScaffold extends StatelessWidget {
                 elevation: 3,
                 pinned: true,
                 forceElevated: true,
-                leading: CustomIconButton(
+                leading: IconButton.filledTonal(
                   onPressed: () => context.pop(),
                   icon: const Icon(Icons.arrow_back),
                 ),

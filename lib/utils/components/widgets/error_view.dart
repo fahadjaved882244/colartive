@@ -1,5 +1,8 @@
-import 'package:colartive2/core_packages.dart';
-import 'package:colartive2/utils/components/buttons/custom_filled_button.dart';
+import 'package:colartive2/routes/app_paths.dart';
+import 'package:colartive2/utils/components/widgets/custom_text.dart';
+import 'package:colartive2/utils/core/app_sizes.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ErrorView extends StatelessWidget {
   final String message;
@@ -17,9 +20,8 @@ class ErrorView extends StatelessWidget {
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: Paddings.sm),
-          CustomFilledButton(
-            isTonal: true,
-            text: 'Back to home',
+          FilledButton(
+            child: const CustomText('Back to home'),
             onPressed: () => context.go(AppPaths.home),
           )
         ],

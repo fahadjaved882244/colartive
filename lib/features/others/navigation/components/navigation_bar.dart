@@ -1,4 +1,7 @@
-import '../../../../../core_packages.dart';
+import 'package:colartive2/extensions/context_x.dart';
+import 'package:colartive2/utils/core/app_sizes.dart';
+import 'package:colartive2/utils/core/app_strings.dart';
+import 'package:flutter/material.dart';
 
 import 'navigation_item.dart';
 

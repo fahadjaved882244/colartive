@@ -1,7 +1,10 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../../../../../core_packages.dart';
+import 'package:colartive2/utils/core/app_sizes.dart';
+import 'package:colartive2/utils/core/app_strings.dart';
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../../utils/components/fields/custom_text_form_field.dart';
 import '../../../../../utils/components/scaffolds/form_scaffold.dart';
