@@ -16,4 +16,8 @@ extension ContextX on BuildContext {
   double get height {
     return MediaQuery.of(this).size.height;
   }
+
+  bool get darkModeFlag {
+    return Theme.of(this).brightness == Brightness.dark;
+  }
 }

@@ -1,0 +1,150 @@
+import 'package:colartive2/features/canvas_live/controller/canvas_live_mode_controller.dart';
+import 'package:colartive2/features/canvas_live/views/canvas_live_controller.dart';
+import 'package:colartive2/utils/components/popups/custom_snackbar.dart';
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../indicator_painter.dart';
+
+class ShadeColorButton extends ConsumerWidget {
+  final Color color;
+  final bool isPickerClr;
+  final bool isDragged;
+  final VoidCallback notifyParent;
+  const ShadeColorButton({
+    super.key,
+    required this.color,
+    required this.notifyParent,
+    this.isPickerClr = false,
+    this.isDragged = false,
+  });
+
+  int countTotal(List<Color> list, Color clr) {
+    int c = 0;
+    for (int i = 0; i < list.length; i++) {
+      if (list[i] == clr) c = c + 1;
+    }
+    return c;
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    //final width = MediaQuery.of(context).size.width;
+    final brightness = ThemeData.estimateBrightnessForColor(color);
+    final iconColor =
+        brightness == Brightness.light ? Colors.black : Colors.white;
+
+    final hintIndex = ref.watch(canvasLiveHintProvider);
+    final selectedColors = ref.watch(variationNotifierProvider).colors;
+    final maxColors = 10;
+    final selectedLength = selectedColors.length;
+    final count = countTotal(selectedColors, color);
+    return Material(
+      color: color,
+      elevation: isDragged ? 0 : 3,
+      clipBehavior: Clip.hardEdge,
+      shape: CircleBorder(
+        side: isDragged
+            ? BorderSide(
+                width: 0.75,
+                // color: darkModeFlag ? darkModeColor : lightModeColor,
+              )
+            : color == null
+                ? const BorderSide(width: 2, color: Colors.red)
+                : BorderSide.none,
+      ),
+      child: InkWell(
+        splashColor: Colors.grey,
+        highlightColor: Colors.red,
+        onTap: () {
+          if (hintIndex != null) {
+            // BlocProvider.of<SelectedColorsBloc>(context)
+            //     .onSwapColor(hintIndex, color);
+            // BlocProvider.of<SelectedColorsBloc>(context).onClearRedo();
+            // BlocProvider.of<SelectedColorsBloc>(context).onPushUndo(
+            //     ColorState(state.selectedColors[hintIndex], [hintIndex], 3));
+            // paletteFlag = false;
+            // hintIndex = -1;
+            // hintModeFlag = false;
+            // notifyParent();
+          } else if (selectedLength < maxColors) {
+            ref.read(canvasLiveHintProvider.notifier).state = null;
+            ref.read(variationNotifierProvider.notifier).addColor(color);
+
+            // BlocProvider.of<SelectedColorsBloc>(context).onClearRedo();
+            // BlocProvider.of<SelectedColorsBloc>(context).onPushUndo(
+            //     ColorState(color, [state.selectedColors.length], 1));
+            final animatedListKey = ref.read(canvasLiveAnimatedListKeyProvider);
+            animatedListKey.currentState?.insertItem(0);
+            notifyParent();
+          } else {
+            showCustomSnackBar(context, 'Maximun colors has been selected');
+          }
+        },
+        onLongPress: () {
+          // final List<int> temp = [];
+          // for (int i = 0; i < count; i++) {
+          //   final int removeIndex = state.selectedColors.indexOf(color);
+          //   temp.add(removeIndex);
+          //   BlocProvider.of<SelectedColorsBloc>(context)
+          //       .onRemoveColor(removeIndex);
+          //   state.listKey.currentState.removeItem(
+          //       removeIndex, (context, animation) => const SizedBox(),
+          //       duration: const Duration());
+          // }
+          // BlocProvider.of<SelectedColorsBloc>(context).onClearRedo();
+          // BlocProvider.of<SelectedColorsBloc>(context)
+          //     .onPushUndo(ColorState(color, temp, 2));
+          // count > 0 ? count-- : count = 0;
+          // notifyParent();
+        },
+        child: Container(
+          alignment: Alignment.center,
+          child:
+              // isPickerClr
+              //     ? Stack(
+              //         alignment: Alignment.center,
+              //         children: [
+              //           if (color != null)
+              //             SizedBox(
+              //               width: size,
+              //               height: size,
+              //               child: CustomPaint(
+              //                 painter: IndicatorPainter(color!),
+              //               ),
+              //             )
+              //           else
+              //             const SizedBox(),
+              //           if (color == null)
+              //             Transform(
+              //                 alignment: AlignmentDirectional.center,
+              //                 transform: Matrix4.rotationZ(-0.5),
+              //                 child: Container(
+              //                   color: Colors.red,
+              //                   height: 2,
+              //                 ))
+              //           else
+              //             !isDragged
+              //                 ? Icon(
+              //                     Icons.color_lens,
+              //                     color: iconColor,
+              //                     size: size * 0.43,
+              //                   )
+              //                 : const SizedBox()
+              //         ],
+              //       )
+              // :
+              count != 0 && !isDragged
+                  ? Text(
+                      '$count',
+                      style: TextStyle(
+                        color: iconColor,
+                        fontSize: 18,
+                      ),
+                    )
+                  : const SizedBox(),
+        ),
+      ),
+    );
+  }
+}

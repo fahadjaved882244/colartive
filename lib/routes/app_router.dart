@@ -1,3 +1,4 @@
+import 'package:colartive2/features/canvas_live/views/canvas_live_view.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
@@ -44,7 +45,7 @@ class AppRouter {
           GoRoute(
             path: RouteNames.home,
             builder: (BuildContext context, GoRouterState state) {
-              return HomeView(path: state.uri.toString());
+              return const CanvasLiveView();
             },
           ),
           GoRoute(
