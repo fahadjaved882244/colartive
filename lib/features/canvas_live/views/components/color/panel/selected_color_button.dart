@@ -15,7 +15,7 @@ class SelectedColorButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colors = ref.watch(variationNotifierProvider).colors;
+    final colors = ref.watch(canvasLiveControllerProvider).colors;
     final hint = ref.watch(canvasLiveHintProvider);
     final bool isSelected = hint == index;
 
@@ -51,7 +51,7 @@ class SelectedColorButton extends ConsumerWidget {
               ),
             ),
             Text(
-              '${colors.length - index}',
+              '${index + 1}',
               style: TextStyle(color: iconColor, fontSize: 16),
             )
           ],

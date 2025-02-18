@@ -10,7 +10,7 @@ class SelectedColorList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final animatedListKey = ref.watch(canvasLiveAnimatedListKeyProvider);
-    final colors = ref.watch(variationNotifierProvider).colors;
+    final colors = ref.watch(canvasLiveControllerProvider).colors;
 
     return Card(
       elevation: 0,
@@ -45,12 +45,8 @@ class SelectedColorList extends ConsumerWidget {
 
                       ref.read(canvasLiveHintProvider.notifier).state = null;
                       ref
-                          .read(variationNotifierProvider.notifier)
+                          .read(canvasLiveControllerProvider.notifier)
                           .removeColorAt(index);
-                      // AnimatedList.of(context).removeItem(
-                      //   index,
-                      //   (context, animation) => const SizedBox(),
-                      // );
                     },
                     // Show a grey background as the item is swiped away.
                     child: Padding(

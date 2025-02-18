@@ -5,6 +5,10 @@ extension ContextX on BuildContext {
     return Theme.of(this).textTheme;
   }
 
+  ColorScheme get colorScheme {
+    return Theme.of(this).colorScheme;
+  }
+
   ColorScheme get colors {
     return Theme.of(this).colorScheme;
   }

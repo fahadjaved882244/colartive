@@ -35,7 +35,7 @@ class ShadeColorButton extends ConsumerWidget {
         brightness == Brightness.light ? Colors.black : Colors.white;
 
     final hintIndex = ref.watch(canvasLiveHintProvider);
-    final selectedColors = ref.watch(variationNotifierProvider).colors;
+    final selectedColors = ref.watch(canvasLiveControllerProvider).colors;
     final maxColors = 10;
     final selectedLength = selectedColors.length;
     final count = countTotal(selectedColors, color);
@@ -58,18 +58,19 @@ class ShadeColorButton extends ConsumerWidget {
         highlightColor: Colors.red,
         onTap: () {
           if (hintIndex != null) {
-            // BlocProvider.of<SelectedColorsBloc>(context)
-            //     .onSwapColor(hintIndex, color);
+            ref
+                .read(canvasLiveControllerProvider.notifier)
+                .updateColor(hintIndex, color);
+            ref.read(canvasLiveHintProvider.notifier).state = null;
+
             // BlocProvider.of<SelectedColorsBloc>(context).onClearRedo();
             // BlocProvider.of<SelectedColorsBloc>(context).onPushUndo(
             //     ColorState(state.selectedColors[hintIndex], [hintIndex], 3));
-            // paletteFlag = false;
-            // hintIndex = -1;
-            // hintModeFlag = false;
-            // notifyParent();
+
+            notifyParent();
           } else if (selectedLength < maxColors) {
             ref.read(canvasLiveHintProvider.notifier).state = null;
-            ref.read(variationNotifierProvider.notifier).addColor(color);
+            ref.read(canvasLiveControllerProvider.notifier).addColor(color);
 
             // BlocProvider.of<SelectedColorsBloc>(context).onClearRedo();
             // BlocProvider.of<SelectedColorsBloc>(context).onPushUndo(
