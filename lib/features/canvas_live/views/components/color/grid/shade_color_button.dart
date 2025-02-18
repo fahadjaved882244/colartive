@@ -74,8 +74,6 @@ class ShadeColorButton extends ConsumerWidget {
             // BlocProvider.of<SelectedColorsBloc>(context).onClearRedo();
             // BlocProvider.of<SelectedColorsBloc>(context).onPushUndo(
             //     ColorState(color, [state.selectedColors.length], 1));
-            final animatedListKey = ref.read(canvasLiveAnimatedListKeyProvider);
-            animatedListKey.currentState?.insertItem(0);
             notifyParent();
           } else {
             showCustomSnackBar(context, 'Maximun colors has been selected');

@@ -12,10 +12,10 @@ class NavigationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: child,
-      bottomNavigationBar: CustomNavigationBar(
-        selectedIndex: _calculateSelectedIndex(context),
-        onChanged: (i) => _onItemTapped(i, context),
-      ),
+      // bottomNavigationBar: CustomNavigationBar(
+      //   selectedIndex: _calculateSelectedIndex(context),
+      //   onChanged: (i) => _onItemTapped(i, context),
+      // ),
     );
   }
 

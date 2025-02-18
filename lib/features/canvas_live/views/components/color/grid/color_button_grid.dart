@@ -95,7 +95,7 @@ class ColorButtonGrid extends HookConsumerWidget {
         mainAxisSpacing: 8,
         crossAxisSpacing: 4,
         crossAxisCount: 2,
-        childAspectRatio: 1.25,
+        childAspectRatio: 1.05,
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
         children: _buildListMainColor(

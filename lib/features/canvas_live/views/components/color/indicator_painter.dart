@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class IndicatorPainter extends CustomPainter {
-  const IndicatorPainter(this.color);
   final Color color;
+  const IndicatorPainter(this.color);
   @override
   void paint(Canvas canvas, Size size) {
     final Size chessSize = Size(size.width / 10, size.height / 10);

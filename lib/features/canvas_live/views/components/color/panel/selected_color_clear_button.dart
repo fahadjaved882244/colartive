@@ -10,7 +10,6 @@ class SelectedColorClearButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = ref.watch(variationNotifierProvider).colors;
-    final animatedListKey = ref.watch(canvasLiveAnimatedListKeyProvider);
 
     return Card(
       elevation: 0,
@@ -29,13 +28,6 @@ class SelectedColorClearButton extends ConsumerWidget {
               title: "Confirm Clear?",
               subTitle: "Sure you want to Clear everything?",
               rightButtonAction: () {
-                for (int i = colors.length - 1; i >= 0; i--) {
-                  animatedListKey.currentState?.removeItem(
-                    i,
-                    (context, animation) => const SizedBox(),
-                  );
-                }
-
                 // clear the hint
                 ref.read(canvasLiveHintProvider.notifier).state = null;
 
