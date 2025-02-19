@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 class TemplatePainter extends CustomPainter {
   final List<Color> colors;
   final Template template;
+  final int? hintIndex;
+  final double hintOpacity;
   TemplatePainter({
     super.repaint,
     required this.colors,
     required this.template,
+    required this.hintIndex,
+    required this.hintOpacity,
   });
 
   @override
@@ -35,7 +39,8 @@ class TemplatePainter extends CustomPainter {
           ..style = PaintingStyle.stroke
           ..strokeCap = StrokeCap.round
           ..strokeWidth = 1
-          ..color = colors[i],
+          ..color =
+              i == hintIndex ? colors[i].withOpacity(hintOpacity) : colors[i],
       );
 
       final textSpan = TextSpan(
@@ -65,6 +70,6 @@ class TemplatePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
+    return true;
   }
 }

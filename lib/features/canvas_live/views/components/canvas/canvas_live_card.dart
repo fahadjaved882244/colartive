@@ -1,3 +1,4 @@
+import 'package:colartive2/features/canvas_live/controller/canvas_live_mode_controller.dart';
 import 'package:colartive2/features/canvas_live/views/canvas_live_controller.dart';
 import 'package:colartive2/features/template/model/template.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class CanvasLiveCard extends HookConsumerWidget {
         useAnimationController(duration: const Duration(milliseconds: 600));
 
     final animation = useAnimation(animationController.drive(
-      Tween(begin: 0.0, end: 1.0),
+      Tween(begin: 0.3, end: 1.0),
     ));
 
     useEffect(() {
@@ -36,17 +37,27 @@ class CanvasLiveCard extends HookConsumerWidget {
       // dispose the controller when the widget get disposed
       return animationController.dispose;
     }, []);
+
     final colors = ref.watch(canvasLiveControllerProvider).colors;
+    final hint = ref.watch(canvasLiveHintProvider);
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(24),
       clipBehavior: Clip.antiAlias,
       child: colors.isNotEmpty
-          ? CustomPaint(
-              painter: TemplatePainter(
-                colors: colors,
-                template: template,
-              ),
-            )
+          ? AnimatedBuilder(
+              animation: animationController,
+              builder: (context, child) {
+                return CustomPaint(
+                  painter: TemplatePainter(
+                    colors: colors,
+                    template: template,
+                    hintIndex: hint,
+                    hintOpacity: animation,
+                  ),
+                  willChange: true,
+                );
+              })
           : const Card(
               elevation: 0,
               child: Center(
