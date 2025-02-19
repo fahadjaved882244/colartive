@@ -18,7 +18,7 @@ class VariationNotifier extends AutoDisposeNotifier<Variation> {
 
   void addColor(Color color) {
     state = state.copyWith(colors: [...state.colors, color]);
-    animatedListKey.currentState?.insertItem(0);
+    animatedListKey.currentState?.insertItem(state.colors.length - 1);
   }
 
   void updateColor(int index, Color color) {
@@ -27,8 +27,16 @@ class VariationNotifier extends AutoDisposeNotifier<Variation> {
   }
 
   void removeColorAt(int index) {
-    state.colors[index] = const Color(0x00000000);
-    state = state.copyWith(colors: state.colors);
+    if (index == state.colors.length - 1) {
+      state = state.copyWith(colors: state.colors..removeAt(index));
+      animatedListKey.currentState?.removeItem(
+        index,
+        (_, __) => const SizedBox(),
+      );
+    } else {
+      state.colors[index] = const Color(0x00000000);
+      state = state.copyWith(colors: state.colors);
+    }
   }
 
   void updateScaleFactore(double scale) {

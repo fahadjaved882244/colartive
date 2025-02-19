@@ -1,31 +1,50 @@
 import 'package:colartive2/features/canvas_live/views/canvas_live_controller.dart';
+import 'package:colartive2/features/template/model/template.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-const List<int> charCodes = [
-  0xe800,
-  0xe801,
-  0xe802,
-  0xe803,
-  0xe804,
-  0xe805,
-  0xe806,
-];
+import 'template_painter.dart';
 
-class CanvasLiveCard extends ConsumerWidget {
-  const CanvasLiveCard({super.key});
+class CanvasLiveCard extends HookConsumerWidget {
+  final Template template;
+  const CanvasLiveCard({
+    super.key,
+    required this.template,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final animationController =
+        useAnimationController(duration: const Duration(milliseconds: 600));
+
+    final animation = useAnimation(animationController.drive(
+      Tween(begin: 0.0, end: 1.0),
+    ));
+
+    useEffect(() {
+      animationController.addStatusListener((status) {
+        if (status == AnimationStatus.dismissed) {
+          animationController.forward();
+        }
+        if (status == AnimationStatus.completed) {
+          animationController.reverse();
+        }
+      });
+      animationController.forward();
+
+      // dispose the controller when the widget get disposed
+      return animationController.dispose;
+    }, []);
     final colors = ref.watch(canvasLiveControllerProvider).colors;
     return ClipRRect(
       borderRadius: BorderRadius.circular(24),
       clipBehavior: Clip.antiAlias,
       child: colors.isNotEmpty
           ? CustomPaint(
-              painter: RectanglePainter(
+              painter: TemplatePainter(
                 colors: colors,
-                charCodes: charCodes,
+                template: template,
               ),
             )
           : const Card(
@@ -44,72 +63,5 @@ class CanvasLiveCard extends ConsumerWidget {
               ),
             ),
     );
-  }
-}
-
-class RectanglePainter extends CustomPainter {
-  final List<Color> colors;
-  final List<int> charCodes;
-  RectanglePainter({
-    super.repaint,
-    required this.colors,
-    required this.charCodes,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    // Paint the base of canvas
-    final paint = Paint()
-      ..color = colors[0]
-      ..style = PaintingStyle.fill;
-
-    final rect = Rect.fromLTWH(0, 0, size.width, size.height);
-    canvas.drawRect(rect, paint);
-
-    // convert the charCodes to text
-    final layers = charCodes.map((e) => String.fromCharCode(e)).toList();
-
-    // Paint the text
-    for (int i = 1; i < colors.length; i++) {
-      final textStyle = TextStyle(
-        // color: colors[i],
-        fontSize: 220, // Adjust the font size according to the Template
-        fontFamily: "Deadpool",
-        // Make it a stroke text
-        foreground: Paint()
-          ..style = i % 2 == 0 ? PaintingStyle.stroke : PaintingStyle.fill
-          ..strokeCap = StrokeCap.round
-          ..strokeWidth = 1
-          ..color = colors[i],
-      );
-
-      final textSpan = TextSpan(
-        text: layers[i - 1],
-        style: textStyle,
-      );
-
-      final textPainter = TextPainter(
-        text: textSpan,
-        textAlign: TextAlign.center,
-        textDirection: TextDirection.ltr,
-      );
-
-      textPainter.layout(
-        minWidth: 0,
-        maxWidth: size.width,
-      );
-
-      final offset = Offset(
-        (size.width - textPainter.width) / 2,
-        (size.height - textPainter.height) / 1.75,
-      );
-
-      textPainter.paint(canvas, offset);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
   }
 }

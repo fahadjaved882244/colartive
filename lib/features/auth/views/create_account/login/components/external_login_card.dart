@@ -6,7 +6,7 @@ import 'package:ionicons/ionicons.dart';
 
 import 'package:colartive2/utils/core/app_sizes.dart';
 
-import '../login_controller_view.dart';
+import '../login_controller.dart';
 import 'external_login_button.dart';
 
 class ExternalLoginCard extends ConsumerWidget {

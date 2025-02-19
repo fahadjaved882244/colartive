@@ -1,5 +1,6 @@
 import 'package:colartive2/features/canvas_live/controller/canvas_live_mode_controller.dart';
 import 'package:colartive2/features/canvas_live/views/canvas_live_controller.dart';
+import 'package:colartive2/features/template/model/template.dart';
 import 'package:colartive2/utils/components/popups/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -7,12 +8,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../indicator_painter.dart';
 
 class ShadeColorButton extends ConsumerWidget {
+  final Template template;
   final Color color;
   final bool isPickerClr;
   final bool isDragged;
   final VoidCallback notifyParent;
   const ShadeColorButton({
     super.key,
+    required this.template,
     required this.color,
     required this.notifyParent,
     this.isPickerClr = false,
@@ -36,7 +39,6 @@ class ShadeColorButton extends ConsumerWidget {
 
     final hintIndex = ref.watch(canvasLiveHintProvider);
     final selectedColors = ref.watch(canvasLiveControllerProvider).colors;
-    final maxColors = 10;
     final selectedLength = selectedColors.length;
     final count = countTotal(selectedColors, color);
     return Material(
@@ -68,7 +70,7 @@ class ShadeColorButton extends ConsumerWidget {
             //     ColorState(state.selectedColors[hintIndex], [hintIndex], 3));
 
             notifyParent();
-          } else if (selectedLength < maxColors) {
+          } else if (selectedLength <= template.maxColors) {
             ref.read(canvasLiveHintProvider.notifier).state = null;
             ref.read(canvasLiveControllerProvider.notifier).addColor(color);
 
