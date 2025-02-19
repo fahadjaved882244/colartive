@@ -9,6 +9,7 @@ class Template {
   final String fontFilePath;
   final double fontSize;
   final List<int> charCodes;
+  final int maxColors;
 
   // For display
   final String name;
@@ -19,6 +20,7 @@ class Template {
     required this.fontFilePath,
     required this.fontSize,
     required this.charCodes,
+    required this.maxColors,
     required this.name,
     required this.thumbnailPath,
   });
@@ -28,6 +30,7 @@ class Template {
     String? fontFilePath,
     double? fontSize,
     List<int>? charCodes,
+    int? maxColors,
     String? name,
     String? thumbnailPath,
   }) {
@@ -36,6 +39,7 @@ class Template {
       fontFilePath: fontFilePath ?? this.fontFilePath,
       fontSize: fontSize ?? this.fontSize,
       charCodes: charCodes ?? this.charCodes,
+      maxColors: maxColors ?? this.maxColors,
       name: name ?? this.name,
       thumbnailPath: thumbnailPath ?? this.thumbnailPath,
     );
@@ -47,6 +51,7 @@ class Template {
       'fontFilePath': fontFilePath,
       'fontSize': fontSize,
       'charCodes': charCodes,
+      'maxColors': maxColors,
       'name': name,
       'thumbnailPath': thumbnailPath,
     };
@@ -58,6 +63,7 @@ class Template {
       fontFilePath: map['fontFilePath'] as String,
       fontSize: map['fontSize'] as double,
       charCodes: List<int>.from((map['charCodes'] as List<int>)),
+      maxColors: map['maxColors'] as int,
       name: map['name'] as String,
       thumbnailPath: map['thumbnailPath'] as String,
     );
@@ -70,7 +76,7 @@ class Template {
 
   @override
   String toString() {
-    return 'Template(fontFamily: $fontFamily, fontFilePath: $fontFilePath, fontSize: $fontSize, charCodes: $charCodes, name: $name, thumbnailPath: $thumbnailPath)';
+    return 'Template(fontFamily: $fontFamily, fontFilePath: $fontFilePath, fontSize: $fontSize, charCodes: $charCodes, maxColors: $maxColors, name: $name, thumbnailPath: $thumbnailPath)';
   }
 
   @override
@@ -81,6 +87,7 @@ class Template {
         other.fontFilePath == fontFilePath &&
         other.fontSize == fontSize &&
         listEquals(other.charCodes, charCodes) &&
+        other.maxColors == maxColors &&
         other.name == name &&
         other.thumbnailPath == thumbnailPath;
   }
@@ -91,6 +98,7 @@ class Template {
         fontFilePath.hashCode ^
         fontSize.hashCode ^
         charCodes.hashCode ^
+        maxColors.hashCode ^
         name.hashCode ^
         thumbnailPath.hashCode;
   }

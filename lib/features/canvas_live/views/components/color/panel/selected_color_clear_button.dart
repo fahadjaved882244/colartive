@@ -9,7 +9,7 @@ class SelectedColorClearButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colors = ref.watch(variationNotifierProvider).colors;
+    final colors = ref.watch(canvasLiveControllerProvider).colors;
 
     return Card(
       elevation: 0,
@@ -32,7 +32,7 @@ class SelectedColorClearButton extends ConsumerWidget {
                 ref.read(canvasLiveHintProvider.notifier).state = null;
 
                 // clear the selected colors
-                ref.read(variationNotifierProvider.notifier).clear();
+                ref.read(canvasLiveControllerProvider.notifier).clear();
 
                 // set the canvas mode to color
                 ref.read(canvasLiveModeProvider.notifier).state =

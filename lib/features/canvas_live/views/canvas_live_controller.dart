@@ -3,7 +3,7 @@ import 'package:colartive2/features/canvas_live/model/variation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final variationNotifierProvider =
+final canvasLiveControllerProvider =
     AutoDisposeNotifierProvider<VariationNotifier, Variation>(() {
   return VariationNotifier();
 });
@@ -17,14 +17,26 @@ class VariationNotifier extends AutoDisposeNotifier<Variation> {
   }
 
   void addColor(Color color) {
-    state = state.copyWith(colors: [color, ...state.colors]);
-    animatedListKey.currentState?.insertItem(0);
+    state = state.copyWith(colors: [...state.colors, color]);
+    animatedListKey.currentState?.insertItem(state.colors.length - 1);
+  }
+
+  void updateColor(int index, Color color) {
+    state.colors[index] = color;
+    state = state.copyWith(colors: state.colors);
   }
 
   void removeColorAt(int index) {
-    state = state.copyWith(colors: state.colors..removeAt(index));
-    animatedListKey.currentState
-        ?.removeItem(index, (_, __) => const SizedBox());
+    if (index == state.colors.length - 1) {
+      state = state.copyWith(colors: state.colors..removeAt(index));
+      animatedListKey.currentState?.removeItem(
+        index,
+        (_, __) => const SizedBox(),
+      );
+    } else {
+      state.colors[index] = const Color(0x00000000);
+      state = state.copyWith(colors: state.colors);
+    }
   }
 
   void updateScaleFactore(double scale) {

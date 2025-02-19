@@ -59,6 +59,6 @@ final canUpdateMainColorButton =
     return false;
   }
 
-  final variation = ref.watch(variationNotifierProvider);
+  final variation = ref.watch(canvasLiveControllerProvider);
   return checkShades(variation.colors);
 });

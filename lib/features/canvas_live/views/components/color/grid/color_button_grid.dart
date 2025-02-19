@@ -1,6 +1,7 @@
 import 'package:colartive2/features/canvas_live/controller/canvas_live_mode_controller.dart';
 import 'package:colartive2/features/canvas_live/views/components/color/grid/color_pallet.dart';
 import 'package:colartive2/features/canvas_live/views/components/color/grid/shade_color_button.dart';
+import 'package:colartive2/features/template/model/template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -8,10 +9,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'swatch_color_button.dart';
 
 class ColorButtonGrid extends HookConsumerWidget {
-  final Function() notifyParent;
+  final Template template;
   const ColorButtonGrid({
     super.key,
-    required this.notifyParent,
+    required this.template,
   });
 
   @override
@@ -54,7 +55,6 @@ class ColorButtonGrid extends HookConsumerWidget {
         selectedSwatch: selectedSwatch.value,
         notifyParent: (swatch) {
           selectedSwatch.value = swatch;
-          notifyParent();
         },
       ),
     );
@@ -251,6 +251,7 @@ class ColorButtonGrid extends HookConsumerWidget {
       for (final color in getSwatchShades(selectedSwatch))
         Draggable(
           feedback: ShadeColorButton(
+            template: template,
             color: color,
             isDragged: true,
             notifyParent: () {
@@ -259,6 +260,7 @@ class ColorButtonGrid extends HookConsumerWidget {
           ),
           data: color,
           child: ShadeColorButton(
+            template: template,
             color: color,
             notifyParent: () {
               notifyParent.call(null);

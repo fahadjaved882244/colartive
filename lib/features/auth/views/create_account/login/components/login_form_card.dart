@@ -12,7 +12,7 @@ import '../../../../../../utils/components/fields/custom_email_field.dart';
 import '../../../../../../utils/components/fields/custom_password_field.dart';
 import '../../../../../../utils/core/text_validator.dart';
 import '../../../../data/utils/auth_error_handler.dart';
-import '../login_controller_view.dart';
+import '../login_controller.dart';
 
 class LoginFormCard extends HookConsumerWidget {
   LoginFormCard({super.key});
