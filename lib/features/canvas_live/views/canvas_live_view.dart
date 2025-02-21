@@ -16,7 +16,7 @@ class CanvasLiveView extends ConsumerWidget {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
-    final asyncTemplate = ref.watch(templateDetailProvider("Deadpool"));
+    final asyncTemplate = ref.watch(templateDetailProvider("BabyYoda"));
 
     return AsyncValueBuilder(
         asyncValue: asyncTemplate,

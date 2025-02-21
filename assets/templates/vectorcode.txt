@@ -1,0 +1,446 @@
+// import 'dart:async';
+// import 'dart:typed_data';
+// import 'dart:ui' as ui;
+// import 'dart:math';
+
+import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
+import 'package:flutter/painting.dart';
+// import 'package:flutter/services.dart' show rootBundle;
+
+void main() => runApp(Algo());
+class Algo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+            // body: DrawImage(),
+
+            body: CustomPaint(
+              painter: ImagePainter(),
+              child: Container(),
+            ),
+
+            )
+          );
+  }
+}
+
+class ImagePainter extends CustomPainter {
+  // final ui.Image image;
+  // ImagePainter(this.image);
+
+  List<Color> colors = [
+    // Color(0xFF3d3d3d),
+    // Color(0xFF100087),
+    // Color(0xFF0e5428),
+    // Color(0xFFe5b047),
+    // Color(0xFFf3ea28),
+    // Color(0xFFcc2030),
+    // Color(0xFFa11f26),
+    // Color(0xFFc74f2e),
+    // Color(0xFFf17721),
+    // Color(0xFF65a754),
+    // Color(0xFFc9c7c7),
+    // Color(0xFFfefdfb),
+    // Color(0xFF615e5b),
+    // Color(0xFFfefdfb),
+    // Color(0xFFfefbe9),
+    // Color(0xFF218991),
+    // Color(0xFF17688a),
+    // Color(0xFF00FE7E),
+    // Color(0xFF5f2a93),
+    // Color(0xFF9f37a3),
+    // Color(0xFFFF0000),
+    // Color(0xFF846251),
+    // Color(0xFF415c3a),
+    // Color(0xFF0e3608),
+    // Color(0xFF221e02),
+    // Color(0xFF3a3235),
+    // Color(0xFF393251),
+    // Color(0xFF1b1e1b),
+    // Color(0xFFf6b93b),
+    // Color(0xFF98e85c),
+    // Color(0xFF636e72),
+    // Color(0xFFFFFFFF),
+    // Color(0xFF576574),
+    // Color(0xFFe58e26),
+    // Color(0xFF0abde3),
+    // Color(0xFFb71540),
+    // Color(0xFFBDC581),
+    // Color(0xFFee5253),
+    // Color(0xFF1dd1a1),
+    // Color(0xFF3d3d3d),
+    // Color(0xFFc56cf0),
+    // Color(0xFFf8a5c2),
+    // Color(0xFF786fa6),
+    // Color(0xFF636e72),
+    // Color(0xFF58B19F),
+    // Color(0xFFfd79a8),
+
+//=============Shades==============//
+    // Color(0xFFFFFFFF),
+    // Color(0xFFC30000),
+    // Color(0xFFFF0000),
+    // Color(0xFFFF3333),
+    // Color(0xFFFF4040),
+    // Color(0xFFFF4141),
+    // Color(0xFFFF4D4D),
+    // Color(0xFFFF6D6D),
+    // Color(0xFFFF6F6F),
+    // Color(0xFFFF9393),
+    // Color(0xFFFF9393),
+    // Color(0xFFB2EED0),
+    // Color(0xFFB2EED0),
+    // Color(0xFF66FFB2),
+    // Color(0xFF2BFF95),
+    // Color(0xFF00FE7E),
+    // Color(0xFF00EE76),
+    // Color(0xFF00EE76),
+    // Color(0xFF00CD66),
+    // Color(0xFF00CD66),
+    // Color(0xFF00CD66),
+    // Color(0xFF00CD66),
+    // Color(0xFF94b38c),
+    // Color(0xFF6d8d65),
+    // Color(0xFF040402),
+    // Color(0xFF66605b),
+    // Color(0xFF8d8985),
+    // Color(0xFFb3bcb9),
+    // Color(0xFF464441),
+    // Color(0xFF261d1c),
+    // Color(0xFF5c4031),
+    // Color(0xFFc79087),
+    // Color(0xFF403e3c),
+    // Color(0xFF846251),
+    // Color(0xFF040402),
+    // Color(0xFFf9013f),
+    // Color(0xFFf9013f),
+    // Color(0xFFf9013f),
+    // Color(0xFFf9013f),
+    // Color(0xFFf9013f),
+    // Color(0xFFf9013f),
+    // Color(0xFFf9013f),
+    // Color(0xFFf9013f),
+    // Color(0xFFf9013f),
+    // Color(0xFFFEA47F),
+    // Color(0xFF25CCF7),
+    // Color(0xFFCAD3C8),
+    // Color(0xFFB33771),
+    // Color(0xFFFC427B),
+    // Color(0xFFf7b731),
+    // Color(0xFF3867d6),
+    // Color(0xFF26de81),
+    // Color(0xFF82589F),
+    // Color(0xFFce4b3d),
+    // Color(0xFF38ada9),
+    // Color(0xFF38905e),
+    // Color(0xFFeb3b5a),
+    // Color(0xFFffb96f),
+    // Color(0xFF4791ab),
+    // Color(0xFF8c6333),
+    // Color(0xFF0d2681),
+    // Color(0xFFf5b63d),
+    // Color(0xFFe9393e),
+    // Color(0xFF373434),
+    // Color(0xFF27ae60),
+    // Color(0xFFC30000),
+    // Color(0xFF27ae60),
+    // Color(0xFF2BFF95),
+    // Color(0xFFE6E7FF),
+    // Color(0xFFC4C4E7),
+    // Color(0xFFCFCFE2),
+    // Color(0xFFC4C4E7),
+    // Color(0xFFAFAFCF),
+    // Color(0xFF9A9AD7),  
+//============BackGround==========//    
+      Color(0xFFF8C0D8),
+    // //========In-Use=======//
+      Color(0xFFDE89B9),
+      Color(0xFFDE89B9),
+      Color(0xFFDE89B9),
+      Color(0xFFDE89B9),
+      Color(0xFFDE89B9),
+      Color(0xFFffffff),
+      Color(0xFfe63249),
+      Color(0xFFef5472),
+      Color(0xFFc8353b),
+      Color(0xFf93c54a),
+      Color(0xFFf05b36),
+      Color(0xFFee559e),
+      Color(0xFF76a34c),
+      Color(0xFFd14e39),
+      Color(0xFfe12e72),
+      Color(0xFFfcce29),
+      Color(0xFF7bccc9),
+      Color(0xFf47C0BB),
+      Color(0xFFFAC444),
+      Color(0xFfF79834),
+      Color(0xFF34B7D1),
+      Color(0xFF25B0A7),
+      Color(0xFF367ABD),
+      Color(0xFFCCDD5A),
+      Color(0xFf6F5EA7),
+      Color(0xFFFAF5A5),
+      Color(0xFFEE86B6),
+      Color(0xFfFCF2A8),
+      Color(0xFFFCE43C),
+      Color(0xFF6257A3),
+      Color(0xFFACDDDA),
+      Color(0xFF5A4170),
+//==============In Use============//
+  ];
+
+  @override
+  void paint(Canvas canvas, Size size) {
+
+//  List<int> layer = [ 0xe800, 0xe801, 0xe802, 0xe803, 0xe804, 0xe805, 0xe806, 0xe807, 0xe808, 0xe809, 0xe80a, 0xe80b, 0xe80c];
+    List<int> layer = [
+      0xe800,
+      0xe801,
+      0xe802,
+      0xe803,
+      0xe804,
+      0xe805,
+      0xe806,
+      0xe807,
+      0xe808,
+      0xe80a,
+      0xe80b,
+      0xe809,
+      0xe80c,
+      0xe80d,
+      0xe80e,
+      0xe80f,
+      0xe810,
+      0xe811,
+      0xe812,
+      0xe813,
+      0xe814,
+      0xe815,
+      0xe816,
+      0xe817,
+      0xe818,
+      0xe819,
+      0xe81a,
+      0xe81b,
+      0xe81c,
+      0xe81d,
+      0xe81e,
+      0xe81f,
+    ];
+
+    final double x = size.width / 2;
+    final double y = size.height / 2;
+    final double sizeFont = 
+    (size.width/10)*2.3
+    // (size.height/10)
+    // (size.width)
+    // (size.height)
+    ;
+    // Random rand = new Random();
+    Paint paint = new Paint();
+    Path path = new Path();
+    // List<Shader> grad;
+
+    // paintImage(canvas: canvas, rect: Rect.fromLTRB(0, 0, size.width, size.height), image: image);
+
+    path.addRect(Rect.fromLTRB(0, 0, size.width, size.height));
+    paint.color = colors.elementAt(0);
+    canvas.drawPath(path, paint);
+
+    // if(colors.length > 2){
+    //   grad = [
+    //   LinearGradient(
+    //     begin: Alignment.centerLeft,
+    //     end: Alignment.centerRight,
+    //     colors: colors.sublist(1),
+    //     ).createShader(Rect.fromLTWH(0.0, 0.0, size.width, size.height)),
+    //   ];
+    // } else {
+    //   grad = null;
+    // }
+   
+    for (int i = 0, j = 0; i < layer.length && j < colors.length; i++, j++) {
+
+       final TextStyle textStyle1 = TextStyle(
+          color: colors.elementAt(i+1),
+          fontFamily: 'summ',
+          fontSize: sizeFont,
+          // shadows: [
+          //     Shadow(
+          //         blurRadius: 10.0,
+          //         color: colors.elementAt(i+1),
+          //         offset: Offset(-5.0, 5.0),
+          //         ),
+          // ],
+          // foreground: Paint()..shader = grad[0],
+          //   foreground: Paint()
+          // ..color = colors.elementAt(i+1)
+          // ..maskFilter =
+          //         MaskFilter.blur(BlurStyle.normal, convertRadiusToSigma(40))
+          );
+        final TextSpan textSpan1 = TextSpan(
+          text: String.fromCharCode(layer.elementAt(i)),
+          style: textStyle1,
+        );
+        final TextPainter textPainter1 = TextPainter(
+          text: textSpan1,
+          textAlign: TextAlign.center,
+          textDirection: TextDirection.ltr,
+        );
+        textPainter1.layout();
+        final Offset offset1 =
+            // Offset(x-(textPainter1.width/2), y - (textPainter1.height / 2));
+            Offset(x-10.0*(textPainter1.width / 2), y - 10.0*(textPainter1.height / 2));
+            //  Offset(0, 0);
+        textPainter1.paint(canvas, offset1);
+    }
+    // for (int i = 5, j = 0; i < layer.length && j < (colors.length-1); i++, j++) {
+
+    //  TextStyle textStyle1;
+    //   if(grad!=null){
+    //     textStyle1 = TextStyle(
+    //         // color: colors.elementAt(j+1),
+    //         fontFamily: 'bre',
+    //         fontSize: sizeFont,
+    //         shadows: [
+    //           Shadow(
+    //               blurRadius: 5.0,
+    //               color: Colors.black38,
+    //               offset: Offset(2.0, 2.0),
+    //               ),
+    //           Shadow(
+    //               blurRadius: 5.0,
+    //               color: Colors.black38,
+    //               offset: Offset(-2.0, -2.0),
+    //               ),
+    //           Shadow(
+    //               blurRadius: 5.0,
+    //               color: Colors.black38,
+    //               offset: Offset(-2.0, 2.0),
+    //               ),
+    //           Shadow(
+    //               blurRadius: 5.0,
+    //               color: Colors.black38,
+    //               offset: Offset(2.0, -2.0),
+    //               ),
+    //           Shadow(
+    //               blurRadius: 0.0,
+    //               color: Colors.white,
+    //               offset: Offset(1.0, 1.0),
+    //               ),
+    //           Shadow(
+    //               blurRadius: 0.0,
+    //               color: Colors.white,
+    //               offset: Offset(-1.0, -1.0),
+    //               ),
+    //           Shadow(
+    //               blurRadius: 0.0,
+    //               color: Colors.white,
+    //               offset: Offset(-1.0, 1.0),
+    //               ),
+    //           Shadow(
+    //               blurRadius: 0.0,
+    //               color: Colors.white,
+    //               offset: Offset(1.0, -1.0),
+    //               ),
+
+
+    //           ],
+    //         foreground: Paint()..shader = grad[rand.nextInt(2)],
+    //       );
+    //     } else {
+    //         textStyle1 = TextStyle(
+    //         color: colors.elementAt((i-5)+1),
+    //         fontFamily: 'bre',
+    //         fontSize: sizeFont,
+    //         shadows: [
+    //           Shadow(
+    //               blurRadius: 5.0,
+    //               color: Colors.black26,
+    //               offset: Offset(1.0, 1.0),
+    //               ),
+    //           Shadow(
+    //               blurRadius: 5.0,
+    //               color: Colors.black26,
+    //               offset: Offset(-1.0, -1.0),
+    //               ),
+    //           Shadow(
+    //               blurRadius: 5.0,
+    //               color: Colors.black26,
+    //               offset: Offset(-1.0, 1.0),
+    //               ),
+    //           Shadow(
+    //               blurRadius: 5.0,
+    //               color: Colors.black26,
+    //               offset: Offset(1.0, -1.0),
+    //               ),
+    //           ],
+    //         // foreground: Paint()..shader = grad[rand.nextInt(4)],
+    //       );
+    //     }
+    //     final TextSpan textSpan1 = TextSpan(
+    //       text: String.fromCharCode(layer.elementAt(i)),
+    //       style: textStyle1,
+    //     );
+    //     final TextPainter textPainter1 = TextPainter(
+    //       text: textSpan1,
+    //       textAlign: TextAlign.center,
+    //       textDirection: TextDirection.ltr,
+    //     );
+    //     textPainter1.layout();
+    //     final Offset offset1 =
+    //         Offset(x - 10*(textPainter1.width / 2), y - 10*(textPainter1.height / 2));
+    //     textPainter1.paint(canvas, offset1);
+    // }
+
+  }
+
+  static double convertRadiusToSigma(double radius) {
+    return radius * 0.57735 + 0.5;
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return oldDelegate != this;
+  }
+}
+
+// class DrawImage extends StatefulWidget {
+//   @override
+//   _DrawImageState createState() => _DrawImageState();
+// }
+
+// class _DrawImageState extends State<DrawImage> {
+//  Future<ui.Image> _loadAssetImage(String assetPath) async {
+//   final data = await rootBundle.load(assetPath);
+//   final list = Uint8List.view(data.buffer);
+//   final completer = Completer<ui.Image>();
+//   ui.decodeImageFromList(list, completer.complete);
+//   return completer.future;
+// }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return FutureBuilder(
+//       future: _loadAssetImage('assets/images/abc.png'),
+//       initialData: null,
+//       builder: (context, snapshot) {
+//         if (snapshot.hasData) {
+//           return SizedBox(
+//             height: double.maxFinite,
+//             width: double.maxFinite,
+//             child: CustomPaint(
+//               painter: ImagePainter(snapshot.data),
+//               willChange: false,
+//             ),
+//           );
+//         } else {
+//           return  CircularProgressIndicator();
+//         }
+//       },
+//     );
+//   }
+// }

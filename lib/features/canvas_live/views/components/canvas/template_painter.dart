@@ -36,7 +36,7 @@ class TemplatePainter extends CustomPainter {
         fontFamily: template.fontFamily,
         // Make it a stroke text
         foreground: Paint()
-          ..style = PaintingStyle.stroke
+          ..style = PaintingStyle.fill
           ..strokeCap = StrokeCap.round
           ..strokeWidth = 1
           ..color =
