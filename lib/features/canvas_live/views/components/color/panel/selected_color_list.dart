@@ -13,7 +13,6 @@ class SelectedColorList extends ConsumerWidget {
     final colors = ref.watch(canvasLiveControllerProvider).colors;
 
     return Card(
-      elevation: 0,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(
           right: Radius.circular(8),
@@ -32,30 +31,9 @@ class SelectedColorList extends ConsumerWidget {
               scale: animation,
               child: DragTarget(
                 builder: (context, accepted, rejected) {
-                  return Dismissible(
-                    key: UniqueKey(),
-                    direction: DismissDirection.vertical,
-                    resizeDuration: const Duration(milliseconds: 200),
-                    onDismissed: (direction) {
-                      // Remove the item from the data source.
-                      // BlocProvider.of<SelectedColorsBloc>(context).onClearRedo();
-                      // BlocProvider.of<SelectedColorsBloc>(context).onPushUndo(
-                      //     ColorState(
-                      //         state.selectedColors.elementAt(index), [index], 2));
-
-                      ref.read(canvasLiveHintProvider.notifier).state = null;
-                      ref
-                          .read(canvasLiveControllerProvider.notifier)
-                          .removeColorAt(index);
-                    },
-                    // Show a grey background as the item is swiped away.
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: SelectedColorButton(
-                        index: index,
-                        localHeight: constraints.maxHeight,
-                      ),
-                    ),
+                  return SelectedColorButton(
+                    index: index,
+                    localHeight: constraints.maxHeight,
                   );
                 },
                 //to swap the new Color with this old Color

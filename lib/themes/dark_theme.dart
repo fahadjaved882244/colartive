@@ -15,6 +15,7 @@ class DarkAppTheme {
     dividerTheme: _dividerTheme,
     drawerTheme: _drawerTheme,
     listTileTheme: _listTileTheme,
+    cardTheme: _cardTheme,
     inputDecorationTheme: _inputDecorationTheme,
   );
 
@@ -22,6 +23,11 @@ class DarkAppTheme {
     seedColor: AppColors.primary,
     brightness: Brightness.dark,
     // surfaceVariant: const Color(0xff252525),
+  );
+
+  static const _cardTheme = CardTheme(
+    elevation: 0,
+    margin: EdgeInsets.all(0),
   );
 
   // static final _overlayColor = ElevationOverlay.colorWithOverlay(

@@ -13,10 +13,6 @@ class SwatchColorButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO:
-    // swatch.computeLuminance();
-
-    // final brightness = ThemeData.estimateBrightnessForColor(swatch);
     final iconColor =
         swatch.computeLuminance() >= 0.5 ? Colors.black45 : Colors.white60;
 

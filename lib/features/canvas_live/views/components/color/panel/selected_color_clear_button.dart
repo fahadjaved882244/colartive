@@ -13,12 +13,13 @@ class SelectedColorClearButton extends ConsumerWidget {
 
     return Card(
       elevation: 0,
+      margin: EdgeInsets.zero,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(
           left: Radius.circular(8),
         ),
       ),
-      clipBehavior: Clip.hardEdge,
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         splashColor: Colors.redAccent,
         onTap: () async {
