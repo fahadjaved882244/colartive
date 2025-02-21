@@ -1,3 +1,4 @@
+import 'package:colartive2/extensions/context_x.dart';
 import 'package:colartive2/features/canvas_live/views/components/color/panel/selected_color_list.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,18 +10,15 @@ class SelectedColorPanel extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Row(
+    return Row(
       children: [
-        Flexible(
-          flex: 9,
-          fit: FlexFit.tight,
+        const Expanded(
           child: SelectedColorList(),
         ),
-        SizedBox(width: 4),
-        Flexible(
-          flex: 1,
-          fit: FlexFit.tight,
-          child: SelectedColorClearButton(),
+        const SizedBox(width: 8),
+        SizedBox(
+          width: context.width * 0.1,
+          child: const SelectedColorClearButton(),
         ),
       ],
     );

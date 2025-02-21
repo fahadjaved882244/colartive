@@ -17,8 +17,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 enum CanvasLiveMode {
   color,
-  text,
   transformation,
+  text,
 }
 
 final canvasLiveModeProvider = AutoDisposeStateProvider<CanvasLiveMode>((ref) {

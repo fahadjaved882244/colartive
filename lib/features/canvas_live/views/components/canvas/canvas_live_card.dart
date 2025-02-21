@@ -59,7 +59,6 @@ class CanvasLiveCard extends HookConsumerWidget {
                 );
               })
           : const Card(
-              elevation: 0,
               child: Center(
                 child: Text(
                   'To Create Your Own Wallpaper:\nChoose Colors Below\n\nor\n\nTo Modify Sample Palettes:\nSwipe Left / Right',

@@ -90,6 +90,14 @@ flutter:
     - family: DeadPool
       fonts:
         - asset: assets/templates/DeadPoolMed.ttf
+
+    - family: Camelion
+      fonts:
+        - asset: assets/templates/Camelion.ttf
+   
+    - family: BabyYoda
+      fonts:
+        - asset: assets/templates/BabyYoda.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

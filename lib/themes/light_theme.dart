@@ -9,6 +9,7 @@ class LightAppTheme {
 
   static final themeData = ThemeData.light(useMaterial3: true).copyWith(
     colorScheme: _colorScheme,
+    cardTheme: _cardTheme,
     textTheme: _textTheme,
     scaffoldBackgroundColor: _colorScheme.surface,
     tabBarTheme: _tabBarTheme,
@@ -24,6 +25,11 @@ class LightAppTheme {
     brightness: Brightness.light,
     // surface: const Color(0xfff2f2f2),
     // surfaceVariant: const Color(0xffFAFAFA),
+  );
+
+  static const _cardTheme = CardTheme(
+    elevation: 0,
+    margin: EdgeInsets.all(0),
   );
 
   // static final _overlayColor = ElevationOverlay.colorWithOverlay(
