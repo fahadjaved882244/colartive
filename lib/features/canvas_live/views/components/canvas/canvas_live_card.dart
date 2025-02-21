@@ -38,19 +38,19 @@ class CanvasLiveCard extends HookConsumerWidget {
       return animationController.dispose;
     }, []);
 
-    final colors = ref.watch(canvasLiveControllerProvider).colors;
+    final variation = ref.watch(canvasLiveControllerProvider);
     final hint = ref.watch(canvasLiveHintProvider);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(24),
       clipBehavior: Clip.antiAlias,
-      child: colors.isNotEmpty
+      child: variation.colors.isNotEmpty
           ? AnimatedBuilder(
               animation: animationController,
               builder: (context, child) {
                 return CustomPaint(
                   painter: TemplatePainter(
-                    colors: colors,
+                    variation: variation,
                     template: template,
                     hintIndex: hint,
                     hintOpacity: animation,

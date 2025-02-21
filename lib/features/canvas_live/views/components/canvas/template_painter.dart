@@ -1,14 +1,15 @@
+import 'package:colartive2/features/canvas_live/model/variation.dart';
 import 'package:colartive2/features/template/model/template.dart';
 import 'package:flutter/material.dart';
 
 class TemplatePainter extends CustomPainter {
-  final List<Color> colors;
+  final Variation variation;
   final Template template;
   final int? hintIndex;
   final double hintOpacity;
   TemplatePainter({
     super.repaint,
-    required this.colors,
+    required this.variation,
     required this.template,
     required this.hintIndex,
     required this.hintOpacity,
@@ -18,7 +19,7 @@ class TemplatePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     // Paint the base of canvas
     final paint = Paint()
-      ..color = colors[0]
+      ..color = variation.colors[0]
       ..style = PaintingStyle.fill;
 
     final rect = Rect.fromLTWH(0, 0, size.width, size.height);
@@ -29,18 +30,20 @@ class TemplatePainter extends CustomPainter {
         template.charCodes.map((e) => String.fromCharCode(e)).toList();
 
     // Paint the text
-    for (int i = 1; i < colors.length && i < layers.length - 1; i++) {
+    for (int i = 1; i < variation.colors.length && i < layers.length - 1; i++) {
       final textStyle = TextStyle(
-        fontSize:
-            template.fontSize, // Adjust the font size according to the Template
+        fontSize: template.fontSize *
+            variation
+                .scaleFactor, // Adjust the font size according to the Template
         fontFamily: template.fontFamily,
         // Make it a stroke text
         foreground: Paint()
           ..style = PaintingStyle.fill
           ..strokeCap = StrokeCap.round
           ..strokeWidth = 1
-          ..color =
-              i == hintIndex ? colors[i].withOpacity(hintOpacity) : colors[i],
+          ..color = i == hintIndex
+              ? variation.colors[i].withOpacity(hintOpacity)
+              : variation.colors[i],
       );
 
       final textSpan = TextSpan(

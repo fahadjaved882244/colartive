@@ -88,7 +88,6 @@ class ColorButtonGrid extends HookConsumerWidget {
   }) {
     return Card(
       key: const ValueKey(1),
-      elevation: 0,
       child: GridView.count(
         key: const PageStorageKey('Main Color Button'),
         padding: const EdgeInsets.all(16),
@@ -111,7 +110,6 @@ class ColorButtonGrid extends HookConsumerWidget {
   }) {
     return Card(
       key: const ValueKey(2),
-      elevation: 0,
       child: GridView.count(
         padding: const EdgeInsets.all(16),
         mainAxisSpacing: 8,

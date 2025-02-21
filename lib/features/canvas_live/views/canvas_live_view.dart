@@ -1,3 +1,4 @@
+import 'package:colartive2/features/canvas_live/views/components/canvas/canvas_live_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -42,7 +43,9 @@ class CanvasLiveView extends ConsumerWidget {
                     ),
                     SizedBox(
                       height: context.height * 0.085,
-                      child: const SelectedColorPanel(),
+                      child: CanvasLivePanel(
+                        template: template,
+                      ),
                     ),
                     SizedBox(
                       height: height * 0.18,
