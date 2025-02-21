@@ -25,6 +25,20 @@ class TemplatePainter extends CustomPainter {
     final rect = Rect.fromLTWH(0, 0, size.width, size.height);
     canvas.drawRect(rect, paint);
 
+    canvas.save();
+
+    if (variation.rotationFactor > 0) {
+      canvas.translate(size.width / 2, size.height / 2);
+      canvas.rotate(variation.rotationFactor * 2 * 3.141);
+      canvas.translate(-size.width / 2, -size.height / 2);
+    }
+
+    paintTemplate(canvas, size);
+
+    canvas.restore();
+  }
+
+  void paintTemplate(Canvas canvas, Size size) {
     // convert the charCodes to text
     final layers =
         template.charCodes.map((e) => String.fromCharCode(e)).toList();
@@ -32,18 +46,20 @@ class TemplatePainter extends CustomPainter {
     // Paint the text
     for (int i = 1; i < variation.colors.length && i < layers.length - 1; i++) {
       final textStyle = TextStyle(
-        fontSize: template.fontSize *
-            variation
-                .scaleFactor, // Adjust the font size according to the Template
+        // template size
+        fontSize: template.fontSize * variation.scaleFactor,
+        // template font family
         fontFamily: template.fontFamily,
         // Make it a stroke text
         foreground: Paint()
           ..style = PaintingStyle.fill
-          ..strokeCap = StrokeCap.round
-          ..strokeWidth = 1
+          // ..strokeCap = StrokeCap.round
+          // ..strokeWidth = 1
           ..color = i == hintIndex
               ? variation.colors[i].withOpacity(hintOpacity)
-              : variation.colors[i],
+              : variation.colors[i]
+          ..maskFilter =
+              MaskFilter.blur(BlurStyle.normal, variation.blurFactor),
       );
 
       final textSpan = TextSpan(
