@@ -25,7 +25,7 @@ class DarkAppTheme {
     // surfaceVariant: const Color(0xff252525),
   );
 
-  static const _cardTheme = CardTheme(
+  static const _cardTheme = CardThemeData(
     elevation: 0,
     margin: EdgeInsets.all(0),
   );
@@ -58,7 +58,7 @@ class DarkAppTheme {
   );
 
   /////////// TabBar Theme //////////////
-  static final _tabBarTheme = TabBarTheme(
+  static final _tabBarTheme = TabBarThemeData(
     labelColor: _colorScheme.primary,
     unselectedLabelColor: _colorScheme.onSurfaceVariant,
     indicatorSize: TabBarIndicatorSize.label,

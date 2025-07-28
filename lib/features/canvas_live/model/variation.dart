@@ -47,7 +47,7 @@ class Variation {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'colors': colors.map((x) => x.value).toList(),
+      'colors': colors.map((x) => x.toARGB32()).toList(),
       'scaleFactor': scaleFactor,
       'rotationFactor': rotationFactor,
       'blurFactor': blurFactor,

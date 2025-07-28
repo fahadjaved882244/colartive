@@ -1,5 +1,6 @@
 import 'package:colartive2/features/canvas_live/controller/canvas_live_mode_controller.dart';
 import 'package:colartive2/features/canvas_live/views/components/color/grid/color_button_grid.dart';
+import 'package:colartive2/features/canvas_live/views/components/feature_text/grid/feature_text_grid.dart';
 import 'package:colartive2/features/canvas_live/views/components/transformation/grid/transformation_grid.dart';
 import 'package:colartive2/features/template/model/template.dart';
 import 'package:flutter/material.dart';
@@ -47,9 +48,7 @@ class CanvasLiveGrid extends ConsumerWidget {
       case CanvasLiveMode.transformation:
         return const TransformationGrid();
       case CanvasLiveMode.text:
-        return ColorButtonGrid(
-          template: template,
-        );
+        return const FeatureTextGrid();
     }
   }
 }

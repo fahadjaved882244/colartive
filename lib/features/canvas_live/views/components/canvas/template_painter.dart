@@ -47,7 +47,7 @@ class TemplatePainter extends CustomPainter {
     for (int i = 1; i < variation.colors.length && i < layers.length - 1; i++) {
       final textStyle = TextStyle(
         // template size
-        fontSize: template.fontSize * variation.scaleFactor,
+        fontSize: template.fontSize,
         // template font family
         fontFamily: template.fontFamily,
         // Make it a stroke text
@@ -56,7 +56,7 @@ class TemplatePainter extends CustomPainter {
           // ..strokeCap = StrokeCap.round
           // ..strokeWidth = 1
           ..color = i == hintIndex
-              ? variation.colors[i].withOpacity(hintOpacity)
+              ? variation.colors[i].withValues(alpha: hintOpacity)
               : variation.colors[i]
           ..maskFilter =
               MaskFilter.blur(BlurStyle.normal, variation.blurFactor),
@@ -69,18 +69,18 @@ class TemplatePainter extends CustomPainter {
 
       final textPainter = TextPainter(
         text: textSpan,
+        textScaler: TextScaler.linear(
+          variation.scaleFactor,
+        ),
         textAlign: TextAlign.center,
         textDirection: TextDirection.ltr,
       );
 
-      textPainter.layout(
-        minWidth: 0,
-        maxWidth: size.width,
-      );
+      textPainter.layout();
 
       final offset = Offset(
-        (size.width - textPainter.width) / 2,
-        (size.height - textPainter.height) / 1.75,
+        (size.width / 2) - (textPainter.width / 2),
+        (size.height / 2) - (textPainter.height / 2),
       );
 
       textPainter.paint(canvas, offset);

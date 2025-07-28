@@ -1,4 +1,5 @@
 import 'package:colartive2/features/canvas_live/views/components/canvas/canvas_live_panel.dart';
+import 'package:colartive2/features/canvas_live/views/components/feature_text/axis_line.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -6,7 +7,6 @@ import 'package:colartive2/extensions/context_x.dart';
 import 'package:colartive2/features/canvas_live/views/components/canvas/canvas_live_card.dart';
 import 'package:colartive2/features/canvas_live/views/components/canvas/canvas_live_grid.dart';
 import 'package:colartive2/features/canvas_live/views/components/canvas/canvas_live_mode_bar.dart';
-import 'package:colartive2/features/canvas_live/views/components/color/panel/selected_color_panel.dart';
 import 'package:colartive2/features/template/views/template_controller.dart';
 import 'package:colartive2/utils/components/widgets/async_switcher.dart';
 
@@ -24,21 +24,36 @@ class CanvasLiveView extends ConsumerWidget {
         asyncValue: asyncTemplate,
         builder: (template) {
           return Scaffold(
-            appBar: AppBar(
-              title: Text(template.name),
-              centerTitle: true,
-            ),
             body: Stack(
               children: [
                 backgroundGradient(context),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        template.name,
+                        style: const TextStyle(fontSize: 24),
+                      ),
+                    ),
                     SizedBox(
                       width: width * 0.65,
                       height: height * 0.61,
-                      child: CanvasLiveCard(
-                        template: template,
+                      child: Stack(
+                        children: [
+                          CanvasLiveCard(
+                            size: Size(width * 0.65, height * 0.61),
+                            template: template,
+                          ),
+                          SizedBox(
+                            width: width * 0.65,
+                            height: height * 0.61,
+                            child: CustomPaint(
+                              painter: AxisLine(),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     SizedBox(

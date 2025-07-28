@@ -8,14 +8,19 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'template_painter.dart';
 
 class CanvasLiveCard extends HookConsumerWidget {
+  final Size size;
   final Template template;
   const CanvasLiveCard({
     super.key,
+    required this.size,
     required this.template,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final variation = ref.watch(canvasLiveControllerProvider);
+    final hint = ref.watch(canvasLiveHintProvider);
+
     final animationController =
         useAnimationController(duration: const Duration(milliseconds: 600));
 
@@ -24,22 +29,13 @@ class CanvasLiveCard extends HookConsumerWidget {
     ));
 
     useEffect(() {
-      animationController.addStatusListener((status) {
-        if (status == AnimationStatus.dismissed) {
-          animationController.forward();
-        }
-        if (status == AnimationStatus.completed) {
-          animationController.reverse();
-        }
-      });
-      animationController.forward();
-
-      // dispose the controller when the widget get disposed
-      return animationController.dispose;
-    }, []);
-
-    final variation = ref.watch(canvasLiveControllerProvider);
-    final hint = ref.watch(canvasLiveHintProvider);
+      if (hint == null) {
+        animationController.stop();
+      } else {
+        animationController.repeat(reverse: true);
+      }
+      return null;
+    }, [hint]);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(24),
@@ -49,6 +45,7 @@ class CanvasLiveCard extends HookConsumerWidget {
               animation: animationController,
               builder: (context, child) {
                 return CustomPaint(
+                  size: size,
                   painter: TemplatePainter(
                     variation: variation,
                     template: template,
