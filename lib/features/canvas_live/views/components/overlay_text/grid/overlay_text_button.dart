@@ -3,16 +3,19 @@ import 'package:colartive2/features/canvas_live/controller/canvas_live_mode_cont
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class FeatureTextButton extends ConsumerWidget {
+class OverlayTextButton extends ConsumerWidget {
   final IconData icon;
-  final CanvasLiveTextMode mode;
-  final String text;
-  const FeatureTextButton({
+  final CanvasLiveTextMode? mode;
+  final VoidCallback? onTap;
+  const OverlayTextButton({
     super.key,
     required this.icon,
-    required this.text,
-    required this.mode,
-  });
+    this.mode,
+    this.onTap,
+  }) : assert(
+          mode != null || onTap != null,
+          'Either mode or onTap must be provided',
+        );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,7 +25,11 @@ class FeatureTextButton extends ConsumerWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: () {
-          ref.read(canvasLiveTextModeProvider.notifier).state = mode;
+          if (onTap != null) {
+            onTap!();
+          } else if (mode != null) {
+            ref.read(canvasLiveTextModeProvider.notifier).state = mode!;
+          }
         },
         child: Container(
           padding: const EdgeInsets.all(8),

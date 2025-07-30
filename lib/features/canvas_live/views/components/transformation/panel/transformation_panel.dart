@@ -1,4 +1,3 @@
-import 'package:colartive2/extensions/context_x.dart';
 import 'package:colartive2/features/canvas_live/views/components/transformation/panel/transformation_info.dart';
 import 'package:colartive2/features/canvas_live/views/components/transformation/panel/transformation_slider.dart';
 import 'package:colartive2/features/template/model/template.dart';
@@ -10,6 +9,7 @@ class TransformationPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Row(
       children: [
         Expanded(
@@ -19,7 +19,7 @@ class TransformationPanel extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         SizedBox(
-          width: context.width * 0.1,
+          width: width * 0.1,
           child: const TransformationInfo(),
         ),
       ],

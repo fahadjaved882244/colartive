@@ -1,13 +1,15 @@
 import 'package:colartive2/features/canvas_live/controller/canvas_live_mode_controller.dart';
-import 'package:colartive2/features/canvas_live/views/components/feature_text/grid/feature_text_button.dart';
+import 'package:colartive2/features/canvas_live/views/canvas_live_controller.dart';
+import 'package:colartive2/features/canvas_live/views/components/overlay_text/grid/overlay_text_button.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class FeatureTextGrid extends StatelessWidget {
+class FeatureTextGrid extends ConsumerWidget {
   const FeatureTextGrid({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const Card(
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Card(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -15,63 +17,59 @@ class FeatureTextGrid extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               // Add
-              FeatureTextButton(
+              OverlayTextButton(
                 icon: Icons.add,
-                text: 'Add',
-                mode: CanvasLiveTextMode.fontSize,
+                onTap: () {
+                  ref.read(canvasLiveControllerProvider.notifier).addText();
+                },
               ),
 
               // Remove
-              FeatureTextButton(
+              OverlayTextButton(
                 icon: Icons.cancel,
-                text: 'Remove',
-                mode: CanvasLiveTextMode.textColor,
+                onTap: () {
+                  // ref.read(canvasLiveControllerProvider.notifier).removeText();
+                },
               ),
 
               // Size
-              FeatureTextButton(
+              const OverlayTextButton(
                 icon: Icons.code,
-                text: 'Size',
                 mode: CanvasLiveTextMode.fontSize,
               ),
 
               // Color
-              FeatureTextButton(
+              const OverlayTextButton(
                 icon: Icons.color_lens_outlined,
-                text: 'Color',
                 mode: CanvasLiveTextMode.textColor,
               ),
             ],
           ),
-          SizedBox(height: 16),
-          Row(
+          const SizedBox(height: 16),
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               // Font Family
-              FeatureTextButton(
+              OverlayTextButton(
                 icon: Icons.font_download_outlined,
-                text: 'Font',
                 mode: CanvasLiveTextMode.fontFamily,
               ),
 
               // Format
-              FeatureTextButton(
+              OverlayTextButton(
                 icon: Icons.text_format,
-                text: 'Style',
                 mode: CanvasLiveTextMode.format,
               ),
 
               // Rotate
-              FeatureTextButton(
+              OverlayTextButton(
                 icon: Icons.rotate_right,
-                text: 'Rotate',
                 mode: CanvasLiveTextMode.rotate,
               ),
 
               // Position
-              FeatureTextButton(
+              OverlayTextButton(
                 icon: Icons.vertical_align_center,
-                text: 'Position',
                 mode: CanvasLiveTextMode.position,
               ),
             ],

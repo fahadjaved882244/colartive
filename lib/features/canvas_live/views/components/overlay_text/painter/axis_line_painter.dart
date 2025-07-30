@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AxisLine extends CustomPainter {
+class AxisLinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawLine(

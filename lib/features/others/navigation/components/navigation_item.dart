@@ -40,8 +40,8 @@ class CustomNavigationItem extends StatelessWidget {
               item.icon,
               size: 28,
               color: Color.lerp(
-                isSelected ? item.color : inActiveColor.withOpacity(0.7),
-                inActiveColor.withOpacity(0.7),
+                isSelected ? item.color : inActiveColor.withValues(alpha: 0.7),
+                inActiveColor.withValues(alpha: 0.7),
                 curve,
               ),
             ),
@@ -55,8 +55,10 @@ class CustomNavigationItem extends StatelessWidget {
               overflow: TextOverflow.clip,
               style: Theme.of(context).textTheme.labelSmall!.copyWith(
                     color: Color.lerp(
-                      isSelected ? item.color : inActiveColor.withOpacity(0.7),
-                      inActiveColor.withOpacity(0.7),
+                      isSelected
+                          ? item.color
+                          : inActiveColor.withValues(alpha: 0.7),
+                      inActiveColor.withValues(alpha: 0.7),
                       curve,
                     ),
                     fontFamily: "SummerPixel",

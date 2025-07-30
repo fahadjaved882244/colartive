@@ -1,6 +1,6 @@
 import 'package:colartive2/features/canvas_live/controller/canvas_live_mode_controller.dart';
 import 'package:colartive2/features/canvas_live/views/components/color/grid/color_button_grid.dart';
-import 'package:colartive2/features/canvas_live/views/components/feature_text/grid/feature_text_grid.dart';
+import 'package:colartive2/features/canvas_live/views/components/overlay_text/grid/overlay_text_grid.dart';
 import 'package:colartive2/features/canvas_live/views/components/transformation/grid/transformation_grid.dart';
 import 'package:colartive2/features/template/model/template.dart';
 import 'package:flutter/material.dart';

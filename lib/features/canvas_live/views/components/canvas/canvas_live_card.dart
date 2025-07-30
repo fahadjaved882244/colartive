@@ -37,38 +37,43 @@ class CanvasLiveCard extends HookConsumerWidget {
       return null;
     }, [hint]);
 
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(24),
-      clipBehavior: Clip.antiAlias,
-      child: variation.colors.isNotEmpty
-          ? AnimatedBuilder(
-              animation: animationController,
-              builder: (context, child) {
-                return CustomPaint(
-                  size: size,
-                  painter: TemplatePainter(
-                    variation: variation,
-                    template: template,
-                    hintIndex: hint,
-                    hintOpacity: animation,
-                  ),
-                  willChange: true,
-                );
-              })
-          : const Card(
-              child: Center(
-                child: Text(
-                  'To Create Your Own Wallpaper:\nChoose Colors Below\n\nor\n\nTo Modify Sample Palettes:\nSwipe Left / Right',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    // color: darkModeFlag ? darkModeColor : lightModeColor,
-                    // fontSize: width * 0.04,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'arial_48',
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(24),
+        clipBehavior: Clip.antiAlias,
+        child: variation.colors.isNotEmpty
+            ? AnimatedBuilder(
+                animation: animationController,
+                builder: (context, child) {
+                  return CustomPaint(
+                    size: size,
+                    painter: TemplatePainter(
+                      variation: variation,
+                      template: template,
+                      hintIndex: hint,
+                      hintOpacity: animation,
+                    ),
+                    willChange: true,
+                  );
+                })
+            : const Card(
+                child: Center(
+                  child: Text(
+                    'To Create Your Own Wallpaper:\nChoose Colors Below\n\nor\n\nTo Modify Sample Palettes:\nSwipe Left / Right',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      // color: darkModeFlag ? darkModeColor : lightModeColor,
+                      // fontSize: width * 0.04,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'arial_48',
+                    ),
                   ),
                 ),
               ),
-            ),
+      ),
     );
   }
 }
