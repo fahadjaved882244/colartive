@@ -10,7 +10,6 @@ class OverlayText {
   final String fontFamily;
   final Color color;
   final double rotation;
-  final double opacity;
   final double posX;
   final double posY;
   const OverlayText({
@@ -19,10 +18,19 @@ class OverlayText {
     required this.fontFamily,
     required this.color,
     required this.rotation,
-    required this.opacity,
     required this.posX,
     required this.posY,
   });
+
+  // Create a constructor for empty OverlayText
+  const OverlayText.empty()
+      : text = 'Sample',
+        fontSize = 24.0,
+        fontFamily = 'Arial',
+        color = const Color(0xFFF0F0F0),
+        rotation = 0.0,
+        posX = 0.5,
+        posY = 0.5;
 
   OverlayText copyWith({
     String? text,
@@ -30,7 +38,6 @@ class OverlayText {
     String? fontFamily,
     Color? color,
     double? rotation,
-    double? opacity,
     double? posX,
     double? posY,
   }) {
@@ -40,7 +47,6 @@ class OverlayText {
       fontFamily: fontFamily ?? this.fontFamily,
       color: color ?? this.color,
       rotation: rotation ?? this.rotation,
-      opacity: opacity ?? this.opacity,
       posX: posX ?? this.posX,
       posY: posY ?? this.posY,
     );
@@ -51,9 +57,8 @@ class OverlayText {
       'text': text,
       'fontSize': fontSize,
       'fontFamily': fontFamily,
-      'color': color.value,
+      'color': color.toARGB32(),
       'rotation': rotation,
-      'opacity': opacity,
       'posX': posX,
       'posY': posY,
     };
@@ -66,7 +71,6 @@ class OverlayText {
       fontFamily: map['fontFamily'] as String,
       color: Color(map['color'] as int),
       rotation: map['rotation'] as double,
-      opacity: map['opacity'] as double,
       posX: map['posX'] as double,
       posY: map['posY'] as double,
     );
@@ -79,7 +83,7 @@ class OverlayText {
 
   @override
   String toString() {
-    return 'OverlayText(text: $text, fontSize: $fontSize, fontFamily: $fontFamily, color: $color, rotation: $rotation, opacity: $opacity, posX: $posX, posY: $posY)';
+    return 'OverlayText(text: $text, fontSize: $fontSize, fontFamily: $fontFamily, color: $color, rotation: $rotation, posX: $posX, posY: $posY)';
   }
 
   @override
@@ -91,7 +95,6 @@ class OverlayText {
         other.fontFamily == fontFamily &&
         other.color == color &&
         other.rotation == rotation &&
-        other.opacity == opacity &&
         other.posX == posX &&
         other.posY == posY;
   }
@@ -103,7 +106,6 @@ class OverlayText {
         fontFamily.hashCode ^
         color.hashCode ^
         rotation.hashCode ^
-        opacity.hashCode ^
         posX.hashCode ^
         posY.hashCode;
   }

@@ -8,14 +8,19 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'template_painter.dart';
 
 class CanvasLiveCard extends HookConsumerWidget {
+  final Size size;
   final Template template;
   const CanvasLiveCard({
     super.key,
+    required this.size,
     required this.template,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final variation = ref.watch(canvasLiveControllerProvider);
+    final hint = ref.watch(canvasLiveHintProvider);
+
     final animationController =
         useAnimationController(duration: const Duration(milliseconds: 600));
 
@@ -24,54 +29,51 @@ class CanvasLiveCard extends HookConsumerWidget {
     ));
 
     useEffect(() {
-      animationController.addStatusListener((status) {
-        if (status == AnimationStatus.dismissed) {
-          animationController.forward();
-        }
-        if (status == AnimationStatus.completed) {
-          animationController.reverse();
-        }
-      });
-      animationController.forward();
+      if (hint == null) {
+        animationController.stop();
+      } else {
+        animationController.repeat(reverse: true);
+      }
+      return null;
+    }, [hint]);
 
-      // dispose the controller when the widget get disposed
-      return animationController.dispose;
-    }, []);
-
-    final colors = ref.watch(canvasLiveControllerProvider).colors;
-    final hint = ref.watch(canvasLiveHintProvider);
-
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(24),
-      clipBehavior: Clip.antiAlias,
-      child: colors.isNotEmpty
-          ? AnimatedBuilder(
-              animation: animationController,
-              builder: (context, child) {
-                return CustomPaint(
-                  painter: TemplatePainter(
-                    colors: colors,
-                    template: template,
-                    hintIndex: hint,
-                    hintOpacity: animation,
-                  ),
-                  willChange: true,
-                );
-              })
-          : const Card(
-              child: Center(
-                child: Text(
-                  'To Create Your Own Wallpaper:\nChoose Colors Below\n\nor\n\nTo Modify Sample Palettes:\nSwipe Left / Right',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    // color: darkModeFlag ? darkModeColor : lightModeColor,
-                    // fontSize: width * 0.04,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'arial_48',
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(24),
+        clipBehavior: Clip.antiAlias,
+        child: variation.colors.isNotEmpty
+            ? AnimatedBuilder(
+                animation: animationController,
+                builder: (context, child) {
+                  return CustomPaint(
+                    size: size,
+                    painter: TemplatePainter(
+                      variation: variation,
+                      template: template,
+                      hintIndex: hint,
+                      hintOpacity: animation,
+                    ),
+                    willChange: true,
+                  );
+                })
+            : const Card(
+                child: Center(
+                  child: Text(
+                    'To Create Your Own Wallpaper:\nChoose Colors Below\n\nor\n\nTo Modify Sample Palettes:\nSwipe Left / Right',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      // color: darkModeFlag ? darkModeColor : lightModeColor,
+                      // fontSize: width * 0.04,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'arial_48',
+                    ),
                   ),
                 ),
               ),
-            ),
+      ),
     );
   }
 }

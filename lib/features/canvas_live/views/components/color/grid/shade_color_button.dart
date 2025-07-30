@@ -5,8 +5,6 @@ import 'package:colartive2/utils/components/popups/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../indicator_painter.dart';
-
 class ShadeColorButton extends ConsumerWidget {
   final Template template;
   final Color color;
@@ -46,14 +44,9 @@ class ShadeColorButton extends ConsumerWidget {
       elevation: isDragged ? 0 : 3,
       clipBehavior: Clip.hardEdge,
       shape: CircleBorder(
-        side: isDragged
-            ? BorderSide(
-                width: 0.75,
-                // color: darkModeFlag ? darkModeColor : lightModeColor,
-              )
-            : color == null
-                ? const BorderSide(width: 2, color: Colors.red)
-                : BorderSide.none,
+        side: color == null
+            ? const BorderSide(width: 2, color: Colors.red)
+            : BorderSide.none,
       ),
       child: InkWell(
         splashColor: Colors.grey,
@@ -99,8 +92,7 @@ class ShadeColorButton extends ConsumerWidget {
           // count > 0 ? count-- : count = 0;
           // notifyParent();
         },
-        child: Container(
-          alignment: Alignment.center,
+        child: SizedBox(
           child:
               // isPickerClr
               //     ? Stack(
@@ -136,11 +128,13 @@ class ShadeColorButton extends ConsumerWidget {
               //       )
               // :
               count != 0 && !isDragged
-                  ? Text(
-                      '$count',
-                      style: TextStyle(
-                        color: iconColor,
-                        fontSize: 18,
+                  ? Center(
+                      child: Text(
+                        '$count',
+                        style: TextStyle(
+                          color: iconColor,
+                          fontSize: 18,
+                        ),
                       ),
                     )
                   : const SizedBox(),

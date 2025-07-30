@@ -53,3 +53,31 @@ final canvasLiveAnimatedListKeyProvider =
     AutoDisposeProvider<GlobalKey<AnimatedListState>>(
   (ref) => GlobalKey<AnimatedListState>(),
 );
+
+// Transformation Mode
+enum CanvasLiveTransformationMode {
+  scale,
+  rotate,
+  blur,
+}
+
+final canvasLiveTransformationModeProvider =
+    AutoDisposeStateProvider<CanvasLiveTransformationMode>((ref) {
+  return CanvasLiveTransformationMode.scale;
+});
+
+// Text Mode
+enum CanvasLiveTextMode {
+  none,
+  fontSize,
+  textColor,
+  fontFamily,
+  rotate,
+  format,
+  position,
+}
+
+final canvasLiveTextModeProvider =
+    AutoDisposeStateProvider<CanvasLiveTextMode>((ref) {
+  return CanvasLiveTextMode.none;
+});

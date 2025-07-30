@@ -82,7 +82,10 @@ class CanvasLiveModeBar extends ConsumerWidget {
           Text(
             item.name,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
+              color: isSelected
+                  ? context.colorScheme.primary
+                  : context.colorScheme.onSurface,
               fontWeight: FontWeight.w300,
               fontSize: 16,
             ),

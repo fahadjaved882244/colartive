@@ -11,6 +11,7 @@ class NavigationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: child,
       // bottomNavigationBar: CustomNavigationBar(
       //   selectedIndex: _calculateSelectedIndex(context),

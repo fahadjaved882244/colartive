@@ -84,7 +84,12 @@ class SettingsView extends StatelessWidget {
                       try {
                         await launchUrl(url);
                       } catch (e) {
-                        showCustomSnackBar(context, AppStrings.errUrl);
+                        if (context.mounted) {
+                          showCustomSnackBar(
+                            context,
+                            AppStrings.errUrl,
+                          );
+                        }
                       }
                     },
                   ),

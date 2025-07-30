@@ -1,6 +1,5 @@
 import 'package:colartive2/features/canvas_live/controller/canvas_live_mode_controller.dart';
 import 'package:colartive2/features/canvas_live/views/canvas_live_controller.dart';
-import 'package:colartive2/features/canvas_live/views/components/color/indicator_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -23,29 +22,26 @@ class SelectedColorButton extends ConsumerWidget {
     final iconColor =
         brightness == Brightness.light ? Colors.black45 : Colors.white60;
 
-    return Dismissible(
-      key: UniqueKey(),
-      direction: DismissDirection.vertical,
-      resizeDuration: const Duration(milliseconds: 200),
-      onDismissed: (direction) {
-        // Remove the item from the data source.
-        // BlocProvider.of<SelectedColorsBloc>(context).onClearRedo();
-        // BlocProvider.of<SelectedColorsBloc>(context).onPushUndo(
-        //     ColorState(
-        //         state.selectedColors.elementAt(index), [index], 2));
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: Dismissible(
+        key: UniqueKey(),
+        direction: DismissDirection.vertical,
+        resizeDuration: const Duration(milliseconds: 200),
+        onDismissed: (direction) {
+          // Remove the item from the data source.
+          // BlocProvider.of<SelectedColorsBloc>(context).onClearRedo();
+          // BlocProvider.of<SelectedColorsBloc>(context).onPushUndo(
+          //     ColorState(
+          //         state.selectedColors.elementAt(index), [index], 2));
 
-        ref.read(canvasLiveHintProvider.notifier).state = null;
-        ref.read(canvasLiveControllerProvider.notifier).removeColorAt(index);
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4),
+          ref.read(canvasLiveHintProvider.notifier).state = null;
+          ref.read(canvasLiveControllerProvider.notifier).removeColorAt(index);
+        },
         child: Material(
+          color: colors[index],
           elevation: isSelected ? 5 : 1,
-          shape: CircleBorder(
-            side: BorderSide(
-              width: isSelected ? 2 : 0.7,
-            ),
-          ),
+          shape: const CircleBorder(),
           clipBehavior: Clip.antiAlias,
           child: InkWell(
             splashColor: Colors.grey,
@@ -56,20 +52,14 @@ class SelectedColorButton extends ConsumerWidget {
                 ref.read(canvasLiveHintProvider.notifier).state = index;
               }
             },
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                SizedBox.square(
-                  dimension: localHeight * 0.85,
-                  child: CustomPaint(
-                    painter: IndicatorPainter(colors[index]),
-                  ),
-                ),
-                Text(
+            child: SizedBox.square(
+              dimension: isSelected ? localHeight * 0.85 : localHeight * 0.75,
+              child: Center(
+                child: Text(
                   '${index + 1}',
                   style: TextStyle(color: iconColor, fontSize: 16),
-                )
-              ],
+                ),
+              ),
             ),
           ),
         ),
