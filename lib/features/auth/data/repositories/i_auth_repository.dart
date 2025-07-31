@@ -32,7 +32,7 @@ abstract class IAuthRepository {
 
   Future<void> forgotPassword(String email);
 
-  Future<void> externalSignIn(authCred);
+  Future<void> externalSignIn(dynamic authCred);
 
   Future<void> signOut();
 

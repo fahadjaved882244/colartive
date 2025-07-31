@@ -12,7 +12,7 @@ import '../../../../../utils/core/text_validator.dart';
 import 'edit_name_controller.dart';
 
 class EditNameView extends HookConsumerWidget {
-  const EditNameView({Key? key}) : super(key: key);
+  const EditNameView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

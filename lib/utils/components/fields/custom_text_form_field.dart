@@ -25,7 +25,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool onlyDigits;
 
   const CustomTextFormField({
-    Key? key,
+    super.key,
     this.controller,
     this.keyboardType = TextInputType.text,
     this.validator,
@@ -46,7 +46,7 @@ class CustomTextFormField extends StatelessWidget {
     this.onlyDigits = false,
     this.minLines,
     this.maxLength,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

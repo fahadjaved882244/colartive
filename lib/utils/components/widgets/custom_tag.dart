@@ -12,7 +12,7 @@ class CustomTag extends StatelessWidget {
   final Color? forceFgColor;
 
   const CustomTag({
-    Key? key,
+    super.key,
     required this.text,
     this.paddingHorizontal = 10,
     this.paddingVertical = 4,
@@ -21,12 +21,12 @@ class CustomTag extends StatelessWidget {
     this.id,
     this.forceBgColor,
     this.forceFgColor,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     final bgColor = isRequired
-        ? context.colors.primaryContainer.withOpacity(0.5)
-        : context.colors.tertiaryContainer.withOpacity(0.5);
+        ? context.colors.primaryContainer.withValues(alpha: 0.5)
+        : context.colors.tertiaryContainer.withValues(alpha: 0.5);
     final fgColor =
         isRequired ? context.colors.primary : context.colors.tertiary;
     return Container(

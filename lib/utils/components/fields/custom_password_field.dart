@@ -17,7 +17,7 @@ class CustomPasswordField extends HookWidget {
   final TextInputAction textInputAction;
 
   const CustomPasswordField({
-    Key? key,
+    super.key,
     this.controller,
     this.validator,
     this.focusNode,
@@ -26,7 +26,7 @@ class CustomPasswordField extends HookWidget {
     this.helperText,
     this.textInputAction = TextInputAction.next,
     this.onSubmitted,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

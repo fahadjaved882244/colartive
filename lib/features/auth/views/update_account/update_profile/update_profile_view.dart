@@ -13,7 +13,7 @@ import '../../../../../utils/components/widgets/custom_list_tile.dart';
 import 'components/update_user_image.dart';
 
 class UpdateProfileView extends StatelessWidget {
-  const UpdateProfileView({Key? key}) : super(key: key);
+  const UpdateProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class UpdateProfileView extends StatelessWidget {
     );
   }
 
-  onLogoutPresses(BuildContext context, WidgetRef ref) async {
+  Future<void> onLogoutPresses(BuildContext context, WidgetRef ref) async {
     final result = await showCustomDialog(
       context: context,
       title: "Confirm Logout",

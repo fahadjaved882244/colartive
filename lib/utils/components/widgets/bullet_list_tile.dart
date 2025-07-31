@@ -5,8 +5,8 @@ class BulletListTile extends StatelessWidget {
   final String text;
   final TextStyle? style;
   final EdgeInsets? padding;
-  const BulletListTile({Key? key, required this.text, this.style, this.padding})
-      : super(key: key);
+  const BulletListTile(
+      {super.key, required this.text, this.style, this.padding});
 
   @override
   Widget build(BuildContext context) {

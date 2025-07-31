@@ -8,11 +8,11 @@ class CustomFilterBar extends StatelessWidget implements PreferredSizeWidget {
   final String selectedFilter;
   final void Function(int) onSelected;
   const CustomFilterBar({
-    Key? key,
+    super.key,
     required this.filters,
     required this.selectedFilter,
     required this.onSelected,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

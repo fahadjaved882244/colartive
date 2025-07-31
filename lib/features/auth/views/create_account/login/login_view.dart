@@ -5,7 +5,7 @@ import 'components/login_form_card.dart';
 import 'components/external_login_card.dart';
 
 class LoginView extends StatelessWidget {
-  const LoginView({Key? key}) : super(key: key);
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {

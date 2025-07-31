@@ -10,13 +10,13 @@ class CustomAlert extends StatelessWidget {
   final double paddingHorz;
   const CustomAlert(
     this.message, {
-    Key? key,
+    super.key,
     this.backgroundColor,
     this.textColor,
     this.margin = 16,
     this.paddingHorz = 16,
     this.paddingVert = 16,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

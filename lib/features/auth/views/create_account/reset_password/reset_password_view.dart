@@ -11,7 +11,7 @@ import '../../../data/utils/auth_error_handler.dart';
 import 'reset_password_controller.dart';
 
 class ResetPasswordView extends HookConsumerWidget {
-  const ResetPasswordView({Key? key}) : super(key: key);
+  const ResetPasswordView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
