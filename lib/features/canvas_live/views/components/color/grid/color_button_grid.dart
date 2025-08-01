@@ -87,6 +87,11 @@ class ColorButtonGrid extends HookConsumerWidget {
     required ValueChanged<ColorSwatch?> notifyParent,
   }) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(12),
+        ),
+      ),
       key: const ValueKey(1),
       child: GridView.count(
         key: const PageStorageKey('Main Color Button'),
@@ -109,6 +114,11 @@ class ColorButtonGrid extends HookConsumerWidget {
     required ValueChanged<ColorSwatch?> notifyParent,
   }) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(12),
+        ),
+      ),
       key: const ValueKey(2),
       child: GridView.count(
         padding: const EdgeInsets.all(16),

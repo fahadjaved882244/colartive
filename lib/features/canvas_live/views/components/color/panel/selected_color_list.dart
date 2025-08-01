@@ -15,7 +15,7 @@ class SelectedColorList extends ConsumerWidget {
     return Card(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(
-          right: Radius.circular(8),
+          right: Radius.circular(12),
         ),
       ),
       child: LayoutBuilder(builder: (context, constraints) {

@@ -1,14 +1,11 @@
 import 'package:colartive2/features/canvas_live/controller/canvas_live_mode_controller.dart';
 import 'package:colartive2/features/canvas_live/model/variation.dart';
 import 'package:colartive2/features/canvas_live/views/canvas_live_controller.dart';
-import 'package:colartive2/features/template/model/template.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class TransformationSlider extends ConsumerWidget {
-  final Template template;
   const TransformationSlider({
-    required this.template,
     super.key,
   });
 
@@ -20,12 +17,11 @@ class TransformationSlider extends ConsumerWidget {
     return Card(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(
-          right: Radius.circular(8),
+          right: Radius.circular(12),
         ),
       ),
       child: _toggleSlider(
         ref: ref,
-        template: template,
         variation: variation,
         mode: mode,
       ),
@@ -34,7 +30,6 @@ class TransformationSlider extends ConsumerWidget {
 
   Widget _toggleSlider({
     required WidgetRef ref,
-    required Template template,
     required Variation variation,
     required CanvasLiveTransformationMode mode,
   }) {

@@ -7,8 +7,7 @@
     {
       "name": "colartive",
       "request": "launch",
-      "type": "dart",
-      "deviceId": "chrome"
+      "type": "dart"
     },
     {
       "name": "colartive (profile mode)",

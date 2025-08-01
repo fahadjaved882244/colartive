@@ -60,6 +60,20 @@ class VariationNotifier extends AutoDisposeNotifier<Variation> {
         overlayTexts: [...state.overlayTexts, const OverlayText.empty()]);
   }
 
+  void removeText() {
+    final index = ref.read(canvasLiveSelectedTextProvider);
+    if (index != null && index >= 0 && index < state.overlayTexts.length) {
+      state = state.copyWith(overlayTexts: state.overlayTexts..removeAt(index));
+
+      // Remove the selected text index
+      ref.read(canvasLiveSelectedTextProvider.notifier).state = null;
+
+      // Reset the text mode to none
+      ref.read(canvasLiveTextModeProvider.notifier).state =
+          CanvasLiveTextMode.add;
+    }
+  }
+
   void updateTextValue(int index, String text) {
     if (index < 0 || index >= state.overlayTexts.length) return;
     state.overlayTexts[index] = state.overlayTexts[index].copyWith(text: text);
@@ -99,12 +113,6 @@ class VariationNotifier extends AutoDisposeNotifier<Variation> {
     state.overlayTexts[index] =
         state.overlayTexts[index].copyWith(color: color);
     state = state.copyWith(overlayTexts: state.overlayTexts);
-  }
-
-  void removeTextAt(int index) {
-    if (index == state.overlayTexts.length - 1) {
-      state = state.copyWith(overlayTexts: state.overlayTexts..removeAt(index));
-    }
   }
 
   void clear() {

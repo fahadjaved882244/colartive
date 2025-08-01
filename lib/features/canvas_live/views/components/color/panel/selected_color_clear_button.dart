@@ -16,7 +16,7 @@ class SelectedColorClearButton extends ConsumerWidget {
       margin: EdgeInsets.zero,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(
-          left: Radius.circular(8),
+          left: Radius.circular(12),
         ),
       ),
       clipBehavior: Clip.antiAlias,

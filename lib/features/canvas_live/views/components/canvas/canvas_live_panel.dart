@@ -1,3 +1,4 @@
+import 'package:colartive2/features/canvas_live/views/components/overlay_text/panel/overlay_text_panel.dart';
 import 'package:colartive2/features/template/model/template.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -31,24 +32,20 @@ class CanvasLivePanel extends ConsumerWidget {
           ),
         );
       },
-      child: togglePanel(
-        template: template,
-        mode: mode,
-      ),
+      child: togglePanel(mode: mode),
     );
   }
 
   Widget togglePanel({
-    required Template template,
     required CanvasLiveMode mode,
   }) {
     switch (mode) {
       case CanvasLiveMode.color:
         return const SelectedColorPanel();
       case CanvasLiveMode.transformation:
-        return TransformationPanel(template: template);
+        return TransformationPanel();
       case CanvasLiveMode.text:
-        return const SelectedColorPanel();
+        return const OverlayTextPanel();
     }
   }
 }

@@ -28,51 +28,53 @@ class CanvasLiveView extends ConsumerWidget {
               backgroundColor: Colors.transparent,
               elevation: 0,
             ),
-            body: LayoutBuilder(builder: (context, constraints) {
-              final width = constraints.maxWidth;
-              final height = constraints.maxHeight;
-              return Stack(
-                children: [
-                  backgroundGradient(context),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(height: 4),
-                      SizedBox(
-                        width: width * 0.65,
-                        height: height * 0.65,
-                        child: Stack(
-                          children: [
-                            CanvasLiveCard(
-                              size: Size(width * 0.65, height * 0.65),
-                              template: template,
-                            ),
-                            OverlayTextStack(
-                              size: Size(width * 0.65, height * 0.65),
-                            ),
-                          ],
+            body: SafeArea(
+              child: LayoutBuilder(builder: (context, constraints) {
+                final width = constraints.maxWidth;
+                final height = constraints.maxHeight;
+                return Stack(
+                  children: [
+                    backgroundGradient(context),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(height: 4),
+                        SizedBox(
+                          width: width * 0.65,
+                          height: height * 0.65,
+                          child: Stack(
+                            children: [
+                              CanvasLiveCard(
+                                size: Size(width * 0.65, height * 0.65),
+                                template: template,
+                              ),
+                              OverlayTextStack(
+                                size: Size(width * 0.65, height * 0.65),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: height * 0.085,
-                        child: CanvasLivePanel(
-                          template: template,
+                        SizedBox(
+                          height: height * 0.085,
+                          child: CanvasLivePanel(
+                            template: template,
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: height * 0.2,
-                        child: CanvasLiveGrid(template: template),
-                      ),
-                    ],
-                  ),
-                  Positioned(
-                    right: 16,
-                    top: height * 0.13,
-                    child: const CanvasLiveModeBar(),
-                  ),
-                ],
-              );
-            }),
+                        SizedBox(
+                          height: height * 0.2,
+                          child: CanvasLiveGrid(template: template),
+                        ),
+                      ],
+                    ),
+                    Positioned(
+                      right: 16,
+                      top: height * 0.13,
+                      child: const CanvasLiveModeBar(),
+                    ),
+                  ],
+                );
+              }),
+            ),
           );
         });
   }

@@ -48,7 +48,7 @@ class CanvasLiveGrid extends ConsumerWidget {
       case CanvasLiveMode.transformation:
         return const TransformationGrid();
       case CanvasLiveMode.text:
-        return const FeatureTextGrid();
+        return const OverlayTextGrid();
     }
   }
 }
