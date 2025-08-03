@@ -14,7 +14,7 @@ class SwatchColorButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final iconColor =
-        swatch.computeLuminance() >= 0.5 ? Colors.black45 : Colors.white60;
+        swatch.computeLuminance() >= 0.5 ? Colors.black : Colors.white;
 
     final bool flag = ref.watch(canUpdateMainColorButton(swatch));
 

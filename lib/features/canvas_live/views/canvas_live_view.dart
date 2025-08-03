@@ -1,4 +1,6 @@
+import 'package:colartive2/routes/app_paths.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:colartive2/extensions/context_x.dart';
@@ -11,11 +13,12 @@ import 'package:colartive2/features/template/views/template_controller.dart';
 import 'package:colartive2/utils/components/widgets/async_switcher.dart';
 
 class CanvasLiveView extends ConsumerWidget {
-  const CanvasLiveView({super.key});
+  final String templateId;
+  const CanvasLiveView({required this.templateId, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncTemplate = ref.watch(templateDetailProvider("BabyYoda"));
+    final asyncTemplate = ref.watch(templateDetailProvider(templateId));
 
     return AsyncValueBuilder(
         asyncValue: asyncTemplate,
@@ -27,6 +30,17 @@ class CanvasLiveView extends ConsumerWidget {
               centerTitle: true,
               backgroundColor: Colors.transparent,
               elevation: 0,
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.check),
+                  onPressed: () {
+                    context.goNamed(
+                      RouteNames.canvasFull,
+                      pathParameters: {'templateId': templateId},
+                    );
+                  },
+                ),
+              ],
             ),
             body: SafeArea(
               child: LayoutBuilder(builder: (context, constraints) {
@@ -71,6 +85,16 @@ class CanvasLiveView extends ConsumerWidget {
                       top: height * 0.13,
                       child: const CanvasLiveModeBar(),
                     ),
+                    // UndoButton(
+                    //   onPressed: () {
+                    //     // Callback for undo action
+                    //   },
+                    // ),
+                    // RedoButton(
+                    //   onPressed: () {
+                    //     // Callback for redo action
+                    //   },
+                    // ),
                   ],
                 );
               }),

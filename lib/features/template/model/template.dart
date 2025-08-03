@@ -12,10 +12,12 @@ class Template {
   final int maxColors;
 
   // For display
+  final String id;
   final String name;
   final String thumbnailPath;
 
   const Template({
+    required this.id,
     required this.fontFamily,
     required this.fontFilePath,
     required this.fontSize,
@@ -26,6 +28,7 @@ class Template {
   });
 
   Template copyWith({
+    String? id,
     String? fontFamily,
     String? fontFilePath,
     double? fontSize,
@@ -35,6 +38,7 @@ class Template {
     String? thumbnailPath,
   }) {
     return Template(
+      id: id ?? this.id,
       fontFamily: fontFamily ?? this.fontFamily,
       fontFilePath: fontFilePath ?? this.fontFilePath,
       fontSize: fontSize ?? this.fontSize,
@@ -47,6 +51,7 @@ class Template {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'fontFamily': fontFamily,
       'fontFilePath': fontFilePath,
       'fontSize': fontSize,
@@ -59,6 +64,7 @@ class Template {
 
   factory Template.fromMap(Map<String, dynamic> map) {
     return Template(
+      id: map['id'] as String,
       fontFamily: map['fontFamily'] as String,
       fontFilePath: map['fontFilePath'] as String,
       fontSize: map['fontSize'] as double,
@@ -76,7 +82,7 @@ class Template {
 
   @override
   String toString() {
-    return 'Template(fontFamily: $fontFamily, fontFilePath: $fontFilePath, fontSize: $fontSize, charCodes: $charCodes, maxColors: $maxColors, name: $name, thumbnailPath: $thumbnailPath)';
+    return 'Template(id: $id, fontFamily: $fontFamily, fontFilePath: $fontFilePath, fontSize: $fontSize, charCodes: $charCodes, maxColors: $maxColors, name: $name, thumbnailPath: $thumbnailPath)';
   }
 
   @override
@@ -84,6 +90,7 @@ class Template {
     if (identical(this, other)) return true;
 
     return other.fontFamily == fontFamily &&
+        other.id == id &&
         other.fontFilePath == fontFilePath &&
         other.fontSize == fontSize &&
         listEquals(other.charCodes, charCodes) &&
@@ -94,7 +101,8 @@ class Template {
 
   @override
   int get hashCode {
-    return fontFamily.hashCode ^
+    return id.hashCode ^
+        fontFamily.hashCode ^
         fontFilePath.hashCode ^
         fontSize.hashCode ^
         charCodes.hashCode ^

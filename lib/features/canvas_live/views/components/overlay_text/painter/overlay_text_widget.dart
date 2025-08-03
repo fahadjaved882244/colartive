@@ -64,7 +64,7 @@ class OverlayTextWidget extends HookConsumerWidget {
       left: (text.posX * canvasSize.width) - textSize.width * 0.625,
       top: (text.posY * canvasSize.height) - textSize.height * 0.625,
       child: Transform.rotate(
-        angle: text.rotation,
+        angle: text.rotation * 2 * 3.141,
         child: GestureDetector(
           onScaleStart: (scaleDetails) {
             showSelected.value = false;
@@ -77,7 +77,7 @@ class OverlayTextWidget extends HookConsumerWidget {
             final newRotation = lastRotation.value + details.rotation;
             ref
                 .read(canvasLiveControllerProvider.notifier)
-                .updateTextRotation(index, newRotation);
+                .updateTextRotation(newRotation);
 
             //manage text scaling
             final newFontSize = lastFontSize.value * details.scale;

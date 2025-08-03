@@ -1,0 +1,53 @@
+import 'package:colartive2/features/canvas_live/views/canvas_live_controller.dart';
+import 'package:colartive2/features/canvas_live/views/components/canvas/template_painter.dart';
+import 'package:colartive2/features/template/views/template_controller.dart';
+import 'package:colartive2/utils/components/widgets/async_switcher.dart';
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+class CanvasFullView extends ConsumerWidget {
+  final String templateId;
+  const CanvasFullView({required this.templateId, super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final asyncTemplate = ref.watch(templateDetailProvider(templateId));
+    final variation = ref.watch(canvasLiveControllerProvider);
+
+    final canvasSize = Size(
+      MediaQuery.of(context).size.width,
+      MediaQuery.of(context).size.height,
+    );
+    return AsyncValueBuilder(
+      asyncValue: asyncTemplate,
+      builder: (template) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Colors.black,
+          body: SizedBox(
+            width: canvasSize.width,
+            height: canvasSize.height,
+            child: Stack(
+              children: [
+                // Placeholder for the canvas background
+                RepaintBoundary(
+                  child: CustomPaint(
+                    size: canvasSize,
+                    willChange: false,
+                    painter: TemplatePainter(
+                      variation: variation,
+                      template: template,
+                      hintIndex: null,
+                      hintOpacity: 1.0,
+                      paintOverlay: true,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}

@@ -22,6 +22,8 @@ class RouteNames {
   static const String editName = 'edit-name';
   static const String updateEmail = 'update-email';
   static const String changePassword = 'change-password';
+
+  static const String canvasFull = 'canvas_full';
 }
 
 // To Use for navigation in the app like context.go(AppPath.updateLocale)
@@ -32,6 +34,9 @@ class AppPaths {
   static const String search = RouteNames.search;
   static const String showcase = RouteNames.showcase;
   static const String settings = RouteNames.settings;
+
+  static const String canvasFull =
+      "${RouteNames.home}/${RouteNames.canvasFull}/:templateId";
 
   static const String updateLocale =
       '${RouteNames.settings}/${RouteNames.updateLocale}';
@@ -58,4 +63,3 @@ class AppPaths {
 
 // To define the route names in AppRouter(GoRouter)
 // these are just the end route of the Full-Path defined above in AppPaths
-

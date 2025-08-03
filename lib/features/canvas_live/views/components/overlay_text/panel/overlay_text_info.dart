@@ -49,7 +49,7 @@ class OverlayTextInfo extends ConsumerWidget {
       case CanvasLiveTextMode.fontSize:
         return overlayText.fontSize.toStringAsFixed(1);
       case CanvasLiveTextMode.rotate:
-        return (overlayText.rotation * 360).toStringAsPrecision(3);
+        return (overlayText.rotation).toStringAsPrecision(3);
 
       default:
         return '';

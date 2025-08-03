@@ -6,6 +6,7 @@ class MockTemplateRepository extends ITemplateRepository {
   Future<List<Template>> getAll() async {
     return [
       const Template(
+        id: "1",
         fontFamily: "BabyYoda",
         fontFilePath: "assets/templates/BabyYoda.ttf",
         fontSize: 220,
@@ -29,6 +30,7 @@ class MockTemplateRepository extends ITemplateRepository {
         thumbnailPath: "www.firebase.com/asda/",
       ),
       const Template(
+        id: "3",
         fontFamily: "Camelion",
         fontFilePath: "assets/templates/Camlion.ttf",
         fontSize: 220,
@@ -48,6 +50,7 @@ class MockTemplateRepository extends ITemplateRepository {
         thumbnailPath: "www.firebase.com/asda/",
       ),
       const Template(
+        id: "2",
         fontFamily: "Deadpool",
         fontFilePath: "assets/templates/DeadPoolMed.ttf",
         fontSize: 220,

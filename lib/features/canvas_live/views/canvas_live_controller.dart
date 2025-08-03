@@ -1,6 +1,7 @@
 import 'package:colartive2/features/canvas_live/controller/canvas_live_mode_controller.dart';
 import 'package:colartive2/features/canvas_live/model/overlay_text.dart';
 import 'package:colartive2/features/canvas_live/model/variation.dart';
+import 'package:colartive2/utils/core/stack_collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -11,10 +12,27 @@ final canvasLiveControllerProvider =
 
 class VariationNotifier extends AutoDisposeNotifier<Variation> {
   late final GlobalKey<AnimatedListState> animatedListKey;
+
+  late final StackCollection<Variation> _undoStack;
+  late final StackCollection<Variation> _redoStack;
   @override
   Variation build() {
     animatedListKey = ref.watch(canvasLiveAnimatedListKeyProvider);
+
+    _undoStack = StackCollection<Variation>();
+    _redoStack = StackCollection<Variation>();
+
     return const Variation.empty();
+  }
+
+  @override
+  set state(Variation value) {
+    print("Setting state");
+
+    _undoStack.push(super.state);
+    _redoStack.clear();
+
+    super.state = value;
   }
 
   // Color related methods
@@ -76,8 +94,11 @@ class VariationNotifier extends AutoDisposeNotifier<Variation> {
 
   void updateTextValue(int index, String text) {
     if (index < 0 || index >= state.overlayTexts.length) return;
-    state.overlayTexts[index] = state.overlayTexts[index].copyWith(text: text);
-    state = state.copyWith(overlayTexts: state.overlayTexts);
+    if (text != state.overlayTexts[index].text) {
+      state.overlayTexts[index] =
+          state.overlayTexts[index].copyWith(text: text);
+      state = state.copyWith(overlayTexts: state.overlayTexts);
+    }
   }
 
   void updateTextPosition(int index, double posX, double posY) {
@@ -87,11 +108,13 @@ class VariationNotifier extends AutoDisposeNotifier<Variation> {
     state = state.copyWith(overlayTexts: state.overlayTexts);
   }
 
-  void updateTextRotation(int index, double rotation) {
-    if (index < 0 || index >= state.overlayTexts.length) return;
-    state.overlayTexts[index] =
-        state.overlayTexts[index].copyWith(rotation: rotation);
-    state = state.copyWith(overlayTexts: state.overlayTexts);
+  void updateTextRotation(double rotation) {
+    final index = ref.read(canvasLiveSelectedTextProvider);
+    if (index != null && index >= 0 && index < state.overlayTexts.length) {
+      state.overlayTexts[index] =
+          state.overlayTexts[index].copyWith(rotation: rotation);
+      state = state.copyWith(overlayTexts: state.overlayTexts);
+    }
   }
 
   void updateTextFontSize(int index, double fontSize) {
@@ -101,22 +124,53 @@ class VariationNotifier extends AutoDisposeNotifier<Variation> {
     state = state.copyWith(overlayTexts: state.overlayTexts);
   }
 
-  void updateTextFontFamily(int index, String fontFamily) {
-    if (index < 0 || index >= state.overlayTexts.length) return;
-    state.overlayTexts[index] =
-        state.overlayTexts[index].copyWith(fontFamily: fontFamily);
-    state = state.copyWith(overlayTexts: state.overlayTexts);
+  void updateTextFontFamily(String fontFamily) {
+    final index = ref.read(canvasLiveSelectedTextProvider);
+    if (index != null && index >= 0 && index < state.overlayTexts.length) {
+      state.overlayTexts[index] =
+          state.overlayTexts[index].copyWith(fontFamily: fontFamily);
+      state = state.copyWith(overlayTexts: state.overlayTexts);
+    }
   }
 
-  void updateTextColor(int index, Color color) {
-    if (index < 0 || index >= state.overlayTexts.length) return;
-    state.overlayTexts[index] =
-        state.overlayTexts[index].copyWith(color: color);
-    state = state.copyWith(overlayTexts: state.overlayTexts);
+  void updateTextColor(Color color) {
+    final index = ref.read(canvasLiveSelectedTextProvider);
+    if (index != null && index >= 0 && index < state.overlayTexts.length) {
+      state.overlayTexts[index] =
+          state.overlayTexts[index].copyWith(color: color);
+      state = state.copyWith(overlayTexts: state.overlayTexts);
+    }
   }
 
   void clear() {
     state = const Variation.empty();
     animatedListKey.currentState?.removeAllItems((_, __) => const SizedBox());
+    _undoStack.clear();
+    _redoStack.clear();
+  }
+
+  // Undo/Redo methods
+  bool get canUndo => _undoStack.isNotEmpty;
+  bool get canRedo => _redoStack.isNotEmpty;
+
+  void undo() {
+    if (_undoStack.isNotEmpty) {
+      final lastState = _undoStack.pop();
+      _redoStack.push(state);
+      if (lastState != null) {
+        super.state = lastState;
+        print(super.state);
+      }
+    }
+  }
+
+  void redo() {
+    if (_redoStack.isNotEmpty) {
+      final lastState = _redoStack.pop();
+      _undoStack.push(state);
+      if (lastState != null) {
+        super.state = lastState;
+      }
+    }
   }
 }

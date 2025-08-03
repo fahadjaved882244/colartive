@@ -9,7 +9,6 @@ class ShadeColorButton extends ConsumerWidget {
   final Template template;
   final Color color;
   final bool isPickerClr;
-  final bool isDragged;
   final VoidCallback notifyParent;
   const ShadeColorButton({
     super.key,
@@ -17,7 +16,6 @@ class ShadeColorButton extends ConsumerWidget {
     required this.color,
     required this.notifyParent,
     this.isPickerClr = false,
-    this.isDragged = false,
   });
 
   int countTotal(List<Color> list, Color clr) {
@@ -41,13 +39,8 @@ class ShadeColorButton extends ConsumerWidget {
     final count = countTotal(selectedColors, color);
     return Material(
       color: color,
-      elevation: isDragged ? 0 : 3,
-      clipBehavior: Clip.hardEdge,
-      shape: CircleBorder(
-        side: color == null
-            ? const BorderSide(width: 2, color: Colors.red)
-            : BorderSide.none,
-      ),
+      shape: CircleBorder(),
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         splashColor: Colors.grey,
         highlightColor: Colors.red,
@@ -127,13 +120,14 @@ class ShadeColorButton extends ConsumerWidget {
               //         ],
               //       )
               // :
-              count != 0 && !isDragged
+              count != 0
                   ? Center(
                       child: Text(
                         '$count',
                         style: TextStyle(
                           color: iconColor,
-                          fontSize: 18,
+                          fontSize: 16,
+                          fontFamily: 'Open Sans',
                         ),
                       ),
                     )

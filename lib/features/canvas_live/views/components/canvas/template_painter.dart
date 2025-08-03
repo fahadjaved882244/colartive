@@ -7,12 +7,14 @@ class TemplatePainter extends CustomPainter {
   final Template template;
   final int? hintIndex;
   final double hintOpacity;
+  final bool paintOverlay;
   TemplatePainter({
     super.repaint,
     required this.variation,
     required this.template,
     required this.hintIndex,
     required this.hintOpacity,
+    this.paintOverlay = false,
   });
 
   @override
@@ -83,6 +85,37 @@ class TemplatePainter extends CustomPainter {
         (size.height / 2) - (textPainter.height / 2),
       );
 
+      textPainter.paint(canvas, offset);
+
+      paintOverlayText(canvas, size);
+    }
+  }
+
+  // paint the overlay text
+  void paintOverlayText(Canvas canvas, Size size) {
+    for (final overlay in variation.overlayTexts) {
+      final textStyle = TextStyle(
+        color: overlay.color,
+        fontSize: overlay.fontSize,
+        fontFamily: overlay.fontFamily,
+        fontWeight: FontWeight.bold,
+      );
+      final textSpan = TextSpan(
+        text: overlay.text,
+        style: textStyle,
+      );
+      final textPainter = TextPainter(
+        text: textSpan,
+        textAlign: TextAlign.center,
+        textDirection: TextDirection.ltr,
+        maxLines: 20,
+      );
+      textPainter.layout();
+
+      final offset = Offset(
+        (overlay.posX * size.width) - (textPainter.width / 2),
+        (overlay.posY * size.height) - (textPainter.height / 2),
+      );
       textPainter.paint(canvas, offset);
     }
   }

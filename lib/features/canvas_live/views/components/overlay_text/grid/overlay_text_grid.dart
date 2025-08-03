@@ -40,7 +40,7 @@ class OverlayTextGrid extends ConsumerWidget {
               const OverlayTextButton(
                 icon: Icons.color_lens_outlined,
                 label: 'Color',
-                modeId: CanvasLiveTextMode.textColor,
+                modeId: CanvasLiveTextMode.color,
               ),
             ],
           ),

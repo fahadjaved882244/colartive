@@ -71,7 +71,7 @@ enum CanvasLiveTextMode {
   add,
   remove,
   fontSize,
-  textColor,
+  color,
   fontFamily,
   rotate,
   format,

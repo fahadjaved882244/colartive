@@ -9,7 +9,7 @@ final templateDetailProvider =
     Provider.family<AsyncValue<Template?>, String>((ref, id) {
   final listProvider = ref.watch(templateListProvider);
   return listProvider
-      .whenData((list) => list.where((t) => t.name == id).firstOrNull);
+      .whenData((list) => list.where((t) => t.id == id).firstOrNull);
 });
 
 final templateListProvider =

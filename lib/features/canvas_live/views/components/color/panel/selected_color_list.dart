@@ -19,13 +19,19 @@ class SelectedColorList extends ConsumerWidget {
         ),
       ),
       child: LayoutBuilder(builder: (context, constraints) {
-        return AnimatedList(
+        return AnimatedList.separated(
           key: animatedListKey,
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
           initialItemCount: colors.length,
           shrinkWrap: true,
+          separatorBuilder: (_, __, ___) {
+            return const SizedBox(width: 8);
+          },
+          removedSeparatorBuilder: (_, __, ___) {
+            return const SizedBox(width: 8);
+          },
           itemBuilder: (context, index, animation) {
             return ScaleTransition(
               scale: animation,

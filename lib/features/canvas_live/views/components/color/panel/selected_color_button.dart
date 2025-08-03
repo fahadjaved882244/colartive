@@ -20,46 +20,50 @@ class SelectedColorButton extends ConsumerWidget {
 
     final brightness = ThemeData.estimateBrightnessForColor(colors[index]);
     final iconColor =
-        brightness == Brightness.light ? Colors.black45 : Colors.white60;
+        brightness == Brightness.light ? Colors.black : Colors.white;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: Dismissible(
-        key: UniqueKey(),
-        direction: DismissDirection.vertical,
-        resizeDuration: const Duration(milliseconds: 200),
-        onDismissed: (direction) {
-          // Remove the item from the data source.
-          // BlocProvider.of<SelectedColorsBloc>(context).onClearRedo();
-          // BlocProvider.of<SelectedColorsBloc>(context).onPushUndo(
-          //     ColorState(
-          //         state.selectedColors.elementAt(index), [index], 2));
+    return Dismissible(
+      key: UniqueKey(),
+      direction: DismissDirection.vertical,
+      resizeDuration: const Duration(milliseconds: 200),
+      onDismissed: (direction) {
+        // Remove the item from the data source.
+        // BlocProvider.of<SelectedColorsBloc>(context).onClearRedo();
+        // BlocProvider.of<SelectedColorsBloc>(context).onPushUndo(
+        //     ColorState(
+        //         state.selectedColors.elementAt(index), [index], 2));
 
-          ref.read(canvasLiveHintProvider.notifier).state = null;
-          ref.read(canvasLiveControllerProvider.notifier).removeColorAt(index);
-        },
-        child: Material(
-          color: colors[index],
-          elevation: isSelected ? 5 : 1,
-          shape: const CircleBorder(),
-          clipBehavior: Clip.antiAlias,
-          child: InkWell(
-            splashColor: Colors.grey,
-            onTap: () {
-              if (isSelected) {
-                ref.read(canvasLiveHintProvider.notifier).state = null;
-              } else {
-                ref.read(canvasLiveHintProvider.notifier).state = index;
-              }
-            },
-            child: SizedBox.square(
-              dimension: isSelected ? localHeight * 0.85 : localHeight * 0.75,
-              child: Center(
-                child: Text(
-                  '${index + 1}',
-                  style: TextStyle(color: iconColor, fontSize: 16),
-                ),
-              ),
+        ref.read(canvasLiveHintProvider.notifier).state = null;
+        ref.read(canvasLiveControllerProvider.notifier).removeColorAt(index);
+      },
+      child: Material(
+        color: colors[index],
+        clipBehavior: Clip.antiAlias,
+        shape: const CircleBorder(),
+        child: InkWell(
+          onTap: () {
+            if (isSelected) {
+              ref.read(canvasLiveHintProvider.notifier).state = null;
+            } else {
+              ref.read(canvasLiveHintProvider.notifier).state = index;
+            }
+          },
+          child: SizedBox.square(
+            dimension: isSelected ? localHeight * 0.85 : localHeight * 0.7,
+            child: Center(
+              child: isSelected
+                  ? Icon(
+                      Icons.swap_vert,
+                      color: iconColor,
+                    )
+                  : Text(
+                      '${index + 1}',
+                      style: TextStyle(
+                        color: iconColor,
+                        fontSize: 14,
+                        fontFamily: 'Open Sans',
+                      ),
+                    ),
             ),
           ),
         ),
