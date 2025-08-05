@@ -51,7 +51,7 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
     required Template template,
   }) async {
     state = state.copyWith(status: CanvasExportStatus.loading);
-
+    File? file;
     try {
       final hasPermission = await _requestStoragePermission();
       if (!hasPermission) {
@@ -79,9 +79,10 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
       final tempDir = await getTemporaryDirectory();
       final path =
           '${tempDir.path}/canvas_${DateTime.now().millisecondsSinceEpoch}.png';
-      await File(path).writeAsBytes(bytes);
 
-      await Gal.putImage(path);
+      file = await File(path).writeAsBytes(bytes);
+
+      await Gal.putImage(file.path);
 
       state = state.copyWith(
         status: CanvasExportStatus.success,
@@ -97,6 +98,10 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
         status: CanvasExportStatus.error,
         message: 'Error: $e',
       );
+    } finally {
+      if (file != null && file.existsSync()) {
+        await file.delete(recursive: true);
+      }
     }
   }
 
@@ -106,7 +111,7 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
     required Template template,
   }) async {
     state = state.copyWith(status: CanvasExportStatus.loading);
-
+    File? file;
     try {
       final bytes = await _renderCanvasToBytes(
         size: size,
@@ -123,19 +128,16 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
       }
 
       final tempDir = await getTemporaryDirectory();
-      final file = File(
+      file = File(
           '${tempDir.path}/wallpaper_${DateTime.now().millisecondsSinceEpoch}.png');
       await file.writeAsBytes(bytes);
 
-      final wallpaperManager = WallpaperManagerFlutter();
-
-      final result = await wallpaperManager.setWallpaper(
+      final result = await WallpaperManagerFlutter().setWallpaper(
         file,
         WallpaperManagerFlutter.homeScreen,
       );
 
       if (result) {
-        print('Wallpaper set successfully! 🎉');
         state = state.copyWith(
           status: CanvasExportStatus.success,
           message: 'Set as home screen wallpaper',
@@ -146,6 +148,10 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
         status: CanvasExportStatus.error,
         message: 'Error: $e',
       );
+    } finally {
+      if (file != null && file.existsSync()) {
+        await file.delete(recursive: true);
+      }
     }
   }
 
@@ -155,7 +161,7 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
     required Template template,
   }) async {
     state = state.copyWith(status: CanvasExportStatus.loading);
-
+    File? file;
     try {
       final bytes = await _renderCanvasToBytes(
         size: size,
@@ -172,19 +178,16 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
       }
 
       final tempDir = await getTemporaryDirectory();
-      final file = File(
+      file = File(
           '${tempDir.path}/wallpaper_${DateTime.now().millisecondsSinceEpoch}.png');
       await file.writeAsBytes(bytes);
 
-      final wallpaperManager = WallpaperManagerFlutter();
-
-      final result = await wallpaperManager.setWallpaper(
+      final result = await WallpaperManagerFlutter().setWallpaper(
         file,
         WallpaperManagerFlutter.lockScreen,
       );
 
       if (result) {
-        print('Lock screen wallpaper set successfully! 🎉');
         state = state.copyWith(
           status: CanvasExportStatus.success,
           message: 'Set as lock screen wallpaper',
@@ -200,6 +203,10 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
         status: CanvasExportStatus.error,
         message: 'Error: $e',
       );
+    } finally {
+      if (file != null && file.existsSync()) {
+        await file.delete(recursive: true);
+      }
     }
   }
 
@@ -232,7 +239,6 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
       final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
       return byteData?.buffer.asUint8List();
     } catch (e) {
-      print('Error rendering canvas: $e');
       rethrow;
     }
   }
