@@ -6,10 +6,16 @@ class ProfileRepository {
     yield AppUser(
       id: '213',
       contributions: 23,
-      upvotes: 400,
+      totalUpvotes: 400,
       following: 10,
+      followers: 100,
       bio:
           "An enqusitic art lover with passion for illustration and minimilaistic designs.",
+      displayName: 'Fahad Javed',
+      email: 'fahad.javed@example.com',
+      profileImageUrl: '',
+      createdAt: DateTime.now(),
+      lastActiveAt: DateTime.now(),
     );
   }
 

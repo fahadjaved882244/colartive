@@ -57,7 +57,7 @@ class ProfileView extends StatelessWidget {
                                 ],
                               ),
                               Text(user.contributions.toString()),
-                              Text(user.upvotes.toString()),
+                              Text(user.totalUpvotes.toString()),
                               Text(user.following.toString()),
                             ],
                           ),

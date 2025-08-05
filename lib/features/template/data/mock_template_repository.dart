@@ -5,10 +5,10 @@ class MockTemplateRepository extends ITemplateRepository {
   @override
   Future<List<Template>> getAll() async {
     return [
-      const Template(
+      Template(
         id: "1",
         fontFamily: "BabyYoda",
-        fontFilePath: "assets/templates/BabyYoda.ttf",
+        fontFileUrl: "assets/templates/BabyYoda.ttf",
         fontSize: 220,
         charCodes: [
           0xe800,
@@ -27,12 +27,14 @@ class MockTemplateRepository extends ITemplateRepository {
         ],
         maxColors: 11,
         name: "BabyYoda",
-        thumbnailPath: "www.firebase.com/asda/",
+        thumbnailUrl: "www.firebase.com/asda/",
+        createdAt: DateTime(1, 1, 2023),
+        isActive: true,
       ),
-      const Template(
+      Template(
         id: "3",
         fontFamily: "Camelion",
-        fontFilePath: "assets/templates/Camlion.ttf",
+        fontFileUrl: "assets/templates/Camlion.ttf",
         fontSize: 220,
         charCodes: [
           0xe800,
@@ -47,12 +49,14 @@ class MockTemplateRepository extends ITemplateRepository {
         ],
         maxColors: 10,
         name: "Camelion",
-        thumbnailPath: "www.firebase.com/asda/",
+        thumbnailUrl: "www.firebase.com/asda/",
+        createdAt: DateTime(1, 1, 2023),
+        isActive: true,
       ),
-      const Template(
+      Template(
         id: "2",
         fontFamily: "Deadpool",
-        fontFilePath: "assets/templates/DeadPoolMed.ttf",
+        fontFileUrl: "assets/templates/DeadPoolMed.ttf",
         fontSize: 220,
         charCodes: [
           0xe800,
@@ -65,7 +69,9 @@ class MockTemplateRepository extends ITemplateRepository {
         ],
         maxColors: 5,
         name: "Deadpool",
-        thumbnailPath: "www.firebase.com/asda/",
+        thumbnailUrl: "www.firebase.com/asda/",
+        createdAt: DateTime(1, 1, 2023),
+        isActive: true,
       ),
     ];
   }

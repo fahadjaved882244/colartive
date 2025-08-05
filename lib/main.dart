@@ -1,6 +1,8 @@
 import 'package:colartive2/features/locale/data/utils/app_localizations.dart';
+import 'package:colartive2/firebase_options.dart';
 import 'package:colartive2/utils/controllers/theme_controller.dart';
 import 'package:colartive2/utils/core/app_colors.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -19,6 +21,10 @@ Future<void> main() async {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   final sharedPreferences = await SharedPreferences.getInstance();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(
     ProviderScope(
