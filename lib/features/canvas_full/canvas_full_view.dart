@@ -2,8 +2,10 @@ import 'package:colartive2/features/canvas_live/views/canvas_live_controller.dar
 import 'package:colartive2/features/canvas_live/views/components/canvas/template_painter.dart';
 import 'package:colartive2/features/template/views/template_controller.dart';
 import 'package:colartive2/utils/components/widgets/async_switcher.dart';
+import 'package:colartive2/features/canvas_full/widgets/canvas_actions_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ionicons/ionicons.dart';
 
 class CanvasFullView extends ConsumerWidget {
   final String templateId;
@@ -40,6 +42,31 @@ class CanvasFullView extends ConsumerWidget {
                       hintIndex: null,
                       hintOpacity: 1.0,
                       paintOverlay: true,
+                      isCanvasFull: true,
+                    ),
+                  ),
+                ),
+                // Floating Action Button to show bottom sheet
+                Positioned(
+                  right: 20,
+                  bottom: 80,
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (context) => CanvasActionsBottomSheet(
+                          canvasSize: canvasSize,
+                          variation: variation,
+                          template: template,
+                        ),
+                      );
+                    },
+                    backgroundColor: Colors.white,
+                    child: const Icon(
+                      Ionicons.options,
+                      color: Colors.black87,
                     ),
                   ),
                 ),
