@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 
 class ErrorView extends StatelessWidget {
   final String message;
-  const ErrorView({Key? key, required this.message}) : super(key: key);
+  const ErrorView({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {

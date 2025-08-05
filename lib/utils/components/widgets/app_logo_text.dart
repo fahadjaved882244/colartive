@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../core/app_colors.dart';
 
 class AppLogoText extends StatelessWidget {
-  const AppLogoText({Key? key}) : super(key: key);
+  const AppLogoText({super.key});
 
   @override
   Widget build(BuildContext context) {

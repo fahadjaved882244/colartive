@@ -45,6 +45,9 @@ dependencies:
   shared_preferences: ^2.5.2
   ionicons: ^0.2.2
   flutter_adaptive_scaffold: ^0.3.2
+  path_provider: ^2.1.4
+  wallpaper_manager_flutter: ^1.0.1
+  gal: ^2.3.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -93,11 +96,79 @@ flutter:
 
     - family: Camelion
       fonts:
-        - asset: assets/templates/Camelion.ttf
-   
+        - asset: assets/templates/Camelion.ttf 
+
     - family: BabyYoda
       fonts:
         - asset: assets/templates/BabyYoda.ttf
+    
+    # Fonts for Overlay Text
+    - family: Lobster
+      fonts:
+       - asset: assets/fonts/Lobster-Regular.ttf
+    - family: Open Sans
+      fonts:
+       - asset: assets/fonts/OpenSans-Regular.ttf
+    - family: Montserrat
+      fonts:
+       - asset: assets/fonts/Montserrat-Regular.ttf
+    - family: Baskervville
+      fonts:
+       - asset: assets/fonts/Baskervville-Regular.ttf
+    - family: Cinzel Decorative
+      fonts:
+       - asset: assets/fonts/CinzelDecorative-Bold.ttf
+    - family: Dancing Script
+      fonts:
+       - asset: assets/fonts/DancingScript-Medium.ttf
+    - family: Fredoka One
+      fonts:
+       - asset: assets/fonts/FredokaOne-Regular.ttf
+    - family: Kaushan Script
+      fonts:
+       - asset: assets/fonts/KaushanScript-Regular.ttf
+    - family: Megrim
+      fonts:
+       - asset: assets/fonts/Megrim-Regular.ttf
+    - family: Monoton
+      fonts:
+       - asset: assets/fonts/Monoton-Regular.ttf
+    - family: Nosifer
+      fonts:
+       - asset: assets/fonts/Nosifer-Regular.ttf
+    - family: Orbitron
+      fonts:
+       - asset: assets/fonts/Orbitron-Medium.ttf
+    - family: Rock Salt
+      fonts:
+       - asset: assets/fonts/RockSalt-Regular.ttf
+    - family: Shojumaru
+      fonts:
+       - asset: assets/fonts/Shojumaru-Regular.ttf
+    - family: Trade Winds
+      fonts:
+       - asset: assets/fonts/TradeWinds-Regular.ttf
+    - family: Zilla Slab Highlight
+      fonts:
+       - asset: assets/fonts/ZillaSlabHighlight-Bold.ttf
+    - family: Beware
+      fonts:
+       - asset: assets/fonts/Beware.ttf
+    - family: Border Base
+      fonts:
+       - asset: assets/fonts/BorderBase.ttf
+    - family: October Crow
+      fonts:
+       - asset: assets/fonts/OctoberCrow.ttf
+    - family: Praaminobenzoic
+      fonts:
+       - asset: assets/fonts/Praaminobenzoic.ttf
+    - family: Freak Show
+      fonts:
+       - asset: assets/fonts/Freakshow.ttf
+    - family:  Bungee Inline
+      fonts:
+       - asset: assets/fonts/BungeeInline-Regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -8,6 +8,11 @@ class TransformationGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(12),
+        ),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

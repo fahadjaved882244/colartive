@@ -28,14 +28,22 @@ class CanvasLiveModeBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedColors = ref.watch(canvasLiveControllerProvider).colors;
     final canvasMode = ref.watch(canvasLiveModeProvider);
     return Column(
       children: items.map((item) {
         return InkWell(
           onTap: () async {
-            if (selectedColors.isNotEmpty && canvasMode != item.mode) {
+            final variation = ref.read(canvasLiveControllerProvider);
+
+            if (variation.colors.isNotEmpty && canvasMode != item.mode) {
               ref.read(canvasLiveModeProvider.notifier).state = item.mode;
+              if (item.mode == CanvasLiveMode.text &&
+                  variation.overlayTexts.isNotEmpty) {
+                ref.read(canvasLiveSelectedTextProvider.notifier).state =
+                    variation.overlayTexts.length - 1;
+              } else {
+                ref.read(canvasLiveSelectedTextProvider.notifier).state = null;
+              }
             } else if (canvasMode != item.mode) {
               showCustomSnackBar(
                 context,

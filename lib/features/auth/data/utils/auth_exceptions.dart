@@ -8,36 +8,36 @@ class AuthException implements Exception {
 }
 
 class ServerException extends AuthException {
-  ServerException({required String code, String? message})
-      : super(code: code, message: message ?? AppStrings.serverError);
+  ServerException({required super.code, String? message})
+      : super(message: message ?? AppStrings.serverError);
 }
 
 class CredentialException extends AuthException {
-  CredentialException({required String code})
-      : super(code: code, message: AppStrings.invalidEmailPass);
+  CredentialException({required super.code})
+      : super(message: AppStrings.invalidEmailPass);
 }
 
 class EmailInUseException extends AuthException {
-  EmailInUseException({required String code})
-      : super(code: code, message: AppStrings.emailAlreadyInUse);
+  EmailInUseException({required super.code})
+      : super(message: AppStrings.emailAlreadyInUse);
 }
 
 class PasswordException extends AuthException {
-  PasswordException({required String code})
-      : super(code: code, message: AppStrings.wrongPassword);
+  PasswordException({required super.code})
+      : super(message: AppStrings.wrongPassword);
 }
 
 class AccountLockedException extends AuthException {
-  AccountLockedException({required String code})
-      : super(code: code, message: AppStrings.accLocked);
+  AccountLockedException({required super.code})
+      : super(message: AppStrings.accLocked);
 }
 
 class AccountNotVerifiedException extends AuthException {
-  AccountNotVerifiedException({required String code})
-      : super(code: code, message: AppStrings.accNotVer);
+  AccountNotVerifiedException({required super.code})
+      : super(message: AppStrings.accNotVer);
 }
 
 class NoUserFoundException extends AuthException {
-  NoUserFoundException({required String code})
-      : super(code: code, message: AppStrings.noUserFound);
+  NoUserFoundException({required super.code})
+      : super(message: AppStrings.noUserFound);
 }

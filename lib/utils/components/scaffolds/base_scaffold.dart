@@ -23,7 +23,7 @@ class BaseScaffold extends StatelessWidget {
   final List<Widget>? persistentFooterButtons;
 
   const BaseScaffold({
-    Key? key,
+    super.key,
     required this.child,
     this.title,
     this.titleWidget,
@@ -41,7 +41,7 @@ class BaseScaffold extends StatelessWidget {
     this.noPadding = false,
     this.isCancel = false,
     this.bottom,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

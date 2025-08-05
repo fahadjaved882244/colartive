@@ -20,7 +20,7 @@ class FormScaffold extends HookWidget {
   final bool isLoading;
 
   FormScaffold({
-    Key? key,
+    super.key,
     required this.children,
     required this.onSubmitted,
     this.isLoading = false,
@@ -32,7 +32,7 @@ class FormScaffold extends HookWidget {
     this.titleSpacing,
     this.persistentFooterButtons,
     this.bottomSheet,
-  }) : super(key: key);
+  });
 
   final _formKey = GlobalKey<FormState>();
 

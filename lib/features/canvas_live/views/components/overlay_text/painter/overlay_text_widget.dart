@@ -32,7 +32,24 @@ class OverlayTextWidget extends HookConsumerWidget {
             .read(canvasLiveControllerProvider.notifier)
             .updateTextValue(index, controller.text);
       });
+
+      // Request focus when the widget is built
       scopeNode.requestFocus();
+
+      // Add a listener to update the mode when the focus changes
+      scopeNode.addListener(() {
+        // If the focus is gained, set the mode to text
+        if (scopeNode.hasFocus &&
+            ref.read(canvasLiveModeProvider) != CanvasLiveMode.text) {
+          ref.read(canvasLiveModeProvider.notifier).state = CanvasLiveMode.text;
+        }
+
+        // If the focus is gained, set the selected text index
+        if (scopeNode.hasFocus &&
+            ref.read(canvasLiveSelectedTextProvider) != index) {
+          ref.read(canvasLiveSelectedTextProvider.notifier).state = index;
+        }
+      });
       return null;
     }, []);
 
@@ -41,21 +58,14 @@ class OverlayTextWidget extends HookConsumerWidget {
     final center = Offset(canvasSize.width / 2, canvasSize.height / 2);
 
     final textSize = calculateTextSize(text);
-    final isSelected = scopeNode.hasFocus;
+    final isSelected = ref.watch(canvasLiveSelectedTextProvider) == index;
 
     return Positioned(
       left: (text.posX * canvasSize.width) - textSize.width * 0.625,
       top: (text.posY * canvasSize.height) - textSize.height * 0.625,
       child: Transform.rotate(
-        angle: text.rotation,
+        angle: text.rotation * 2 * 3.141,
         child: GestureDetector(
-          onTap: () {
-            if (ref.read(canvasLiveModeProvider) != CanvasLiveMode.text) {
-              ref.read(canvasLiveModeProvider.notifier).state =
-                  CanvasLiveMode.text;
-            }
-            scopeNode.requestFocus();
-          },
           onScaleStart: (scaleDetails) {
             showSelected.value = false;
             lastRotation.value = text.rotation;
@@ -67,7 +77,7 @@ class OverlayTextWidget extends HookConsumerWidget {
             final newRotation = lastRotation.value + details.rotation;
             ref
                 .read(canvasLiveControllerProvider.notifier)
-                .updateTextRotation(index, newRotation);
+                .updateTextRotation(newRotation);
 
             //manage text scaling
             final newFontSize = lastFontSize.value * details.scale;
@@ -111,9 +121,7 @@ class OverlayTextWidget extends HookConsumerWidget {
             child: EditableText(
               controller: controller,
               focusNode: scopeNode,
-              // autofocus: widget.isSelected,
               autocorrect: false,
-
               showCursor: true,
               maxLines: null,
               cursorColor: Colors.blue,

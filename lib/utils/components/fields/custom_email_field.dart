@@ -14,7 +14,7 @@ class CustomEmailField extends StatelessWidget {
   final TextInputAction textInputAction;
 
   const CustomEmailField({
-    Key? key,
+    super.key,
     this.controller,
     this.focusNode,
     this.labelText,
@@ -23,7 +23,7 @@ class CustomEmailField extends StatelessWidget {
     this.errorText,
     this.textInputAction = TextInputAction.next,
     this.onSubmitted,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

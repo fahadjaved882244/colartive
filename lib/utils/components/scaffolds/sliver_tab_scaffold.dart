@@ -18,7 +18,7 @@ class SliverTabScaffold extends StatelessWidget {
   final List<Widget>? actions;
   final bool isLoading;
   const SliverTabScaffold({
-    Key? key,
+    super.key,
     required this.imagePath,
     required this.expandedHeight,
     required this.expandedWidget,
@@ -29,7 +29,7 @@ class SliverTabScaffold extends StatelessWidget {
     this.isScrollable = false,
     this.isLoading = false,
     this.actions,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

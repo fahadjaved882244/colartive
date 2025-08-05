@@ -13,14 +13,14 @@ class CustomImageView extends StatelessWidget {
   final bool isVideo;
 
   const CustomImageView({
-    Key? key,
+    super.key,
     required this.imagePath,
     this.width = double.maxFinite,
     this.height = double.maxFinite,
     this.fit = BoxFit.cover,
     this.isDarkBg = false,
     this.isVideo = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class CustomImageView extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(Paddings.xs + 2),
               decoration: BoxDecoration(
-                color: AppColors.black.withOpacity(0.6),
+                color: AppColors.black.withValues(alpha: 0.6),
                 borderRadius: BorderRadius.circular(Corners.rnd),
               ),
               child: const Icon(Icons.play_arrow, color: AppColors.white),

@@ -13,7 +13,7 @@ import '../../../data/utils/auth_error_handler.dart';
 import 'update_email_controller.dart';
 
 class UpdateEmailView extends HookConsumerWidget {
-  const UpdateEmailView({Key? key}) : super(key: key);
+  const UpdateEmailView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

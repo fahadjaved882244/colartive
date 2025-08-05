@@ -1,11 +1,9 @@
 import 'package:colartive2/features/canvas_live/views/components/transformation/panel/transformation_info.dart';
 import 'package:colartive2/features/canvas_live/views/components/transformation/panel/transformation_slider.dart';
-import 'package:colartive2/features/template/model/template.dart';
 import 'package:flutter/material.dart';
 
 class TransformationPanel extends StatelessWidget {
-  final Template template;
-  const TransformationPanel({super.key, required this.template});
+  const TransformationPanel({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +11,7 @@ class TransformationPanel extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: TransformationSlider(
-            template: template,
-          ),
+          child: TransformationSlider(),
         ),
         const SizedBox(width: 8),
         SizedBox(

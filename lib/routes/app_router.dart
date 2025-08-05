@@ -1,3 +1,4 @@
+import 'package:colartive2/features/canvas_full/canvas_full_view.dart';
 import 'package:colartive2/features/canvas_live/views/canvas_live_view.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
@@ -43,10 +44,29 @@ class AppRouter {
         routes: <RouteBase>[
           /// The first screen to display in the bottom navigation bar.
           GoRoute(
+            name: RouteNames.home,
             path: RouteNames.home,
             builder: (BuildContext context, GoRouterState state) {
-              return const CanvasLiveView();
+              final templateId = "1";
+              // state.pathParameters['templateId'];
+              if (templateId == null) {
+                return const ErrorView(message: 'Template ID not found!');
+              }
+              return CanvasLiveView(templateId: templateId);
             },
+            routes: [
+              GoRoute(
+                name: RouteNames.canvasFull,
+                path: AppPaths.canvasFull,
+                builder: (BuildContext context, GoRouterState state) {
+                  final templateId = state.pathParameters['templateId'];
+                  if (templateId == null) {
+                    return const ErrorView(message: 'Template ID not found!');
+                  }
+                  return CanvasFullView(templateId: templateId);
+                },
+              ),
+            ],
           ),
           GoRoute(
             path: RouteNames.search,

@@ -16,7 +16,7 @@ class CustomOutlinedCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(Corners.crd),
         side: BorderSide(
-          color: outlineColor ?? context.colors.outline.withOpacity(0.5),
+          color: outlineColor ?? context.colors.outline.withValues(alpha: 0.5),
           width: 1,
         ),
       ),

@@ -16,7 +16,7 @@ import '../../../data/utils/auth_error_handler.dart';
 import 'signup_controller.dart';
 
 class SignupView extends HookConsumerWidget {
-  const SignupView({Key? key}) : super(key: key);
+  const SignupView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

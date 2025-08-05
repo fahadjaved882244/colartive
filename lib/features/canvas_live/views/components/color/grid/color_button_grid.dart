@@ -87,6 +87,11 @@ class ColorButtonGrid extends HookConsumerWidget {
     required ValueChanged<ColorSwatch?> notifyParent,
   }) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(12),
+        ),
+      ),
       key: const ValueKey(1),
       child: GridView.count(
         key: const PageStorageKey('Main Color Button'),
@@ -109,14 +114,19 @@ class ColorButtonGrid extends HookConsumerWidget {
     required ValueChanged<ColorSwatch?> notifyParent,
   }) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(12),
+        ),
+      ),
       key: const ValueKey(2),
       child: GridView.count(
         padding: const EdgeInsets.all(16),
         mainAxisSpacing: 8,
-        crossAxisSpacing: 4,
-        crossAxisCount: 2,
-        childAspectRatio: 1.05,
-        scrollDirection: Axis.horizontal,
+        crossAxisSpacing: 0,
+        crossAxisCount: 5,
+        childAspectRatio: 1.25,
+        scrollDirection: Axis.vertical,
         physics: const NeverScrollableScrollPhysics(),
         children: _buildListShadesColor(
           selectedSwatch: selectedSwatch,
@@ -247,23 +257,12 @@ class ColorButtonGrid extends HookConsumerWidget {
         ),
       ),
       for (final color in getSwatchShades(selectedSwatch))
-        Draggable(
-          feedback: ShadeColorButton(
-            template: template,
-            color: color,
-            isDragged: true,
-            notifyParent: () {
-              notifyParent(null);
-            },
-          ),
-          data: color,
-          child: ShadeColorButton(
-            template: template,
-            color: color,
-            notifyParent: () {
-              notifyParent.call(null);
-            },
-          ),
+        ShadeColorButton(
+          template: template,
+          color: color,
+          notifyParent: () {
+            notifyParent.call(null);
+          },
         )
     ];
   }

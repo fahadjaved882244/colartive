@@ -12,7 +12,7 @@ import '../../../../../utils/core/text_validator.dart';
 import 'change_password_controller.dart';
 
 class ChangePasswordView extends HookConsumerWidget {
-  const ChangePasswordView({Key? key}) : super(key: key);
+  const ChangePasswordView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

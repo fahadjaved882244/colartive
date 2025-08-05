@@ -48,7 +48,7 @@ class DarkAppTheme {
   static final _drawerTheme = DrawerThemeData(
     elevation: 5,
     backgroundColor: _colorScheme.surface,
-    scrimColor: _colorScheme.inverseSurface.withOpacity(0.4),
+    scrimColor: _colorScheme.inverseSurface.withValues(alpha: 0.4),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
         topRight: Radius.circular(16),

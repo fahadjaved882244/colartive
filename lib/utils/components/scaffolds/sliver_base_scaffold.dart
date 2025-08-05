@@ -9,12 +9,12 @@ class SliverBaseScaffold extends StatelessWidget {
   final Widget expandedWidget;
   final Widget child;
   const SliverBaseScaffold({
-    Key? key,
+    super.key,
     required this.imagePath,
     required this.expandedHeight,
     required this.expandedWidget,
     required this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

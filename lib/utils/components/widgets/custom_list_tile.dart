@@ -19,7 +19,7 @@ class CustomListTile extends StatelessWidget {
   final bool isDrawer;
 
   const CustomListTile({
-    Key? key,
+    super.key,
     this.title,
     this.titleWidget,
     this.subtitle,
@@ -33,7 +33,7 @@ class CustomListTile extends StatelessWidget {
     this.selected = false,
     this.dense = false,
     this.isDrawer = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

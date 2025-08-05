@@ -1,17 +1,16 @@
 import 'package:colartive2/features/canvas_live/controller/canvas_live_mode_controller.dart';
-import 'package:colartive2/features/canvas_live/views/canvas_live_controller.dart';
 import 'package:colartive2/features/canvas_live/views/components/overlay_text/grid/overlay_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class FeatureTextGrid extends ConsumerWidget {
-  const FeatureTextGrid({super.key});
+class OverlayTextGrid extends ConsumerWidget {
+  const OverlayTextGrid({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Card(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -19,58 +18,61 @@ class FeatureTextGrid extends ConsumerWidget {
               // Add
               OverlayTextButton(
                 icon: Icons.add,
-                onTap: () {
-                  ref.read(canvasLiveControllerProvider.notifier).addText();
-                },
+                label: 'Add',
+                modeId: CanvasLiveTextMode.add,
               ),
 
               // Remove
               OverlayTextButton(
-                icon: Icons.cancel,
-                onTap: () {
-                  // ref.read(canvasLiveControllerProvider.notifier).removeText();
-                },
+                icon: Icons.close,
+                label: 'Remove',
+                modeId: CanvasLiveTextMode.remove,
               ),
 
               // Size
               const OverlayTextButton(
                 icon: Icons.code,
-                mode: CanvasLiveTextMode.fontSize,
+                label: 'Size',
+                modeId: CanvasLiveTextMode.fontSize,
               ),
 
               // Color
               const OverlayTextButton(
                 icon: Icons.color_lens_outlined,
-                mode: CanvasLiveTextMode.textColor,
+                label: 'Color',
+                modeId: CanvasLiveTextMode.color,
               ),
             ],
           ),
-          const SizedBox(height: 16),
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               // Font Family
               OverlayTextButton(
                 icon: Icons.font_download_outlined,
-                mode: CanvasLiveTextMode.fontFamily,
+                label: 'Font',
+                modeId: CanvasLiveTextMode.fontFamily,
               ),
 
               // Format
               OverlayTextButton(
                 icon: Icons.text_format,
-                mode: CanvasLiveTextMode.format,
+                label: 'Format',
+                modeId: CanvasLiveTextMode.format,
               ),
 
               // Rotate
               OverlayTextButton(
                 icon: Icons.rotate_right,
-                mode: CanvasLiveTextMode.rotate,
+                label: 'Rotate',
+                modeId: CanvasLiveTextMode.rotate,
               ),
 
               // Position
               OverlayTextButton(
                 icon: Icons.vertical_align_center,
-                mode: CanvasLiveTextMode.position,
+                label: 'Position',
+                modeId: CanvasLiveTextMode.position,
               ),
             ],
           ),

@@ -10,12 +10,12 @@ class AvatarImageText extends StatelessWidget {
   final double? radius;
   final BoxBorder? border;
   const AvatarImageText({
-    Key? key,
+    super.key,
     required this.name,
     required this.photoUrl,
     this.radius,
     this.border,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

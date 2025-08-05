@@ -68,9 +68,10 @@ final canvasLiveTransformationModeProvider =
 
 // Text Mode
 enum CanvasLiveTextMode {
-  none,
+  add,
+  remove,
   fontSize,
-  textColor,
+  color,
   fontFamily,
   rotate,
   format,
@@ -79,5 +80,10 @@ enum CanvasLiveTextMode {
 
 final canvasLiveTextModeProvider =
     AutoDisposeStateProvider<CanvasLiveTextMode>((ref) {
-  return CanvasLiveTextMode.none;
+  return CanvasLiveTextMode.add;
+});
+
+// selected text index
+final canvasLiveSelectedTextProvider = AutoDisposeStateProvider<int?>((ref) {
+  return null;
 });

@@ -106,7 +106,7 @@ class CustomNavigationBarState extends State<CustomNavigationBar>
         border: Border(
           top: BorderSide(
             width: 1,
-            color: context.colors.outline.withOpacity(0.25),
+            color: context.colors.outline.withValues(alpha: 0.25),
           ),
         ),
       ),
