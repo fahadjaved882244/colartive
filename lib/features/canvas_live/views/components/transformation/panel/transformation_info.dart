@@ -12,6 +12,7 @@ class TransformationInfo extends ConsumerWidget {
     final variation = ref.watch(canvasLiveControllerProvider);
     final mode = ref.watch(canvasLiveTransformationModeProvider);
     return Card(
+      margin: const EdgeInsets.all(0),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(
           left: Radius.circular(12),

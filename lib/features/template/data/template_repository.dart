@@ -4,13 +4,12 @@ import 'dart:ui' as ui;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:colartive2/extensions/firebase_x.dart';
 import 'package:colartive2/features/template/data/i_template_repository.dart';
-import 'package:colartive2/features/template/data/mock_template_repository.dart';
 import 'package:colartive2/features/template/model/template.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final templateRepositoryProvider = Provider<ITemplateRepository>((ref) {
-  return MockTemplateRepository();
+  return TemplateRepository();
 });
 
 class TemplateRepository implements ITemplateRepository {

@@ -15,6 +15,7 @@ class TransformationSlider extends ConsumerWidget {
     final mode = ref.watch(canvasLiveTransformationModeProvider);
 
     return Card(
+      margin: const EdgeInsets.all(0),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(
           right: Radius.circular(12),

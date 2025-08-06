@@ -23,7 +23,7 @@ class RouteNames {
   static const String updateEmail = 'update-email';
   static const String changePassword = 'change-password';
 
-  static const String canvasLive = 'canvas-live';
+  static const String canvasLive = '/canvas-live';
   static const String canvasFull = 'canvas-full';
 }
 
@@ -36,10 +36,7 @@ class AppPaths {
   static const String showcase = RouteNames.showcase;
   static const String settings = RouteNames.settings;
 
-  static const String canvasLive =
-      "${RouteNames.home}/${RouteNames.canvasLive}/:templateId";
-  static const String canvasFull =
-      "${RouteNames.home}/${RouteNames.canvasFull}/:templateId";
+  static const String canvasLive = "${RouteNames.canvasLive}/:templateId";
 
   static const String updateLocale =
       '${RouteNames.settings}/${RouteNames.updateLocale}';

@@ -16,6 +16,7 @@ class OverlayTextInfo extends ConsumerWidget {
     final overlayText = index != null ? variation.overlayTexts[index] : null;
 
     return Card(
+      margin: EdgeInsets.zero,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(
           left: Radius.circular(12),

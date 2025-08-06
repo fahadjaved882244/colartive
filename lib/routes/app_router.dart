@@ -1,9 +1,9 @@
 import 'package:colartive2/features/canvas_full/canvas_full_view.dart';
 import 'package:colartive2/features/canvas_live/views/canvas_live_view.dart';
+import 'package:colartive2/features/template/views/template_list_view.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:colartive2/extensions/string_x.dart';
 import 'package:colartive2/features/locale/view/change_locale_view.dart';
 import 'package:colartive2/features/others/navigation/navigation_view.dart';
 import 'package:colartive2/features/profile/views/profile_view.dart';
@@ -31,13 +31,42 @@ class HomeView extends StatelessWidget {
   }
 }
 
+final rootNavigationKey = GlobalKey<NavigatorState>();
+final shellNavigationKey = GlobalKey<NavigatorState>();
+
 class AppRouter {
   static final router = GoRouter(
+    navigatorKey: rootNavigationKey,
     initialLocation: RouteNames.home,
     errorBuilder: (context, state) =>
         ErrorView(message: state.path ?? 'Error!'),
     routes: [
+      GoRoute(
+        name: RouteNames.canvasLive,
+        path: AppPaths.canvasLive,
+        builder: (BuildContext context, GoRouterState state) {
+          final templateId = state.pathParameters['templateId'];
+          if (templateId == null) {
+            return const ErrorView(message: 'Template ID not found!');
+          }
+          return CanvasLiveView(templateId: templateId);
+        },
+        routes: [
+          GoRoute(
+            name: RouteNames.canvasFull,
+            path: RouteNames.canvasFull,
+            builder: (BuildContext context, GoRouterState state) {
+              final templateId = state.pathParameters['templateId'];
+              if (templateId == null) {
+                return const ErrorView(message: 'Template ID not found!');
+              }
+              return CanvasFullView(templateId: templateId);
+            },
+          ),
+        ],
+      ),
       ShellRoute(
+        navigatorKey: shellNavigationKey,
         builder: (context, state, child) {
           return NavigationView(child: child);
         },
@@ -47,35 +76,9 @@ class AppRouter {
             name: RouteNames.home,
             path: RouteNames.home,
             builder: (BuildContext context, GoRouterState state) {
-              return HomeView(path: state.uri.toString());
+              return TemplateListView();
             },
-            routes: [
-              GoRoute(
-                name: RouteNames.canvasLive,
-                path: AppPaths.canvasLive,
-                builder: (BuildContext context, GoRouterState state) {
-                  final templateId = state.pathParameters['templateId'];
-                  if (templateId == null) {
-                    return const ErrorView(message: 'Template ID not found!');
-                  }
-                  return CanvasLiveView(templateId: templateId);
-                },
-                routes: [
-                  GoRoute(
-                    name: RouteNames.canvasFull,
-                    path: AppPaths.canvasFull,
-                    builder: (BuildContext context, GoRouterState state) {
-                      final templateId = state.pathParameters['templateId'];
-                      if (templateId == null) {
-                        return const ErrorView(
-                            message: 'Template ID not found!');
-                      }
-                      return CanvasFullView(templateId: templateId);
-                    },
-                  ),
-                ],
-              ),
-            ],
+            routes: [],
           ),
           GoRoute(
             path: RouteNames.search,
@@ -124,18 +127,7 @@ class AppRouter {
               GoRoute(
                 path: RouteNames.userProfile,
                 builder: (BuildContext context, GoRouterState state) {
-                  final id = state.uri.queryParameters['id'];
-                  final name = state.uri.queryParameters['name'];
-                  final photoUrl =
-                      state.uri.queryParameters['photoUrl']?.nullIfEmpty;
-                  if (id != null && name != null) {
-                    return ProfileView(
-                      id: id,
-                      name: name,
-                      photoUrl: photoUrl,
-                    );
-                  }
-                  return const ErrorView(message: 'All params not found!');
+                  return ProfileView();
                 },
                 routes: [
                   GoRoute(

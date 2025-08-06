@@ -17,6 +17,7 @@ class OverlayTextSlider extends ConsumerWidget {
     final overlayText = index != null ? overlayTextList[index] : null;
 
     return Card(
+      margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(
           right: (mode == CanvasLiveTextMode.rotate ||
