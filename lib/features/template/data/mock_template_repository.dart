@@ -75,4 +75,14 @@ class MockTemplateRepository extends ITemplateRepository {
       ),
     ];
   }
+
+  @override
+  Future<Template> get(String id) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> loadFont(String path, String familyName) {
+    throw UnimplementedError();
+  }
 }

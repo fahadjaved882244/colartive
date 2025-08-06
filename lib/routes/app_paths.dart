@@ -23,7 +23,8 @@ class RouteNames {
   static const String updateEmail = 'update-email';
   static const String changePassword = 'change-password';
 
-  static const String canvasFull = 'canvas_full';
+  static const String canvasLive = 'canvas-live';
+  static const String canvasFull = 'canvas-full';
 }
 
 // To Use for navigation in the app like context.go(AppPath.updateLocale)
@@ -35,6 +36,8 @@ class AppPaths {
   static const String showcase = RouteNames.showcase;
   static const String settings = RouteNames.settings;
 
+  static const String canvasLive =
+      "${RouteNames.home}/${RouteNames.canvasLive}/:templateId";
   static const String canvasFull =
       "${RouteNames.home}/${RouteNames.canvasFull}/:templateId";
 

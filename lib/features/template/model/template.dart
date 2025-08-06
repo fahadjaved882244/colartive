@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:uuid/v4.dart';
 
 @immutable
 class Template {
@@ -61,15 +63,15 @@ class Template {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
+      'id': UuidV4().generate(),
       'fontFamily': fontFamily,
-      'fontFilePath': fontFileUrl,
+      'fontFileUrl': fontFileUrl,
       'fontSize': fontSize,
       'charCodes': charCodes,
       'maxColors': maxColors,
       'name': name,
       'thumbnailUrl': thumbnailUrl,
-      'createdAt': createdAt.millisecondsSinceEpoch,
+      'createdAt': Timestamp.fromDate(createdAt),
       'isActive': isActive,
     };
   }
@@ -78,14 +80,15 @@ class Template {
     return Template(
       id: map['id'] as String,
       fontFamily: map['fontFamily'] as String,
-      fontFileUrl: map['fontFilePath'] as String,
-      fontSize: map['fontSize'] as double,
-      charCodes: List<int>.from((map['charCodes'] as List<int>)),
+      fontFileUrl: map['fontFileUrl'] as String,
+      fontSize: (map['fontSize'] ?? 0).toDouble(),
+      charCodes:
+          (map['charCodes'] as List?)?.map((x) => x as int).toList() ?? [],
       maxColors: map['maxColors'] as int,
       name: map['name'] as String,
       thumbnailUrl: map['thumbnailUrl'] as String? ?? '',
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] ?? 0),
-      isActive: map['isActive'] as bool? ?? true,
+      createdAt: (map['createdAt'] as Timestamp).toDate(),
+      isActive: map['isActive'] as bool? ?? false,
     );
   }
 

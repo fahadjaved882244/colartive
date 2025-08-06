@@ -47,24 +47,33 @@ class AppRouter {
             name: RouteNames.home,
             path: RouteNames.home,
             builder: (BuildContext context, GoRouterState state) {
-              final templateId = "1";
-              // state.pathParameters['templateId'];
-              if (templateId == null) {
-                return const ErrorView(message: 'Template ID not found!');
-              }
-              return CanvasLiveView(templateId: templateId);
+              return HomeView(path: state.uri.toString());
             },
             routes: [
               GoRoute(
-                name: RouteNames.canvasFull,
-                path: AppPaths.canvasFull,
+                name: RouteNames.canvasLive,
+                path: AppPaths.canvasLive,
                 builder: (BuildContext context, GoRouterState state) {
                   final templateId = state.pathParameters['templateId'];
                   if (templateId == null) {
                     return const ErrorView(message: 'Template ID not found!');
                   }
-                  return CanvasFullView(templateId: templateId);
+                  return CanvasLiveView(templateId: templateId);
                 },
+                routes: [
+                  GoRoute(
+                    name: RouteNames.canvasFull,
+                    path: AppPaths.canvasFull,
+                    builder: (BuildContext context, GoRouterState state) {
+                      final templateId = state.pathParameters['templateId'];
+                      if (templateId == null) {
+                        return const ErrorView(
+                            message: 'Template ID not found!');
+                      }
+                      return CanvasFullView(templateId: templateId);
+                    },
+                  ),
+                ],
               ),
             ],
           ),

@@ -9,13 +9,7 @@ class LightAppTheme {
 
   static final themeData = ThemeData.light(useMaterial3: true).copyWith(
     colorScheme: _colorScheme,
-    cardTheme: _cardTheme,
     textTheme: _textTheme,
-    scaffoldBackgroundColor: _colorScheme.surface,
-    tabBarTheme: _tabBarTheme,
-    dividerTheme: _dividerTheme,
-    drawerTheme: _drawerTheme,
-    listTileTheme: _listTileTheme,
     inputDecorationTheme: _inputDecorationTheme,
   );
 
