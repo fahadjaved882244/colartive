@@ -56,7 +56,7 @@ class ShadeColorButton extends ConsumerWidget {
             //     ColorState(state.selectedColors[hintIndex], [hintIndex], 3));
 
             notifyParent();
-          } else if (selectedLength <= template.maxColors) {
+          } else if (selectedLength < template.maxColors) {
             ref.read(canvasLiveHintProvider.notifier).state = null;
             ref.read(canvasLiveControllerProvider.notifier).addColor(color);
 

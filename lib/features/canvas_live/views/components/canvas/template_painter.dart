@@ -38,7 +38,9 @@ class TemplatePainter extends CustomPainter {
       canvas.translate(-size.width / 2, -size.height / 2);
     }
 
-    paintTemplate(canvas, size);
+    if (variation.colors.length > 1) {
+      paintTemplate(canvas, size);
+    }
 
     canvas.restore();
 
@@ -58,7 +60,7 @@ class TemplatePainter extends CustomPainter {
       final canvasScale = size.width / (size.width * 0.65);
       fontSize *= canvasScale;
     }
-    for (int i = 1; i < variation.colors.length && i < layers.length - 1; i++) {
+    for (int i = 1; i < variation.colors.length && i <= layers.length; i++) {
       final textStyle = TextStyle(
         // template size scaled to canvas size
         fontSize: fontSize,

@@ -14,7 +14,6 @@ class TemplateListView extends ConsumerWidget {
     return AsyncValueBuilder(
       asyncValue: asyncTemplates,
       builder: (templates) {
-        print(templates.map((e) => e.toMap()));
         return Scaffold(
           appBar: AppBar(
             title: const Text('Templates'),
@@ -29,7 +28,7 @@ class TemplateListView extends ConsumerWidget {
                   onTap: () {
                     context.goNamed(
                       RouteNames.canvasLive,
-                      pathParameters: {'templateId': item.id},
+                      pathParameters: {'templateId': item.fontFamily},
                     );
                   },
                 );

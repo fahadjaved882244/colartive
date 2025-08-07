@@ -15,8 +15,12 @@ class AsyncValueBuilder<T> extends StatelessWidget {
     return switch (asyncValue) {
       AsyncData(:final value) => value != null
           ? builder(value)
-          : const Scaffold(body: Center(child: Text('Unexpected null value'))),
-      AsyncError(:final error) => Center(child: Text('Error: $error')),
+          : const Scaffold(
+              body: Center(child: Text('Unexpected null value')),
+            ),
+      AsyncError(:final error) => Scaffold(
+          body: Center(child: Text('Error: $error')),
+        ),
       _ => Center(child: CircularProgressIndicator()),
     };
   }

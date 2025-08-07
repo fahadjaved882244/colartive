@@ -6,7 +6,6 @@ class MockTemplateRepository extends ITemplateRepository {
   Future<List<Template>> getAll() async {
     return [
       Template(
-        id: "1",
         fontFamily: "BabyYoda",
         fontFileUrl: "assets/templates/BabyYoda.ttf",
         fontSize: 220,
@@ -30,9 +29,9 @@ class MockTemplateRepository extends ITemplateRepository {
         thumbnailUrl: "www.firebase.com/asda/",
         createdAt: DateTime(1, 1, 2023),
         isActive: true,
+        isPremium: false,
       ),
       Template(
-        id: "3",
         fontFamily: "Camelion",
         fontFileUrl: "assets/templates/Camlion.ttf",
         fontSize: 220,
@@ -52,9 +51,9 @@ class MockTemplateRepository extends ITemplateRepository {
         thumbnailUrl: "www.firebase.com/asda/",
         createdAt: DateTime(1, 1, 2023),
         isActive: true,
+        isPremium: false,
       ),
       Template(
-        id: "2",
         fontFamily: "Deadpool",
         fontFileUrl: "assets/templates/DeadPoolMed.ttf",
         fontSize: 220,
@@ -65,13 +64,13 @@ class MockTemplateRepository extends ITemplateRepository {
           0xe803,
           0xe804,
           0xe805,
-          0xe806,
         ],
-        maxColors: 5,
+        maxColors: 6,
         name: "Deadpool",
         thumbnailUrl: "www.firebase.com/asda/",
         createdAt: DateTime(1, 1, 2023),
         isActive: true,
+        isPremium: false,
       ),
     ];
   }

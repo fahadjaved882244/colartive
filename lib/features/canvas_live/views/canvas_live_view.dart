@@ -18,7 +18,8 @@ class CanvasLiveView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncTemplate = ref.watch(templateDetailProvider(templateId));
+    final asyncTemplate = ref
+        .watch(templateDetailProvider("bb880eb0-768a-4b4f-a689-608ea0cb8e55"));
 
     return PopScope(
       onPopInvokedWithResult: (didpop, result) {
