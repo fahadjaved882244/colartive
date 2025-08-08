@@ -16,7 +16,9 @@ class SwatchColorButton extends ConsumerWidget {
     final iconColor =
         swatch.computeLuminance() >= 0.5 ? Colors.black : Colors.white;
 
-    final bool flag = ref.watch(canUpdateMainColorButton(swatch));
+    final colors = ref.watch(canvasLiveControllerProvider).colors;
+
+    final bool flag = checkShades(swatch, colors);
 
     return Material(
       color: swatch,
@@ -44,17 +46,10 @@ class SwatchColorButton extends ConsumerWidget {
   }
 }
 
-final canUpdateMainColorButton =
-    Provider.family<bool, ColorSwatch>((ref, swatch) {
-  ///
-  /// Check if the selected color is a shade of the main color
-  bool checkShades(List<Color> selected) {
-    for (int value = 100; value < 900; value += 100) {
-      if (selected.contains(swatch[value])) return true;
-    }
-    return false;
+/// Check if the selected color is a shade of the main color
+bool checkShades(ColorSwatch swatch, List<Color> selected) {
+  for (int value = 100; value < 900; value += 100) {
+    if (selected.contains(swatch[value])) return true;
   }
-
-  final variation = ref.watch(canvasLiveControllerProvider);
-  return checkShades(variation.colors);
-});
+  return false;
+}

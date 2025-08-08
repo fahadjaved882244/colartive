@@ -2,7 +2,7 @@ import 'package:colartive2/features/template/data/template_repository.dart';
 import 'package:colartive2/features/template/model/template.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final templateListProvider = FutureProvider(
+final templateListProvider = FutureProvider<List<Template>>(
   (ref) async {
     final repository = ref.watch(templateRepositoryProvider);
     return repository.getAll();
@@ -11,7 +11,8 @@ final templateListProvider = FutureProvider(
 
 final fontListProvider = StateProvider<List<String>>((ref) => []);
 
-final templateDetailProvider = FutureProviderFamily<Template, String>(
+final templateDetailProvider =
+    FutureProvider.autoDispose.family<Template, String>(
   (ref, id) async {
     final repository = ref.watch(templateRepositoryProvider);
     final template = await repository.get(id);

@@ -72,7 +72,6 @@ flutter:
   assets:
     - assets/general/
     - assets/fonts/
-    - assets/templates/
     # - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -90,19 +89,7 @@ flutter:
     - family: SummerPixel
       fonts:
         - asset: assets/fonts/pixelated/SummerPixel22Regular.ttf
-  
-    - family: DeadPool
-      fonts:
-        - asset: assets/templates/DeadPoolMed.ttf
-
-    - family: Camelion
-      fonts:
-        - asset: assets/templates/Camelion.ttf 
-
-    - family: BabyYoda
-      fonts:
-        - asset: assets/templates/BabyYoda.ttf
-    
+   
     # Fonts for Overlay Text
     - family: Lobster
       fonts:

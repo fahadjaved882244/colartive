@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final canvasLiveControllerProvider =
-    AutoDisposeNotifierProvider<VariationNotifier, Variation>(() {
+    NotifierProvider.autoDispose<VariationNotifier, Variation>(() {
   return VariationNotifier();
 });
 
