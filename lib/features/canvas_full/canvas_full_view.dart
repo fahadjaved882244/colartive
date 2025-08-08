@@ -4,6 +4,7 @@ import 'package:colartive2/features/template/views/template_controller.dart';
 import 'package:colartive2/utils/components/widgets/async_switcher.dart';
 import 'package:colartive2/features/canvas_full/widgets/canvas_actions_bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -46,9 +47,19 @@ class CanvasFullView extends ConsumerWidget {
                     ),
                   ),
                 ),
+                Positioned(
+                  left: 16,
+                  top: 64,
+                  child: IconButton.outlined(
+                    onPressed: () {
+                      context.pop();
+                    },
+                    icon: Icon(Icons.arrow_back),
+                  ),
+                ),
                 // Floating Action Button to show bottom sheet
                 Positioned(
-                  right: 20,
+                  right: 16,
                   bottom: 80,
                   child: FloatingActionButton(
                     onPressed: () {
@@ -65,7 +76,7 @@ class CanvasFullView extends ConsumerWidget {
                     },
                     backgroundColor: Colors.white,
                     child: const Icon(
-                      Ionicons.options,
+                      Icons.download,
                       color: Colors.black87,
                     ),
                   ),

@@ -53,109 +53,109 @@ class CanvasActionsBottomSheet extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
-              Expanded(
-                child: ListView(
-                  controller: scrollController,
-                  padding: const EdgeInsets.all(16),
-                  children: [
-                    const Text(
-                      'Canvas Actions',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
-                      textAlign: TextAlign.center,
+              const SizedBox(height: 16),
+              if (exportState.message != null) ...[
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: exportState.status == CanvasExportStatus.success
+                        ? Colors.green[50]
+                        : Colors.red[50],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: exportState.status == CanvasExportStatus.success
+                          ? Colors.green
+                          : Colors.red,
                     ),
-                    if (exportState.message != null) ...[
-                      const SizedBox(height: 16),
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color:
-                              exportState.status == CanvasExportStatus.success
-                                  ? Colors.green[50]
-                                  : Colors.red[50],
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        exportState.status == CanvasExportStatus.success
+                            ? Ionicons.checkmark_circle
+                            : Ionicons.alert_circle,
+                        color: exportState.status == CanvasExportStatus.success
+                            ? Colors.green
+                            : Colors.red,
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          exportState.message!,
+                          style: TextStyle(
                             color:
                                 exportState.status == CanvasExportStatus.success
-                                    ? Colors.green
-                                    : Colors.red,
+                                    ? Colors.green[800]
+                                    : Colors.red[800],
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              exportState.status == CanvasExportStatus.success
-                                  ? Ionicons.checkmark_circle
-                                  : Ionicons.alert_circle,
-                              color: exportState.status ==
-                                      CanvasExportStatus.success
-                                  ? Colors.green
-                                  : Colors.red,
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Text(
-                                exportState.message!,
-                                style: TextStyle(
-                                  color: exportState.status ==
-                                          CanvasExportStatus.success
-                                      ? Colors.green[800]
-                                      : Colors.red[800],
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: exportNotifier.clearStatus,
-                              icon: const Icon(Ionicons.close),
-                              iconSize: 16,
-                            ),
-                          ],
-                        ),
+                      ),
+                      IconButton(
+                        onPressed: exportNotifier.clearStatus,
+                        icon: const Icon(Ionicons.close),
+                        iconSize: 16,
                       ),
                     ],
-                    if (exportState.status == CanvasExportStatus.loading)
-                      const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    else ...[
-                      const SizedBox(height: 16),
+                  ),
+                ),
+                const SizedBox(height: 16),
+              ],
+              if (exportState.status == CanvasExportStatus.loading)
+                const Center(
+                  child: CircularProgressIndicator(),
+                )
+              else ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Row(
+                    children: [
                       _ActionButton(
-                        icon: Ionicons.download_outline,
-                        title: 'Save in Gallery',
+                        icon: Ionicons.share_social_outline,
+                        title: 'Share in Community',
                         onTap: () => exportNotifier.downloadCanvas(
                           size: canvasSize,
                           variation: variation,
                           template: template,
                         ),
                       ),
-                      const SizedBox(height: 16),
                       _ActionButton(
-                        icon: Ionicons.home_outline,
-                        title: 'Set as Home Wallpaper',
-                        onTap: () => exportNotifier.setAsHomeWallpaper(
-                          size: canvasSize,
-                          variation: variation,
-                          template: template,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      _ActionButton(
-                        icon: Ionicons.lock_closed_outline,
-                        title: 'Set as Lock Wallpaper',
-                        onTap: () => exportNotifier.setAsLockWallpaper(
+                        icon: Ionicons.download_outline,
+                        title: 'Save',
+                        onTap: () => exportNotifier.downloadCanvas(
                           size: canvasSize,
                           variation: variation,
                           template: template,
                         ),
                       ),
                     ],
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    _ActionButton(
+                      icon: Ionicons.home_outline,
+                      title: 'Home Wallpaper',
+                      onTap: () => exportNotifier.setAsHomeWallpaper(
+                        size: canvasSize,
+                        variation: variation,
+                        template: template,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    _ActionButton(
+                      icon: Ionicons.lock_closed_outline,
+                      title: 'Lock Screen',
+                      onTap: () => exportNotifier.setAsLockWallpaper(
+                        size: canvasSize,
+                        variation: variation,
+                        template: template,
+                      ),
+                    ),
                   ],
                 ),
-              ),
+              ],
             ],
           ),
         );
@@ -177,6 +177,11 @@ class _ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return FilledButton.tonalIcon(
+      onPressed: () {},
+      icon: Icon(icon),
+      label: Text(title),
+    );
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),

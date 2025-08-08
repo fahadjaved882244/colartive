@@ -24,6 +24,7 @@ class TemplateListView extends ConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.all(16),
                   child: SearchBar(
+                    elevation: WidgetStateProperty.all(0.0),
                     leading: Icon(Icons.search),
                     hintText: "Search templates...",
                   ),
@@ -31,11 +32,50 @@ class TemplateListView extends ConsumerWidget {
                 SizedBox(height: 8),
                 Padding(
                   padding: const EdgeInsets.only(left: 16),
-                  child: Text(
-                    "Free Templates",
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontFamily: "Cinzel Decorative",
-                        ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.star_border),
+                      SizedBox(width: 8),
+                      Text(
+                        "Featured",
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontFamily: "Cinzel Decorative",
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 8),
+                SizedBox(
+                  height: 160,
+                  child: ListView.separated(
+                    padding: EdgeInsets.only(left: 16, right: 16),
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: freeTemplates.length,
+                    itemBuilder: (context, index) {
+                      final item = freeTemplates.reversed.elementAt(index);
+                      return TemplateThumbnail(template: item);
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(width: 8);
+                    },
+                  ),
+                ),
+                SizedBox(height: 24),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Row(
+                    children: [
+                      Icon(Icons.lock_open_outlined),
+                      SizedBox(width: 8),
+                      Text(
+                        "Free",
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontFamily: "Cinzel Decorative",
+                            ),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(height: 8),
@@ -55,14 +95,20 @@ class TemplateListView extends ConsumerWidget {
                     },
                   ),
                 ),
-                SizedBox(height: 32),
+                SizedBox(height: 24),
                 Padding(
                   padding: const EdgeInsets.only(left: 16),
-                  child: Text(
-                    "Premium Templates",
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontFamily: "Cinzel Decorative",
-                        ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.diamond_outlined),
+                      SizedBox(width: 8),
+                      Text(
+                        "Premium",
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontFamily: "Cinzel Decorative",
+                            ),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(height: 8),

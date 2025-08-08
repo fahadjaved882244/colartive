@@ -25,7 +25,7 @@ class DarkAppTheme {
   static final _textTheme = GoogleFonts.robotoSerifTextTheme().apply(
     bodyColor: _colorScheme.onSurface,
     displayColor: _colorScheme.onSurface,
-    fontFamily: 'SummerPixel',
+    // fontFamily: 'SummerPixel',
   );
 
   static final _inputDecorationTheme = InputDecorationTheme(
