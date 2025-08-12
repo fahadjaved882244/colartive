@@ -2,7 +2,7 @@ import 'package:colartive2/features/canvas_live/views/canvas_live_controller.dar
 import 'package:colartive2/features/canvas_live/views/components/canvas/template_painter.dart';
 import 'package:colartive2/features/template/views/template_controller.dart';
 import 'package:colartive2/utils/components/widgets/async_switcher.dart';
-import 'package:colartive2/features/canvas_full/widgets/canvas_actions_bottom_sheet.dart';
+import 'package:colartive2/features/canvas_full/components/canvas_full_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -58,27 +58,48 @@ class CanvasFullView extends ConsumerWidget {
                   ),
                 ),
                 // Floating Action Button to show bottom sheet
-                Positioned(
-                  right: 16,
-                  bottom: 80,
-                  child: FloatingActionButton(
-                    onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        builder: (context) => CanvasActionsBottomSheet(
+                // Positioned(
+                //   right: 16,
+                //   bottom: 80,
+                //   child: FloatingActionButton(
+                //     onPressed: () {
+                //       showModalBottomSheet(
+                //         context: context,
+                //         isScrollControlled: true,
+                //         backgroundColor: Colors.transparent,
+                //         builder: (context) => CanvasActionsBottomSheet(
+                //           canvasSize: canvasSize,
+                //           variation: variation,
+                //           template: template,
+                //         ),
+                //       );
+                //     },
+                //     backgroundColor: Colors.white,
+                //     child: const Icon(
+                //       Icons.download,
+                //       color: Colors.black87,
+                //     ),
+                //   ),
+                // ),
+                NotificationListener<OverscrollIndicatorNotification>(
+                  onNotification: (OverscrollIndicatorNotification overscroll) {
+                    overscroll.disallowIndicator();
+                    return true;
+                  },
+                  child: DraggableScrollableSheet(
+                    initialChildSize: 0.302,
+                    minChildSize: 0.06,
+                    maxChildSize: 0.38,
+                    builder: (BuildContext context, controller) {
+                      return SingleChildScrollView(
+                        controller: controller,
+                        child: CanvasFullBottomSheet(
                           canvasSize: canvasSize,
                           variation: variation,
                           template: template,
                         ),
                       );
                     },
-                    backgroundColor: Colors.white,
-                    child: const Icon(
-                      Icons.download,
-                      color: Colors.black87,
-                    ),
                   ),
                 ),
               ],

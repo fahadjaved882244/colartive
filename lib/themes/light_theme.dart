@@ -21,10 +21,10 @@ class LightAppTheme {
     // surfaceVariant: const Color(0xffFAFAFA),
   );
 
-  static const _cardTheme = CardThemeData(
-    elevation: 0,
-    margin: EdgeInsets.all(0),
-  );
+  // static const _cardTheme = CardThemeData(
+  //   elevation: 0,
+  //   margin: EdgeInsets.all(0),
+  // );
 
   // static final _overlayColor = ElevationOverlay.colorWithOverlay(
   //     _colorScheme.surface, _colorScheme.onSurface, 3);
@@ -37,44 +37,44 @@ class LightAppTheme {
   );
 
   /////////// Divider Theme //////////////
-  static const _dividerTheme = DividerThemeData(
-    color: Color(0xffC4C7C5),
-    thickness: 0.5,
-    space: 16,
-  );
+  // static const _dividerTheme = DividerThemeData(
+  //   color: Color(0xffC4C7C5),
+  //   thickness: 0.5,
+  //   space: 16,
+  // );
 
   /////////// Drawer Theme //////////////
-  static final _drawerTheme = DrawerThemeData(
-    elevation: 5,
-    backgroundColor: _colorScheme.surface,
-    scrimColor: _colorScheme.inverseSurface.withValues(alpha: 0.4),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topRight: Radius.circular(16),
-        bottomRight: Radius.circular(16),
-      ),
-    ),
-  );
+  // static final _drawerTheme = DrawerThemeData(
+  //   elevation: 5,
+  //   backgroundColor: _colorScheme.surface,
+  //   scrimColor: _colorScheme.inverseSurface.withValues(alpha: 0.4),
+  //   shape: const RoundedRectangleBorder(
+  //     borderRadius: BorderRadius.only(
+  //       topRight: Radius.circular(16),
+  //       bottomRight: Radius.circular(16),
+  //     ),
+  //   ),
+  // );
 
   /////////// TabBar Theme //////////////
-  static final _tabBarTheme = TabBarThemeData(
-    labelColor: _colorScheme.primary,
-    unselectedLabelColor: _colorScheme.onSurfaceVariant,
-    indicatorSize: TabBarIndicatorSize.label,
-  );
+  // static final _tabBarTheme = TabBarThemeData(
+  //   labelColor: _colorScheme.primary,
+  //   unselectedLabelColor: _colorScheme.onSurfaceVariant,
+  //   indicatorSize: TabBarIndicatorSize.label,
+  // );
 
   /////////// List Tile Theme //////////////
-  static final _listTileTheme = ListTileThemeData(
-    contentPadding:
-        const EdgeInsets.only(left: 16, right: 24, top: 8, bottom: 8),
-    minVerticalPadding: 0,
-    minLeadingWidth: 24,
-    horizontalTitleGap: Paddings.sm,
-    tileColor: AppColors.transparent,
-    selectedTileColor: _colorScheme.surface,
-    selectedColor: _colorScheme.onSurfaceVariant,
-    iconColor: _colorScheme.onSurfaceVariant,
-  );
+  // static final _listTileTheme = ListTileThemeData(
+  //   contentPadding:
+  //       const EdgeInsets.only(left: 16, right: 24, top: 8, bottom: 8),
+  //   minVerticalPadding: 0,
+  //   minLeadingWidth: 24,
+  //   horizontalTitleGap: Paddings.sm,
+  //   tileColor: AppColors.transparent,
+  //   selectedTileColor: _colorScheme.surface,
+  //   selectedColor: _colorScheme.onSurfaceVariant,
+  //   iconColor: _colorScheme.onSurfaceVariant,
+  // );
 
   /////////// Input Decoration Theme //////////////
   static final _inputDecorationTheme = InputDecorationTheme(
