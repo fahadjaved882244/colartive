@@ -6,7 +6,6 @@ import 'package:colartive2/features/canvas_full/components/canvas_full_bottom_sh
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ionicons/ionicons.dart';
 
 class CanvasFullView extends ConsumerWidget {
   final String templateId;

@@ -198,8 +198,8 @@ class CanvasFullBottomSheet extends HookConsumerWidget {
                       ),
                       SizedBox(width: 16),
                       bottomSheetItem(
-                        () {
-                          exportNotifier.downloadCanvas(
+                        () async {
+                          await exportNotifier.downloadCanvas(
                             size: canvasSize,
                             dpr: dpr,
                             qltyValue: qualityState.value,
@@ -218,8 +218,8 @@ class CanvasFullBottomSheet extends HookConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         bottomSheetItem(
-                          () {
-                            exportNotifier.setAsHomeWallpaper(
+                          () async {
+                            await exportNotifier.setAsHomeWallpaper(
                               size: canvasSize,
                               dpr: dpr,
                               qltyValue: qualityState.value,
@@ -233,7 +233,7 @@ class CanvasFullBottomSheet extends HookConsumerWidget {
                         const SizedBox(width: 16),
                         bottomSheetItem(
                           () async {
-                            exportNotifier.setAsLockWallpaper(
+                            await exportNotifier.setAsLockWallpaper(
                               size: canvasSize,
                               dpr: dpr,
                               qltyValue: qualityState.value,
