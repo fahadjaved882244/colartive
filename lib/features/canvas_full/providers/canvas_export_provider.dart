@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 import 'dart:ui' as ui;
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:gal/gal.dart';
@@ -47,6 +47,8 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
 
   Future<void> downloadCanvas({
     required Size size,
+    required double dpr,
+    required int qltyValue,
     required Variation variation,
     required Template template,
   }) async {
@@ -64,6 +66,8 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
 
       final bytes = await _renderCanvasToBytes(
         size: size,
+        dpr: dpr,
+        qltyValue: qltyValue,
         variation: variation,
         template: template,
       );
@@ -107,6 +111,8 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
 
   Future<void> setAsHomeWallpaper({
     required Size size,
+    required double dpr,
+    required int qltyValue,
     required Variation variation,
     required Template template,
   }) async {
@@ -115,6 +121,8 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
     try {
       final bytes = await _renderCanvasToBytes(
         size: size,
+        dpr: dpr,
+        qltyValue: qltyValue,
         variation: variation,
         template: template,
       );
@@ -157,6 +165,8 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
 
   Future<void> setAsLockWallpaper({
     required Size size,
+    required double dpr,
+    required int qltyValue,
     required Variation variation,
     required Template template,
   }) async {
@@ -165,6 +175,8 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
     try {
       final bytes = await _renderCanvasToBytes(
         size: size,
+        dpr: dpr,
+        qltyValue: qltyValue,
         variation: variation,
         template: template,
       );
@@ -210,8 +222,10 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
     }
   }
 
-  Future<Uint8List?> _renderCanvasToBytes({
+  Future<Int8List?> _renderCanvasToBytes({
     required Size size,
+    required double dpr,
+    required int qltyValue,
     required Variation variation,
     required Template template,
   }) async {
@@ -232,12 +246,31 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
 
       final picture = recorder.endRecording();
 
+      // double height = size.height * dpr;
+      // double width = size.width * dpr;
+      // double fact = 1;
+      // final sizeHorizontal = size.width;
+
+      // if (qltyValue == 0) {
+      //   fact = 720 / sizeHorizontal;
+      //   height = height * fact;
+      //   width = width * fact;
+      // } else if (qltyValue == 1) {
+      //   fact = 1080 / sizeHorizontal;
+      //   height = height * fact;
+      //   width = width * fact;
+      // } else if (qltyValue == 2) {
+      //   fact = 2160 / sizeHorizontal;
+      //   height = height * fact;
+      //   width = width * fact;
+      // }
+
       final image = await picture.toImage(
         size.width.toInt(),
         size.height.toInt(),
       );
       final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-      return byteData?.buffer.asUint8List();
+      return byteData?.buffer.asInt8List();
     } catch (e) {
       rethrow;
     }

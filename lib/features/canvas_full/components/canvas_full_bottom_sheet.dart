@@ -22,6 +22,8 @@ class CanvasFullBottomSheet extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final dpr = MediaQuery.of(context).devicePixelRatio;
+
     final exportState = ref.watch(canvasExportProvider);
     final exportNotifier = ref.read(canvasExportProvider.notifier);
     final qualityState = useState(1);
@@ -185,6 +187,8 @@ class CanvasFullBottomSheet extends HookConsumerWidget {
                         () {
                           exportNotifier.downloadCanvas(
                             size: canvasSize,
+                            dpr: dpr,
+                            qltyValue: qualityState.value,
                             variation: variation,
                             template: template,
                           );
@@ -197,6 +201,8 @@ class CanvasFullBottomSheet extends HookConsumerWidget {
                         () {
                           exportNotifier.downloadCanvas(
                             size: canvasSize,
+                            dpr: dpr,
+                            qltyValue: qualityState.value,
                             variation: variation,
                             template: template,
                           );
@@ -215,6 +221,8 @@ class CanvasFullBottomSheet extends HookConsumerWidget {
                           () {
                             exportNotifier.setAsHomeWallpaper(
                               size: canvasSize,
+                              dpr: dpr,
+                              qltyValue: qualityState.value,
                               variation: variation,
                               template: template,
                             );
@@ -227,6 +235,8 @@ class CanvasFullBottomSheet extends HookConsumerWidget {
                           () async {
                             exportNotifier.setAsLockWallpaper(
                               size: canvasSize,
+                              dpr: dpr,
+                              qltyValue: qualityState.value,
                               variation: variation,
                               template: template,
                             );
