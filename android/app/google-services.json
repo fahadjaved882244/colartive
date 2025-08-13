@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "819484733556",
+    "project_id": "colartive-1b793",
+    "storage_bucket": "colartive-1b793.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819484733556:android:33942abdcc67455909a121",
+        "android_client_info": {
+          "package_name": "com.colartive.async"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "819484733556-1mtiqn8rj8cv9o8gdsekovtrp06hjml6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.colartive.async",
+            "certificate_hash": "b823b27403eb2c4e771e89856972f048e911ac1a"
+          }
+        },
+        {
+          "client_id": "819484733556-j3jtfu8he4vudot33llov37p1p7vg4sh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.colartive.async",
+            "certificate_hash": "5d2960f1a39038347d4ea6a62a39171bfd887bb5"
+          }
+        },
+        {
+          "client_id": "819484733556-qb98tqucg4vtj42am101rloj7lgfg52f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-79unTe17Q7INerwOvlJyjvR5OGPDYHY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "819484733556-qb98tqucg4vtj42am101rloj7lgfg52f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "819484733556-5139q5bif1pr8kgsosl1o8rl743eh93u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.colartive.async"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

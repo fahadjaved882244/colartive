@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../../../../utils/controllers/theme_controller.dart';
+import '../../../../themes/theme_controller.dart';
 
 class ChangeThemeCard extends ConsumerWidget {
   const ChangeThemeCard({super.key});

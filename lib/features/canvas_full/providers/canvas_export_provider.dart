@@ -1,16 +1,18 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 import 'dart:ui' as ui;
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:gal/gal.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:colartive2/features/canvas_live/views/components/canvas/template_painter.dart';
 import 'package:colartive2/features/canvas_live/model/variation.dart';
 import 'package:colartive2/features/template/model/template.dart';
-import 'package:wallpaper_manager_flutter/wallpaper_manager_flutter.dart';
+
+const platform = MethodChannel('com.colartive.wallpapers/wallpaper');
 
 final canvasExportProvider =
     AutoDisposeNotifierProvider<CanvasExportNotifier, CanvasExportState>(() {
@@ -47,6 +49,8 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
 
   Future<void> downloadCanvas({
     required Size size,
+    required double dpr,
+    required int qltyValue,
     required Variation variation,
     required Template template,
   }) async {
@@ -64,6 +68,8 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
 
       final bytes = await _renderCanvasToBytes(
         size: size,
+        dpr: dpr,
+        qltyValue: qltyValue,
         variation: variation,
         template: template,
       );
@@ -107,6 +113,8 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
 
   Future<void> setAsHomeWallpaper({
     required Size size,
+    required double dpr,
+    required int qltyValue,
     required Variation variation,
     required Template template,
   }) async {
@@ -115,6 +123,8 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
     try {
       final bytes = await _renderCanvasToBytes(
         size: size,
+        dpr: dpr,
+        qltyValue: qltyValue,
         variation: variation,
         template: template,
       );
@@ -132,17 +142,22 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
           '${tempDir.path}/wallpaper_${DateTime.now().millisecondsSinceEpoch}.png');
       await file.writeAsBytes(bytes);
 
-      final result = await WallpaperManagerFlutter().setWallpaper(
-        file,
-        WallpaperManagerFlutter.homeScreen,
-      );
+      final result =
+          await platform.invokeMethod<String>('setHomeScreenWallpaper', {
+        'imagePath': file.path,
+      });
 
-      if (result) {
+      if (result != null && result.contains('successfully')) {
         state = state.copyWith(
           status: CanvasExportStatus.success,
           message: 'Set as home screen wallpaper',
         );
       }
+    } on PlatformException catch (e) {
+      state = state.copyWith(
+        status: CanvasExportStatus.error,
+        message: "Platform: ${e.message}",
+      );
     } catch (e) {
       state = state.copyWith(
         status: CanvasExportStatus.error,
@@ -157,6 +172,8 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
 
   Future<void> setAsLockWallpaper({
     required Size size,
+    required double dpr,
+    required int qltyValue,
     required Variation variation,
     required Template template,
   }) async {
@@ -165,6 +182,8 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
     try {
       final bytes = await _renderCanvasToBytes(
         size: size,
+        dpr: dpr,
+        qltyValue: qltyValue,
         variation: variation,
         template: template,
       );
@@ -182,15 +201,15 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
           '${tempDir.path}/wallpaper_${DateTime.now().millisecondsSinceEpoch}.png');
       await file.writeAsBytes(bytes);
 
-      final result = await WallpaperManagerFlutter().setWallpaper(
-        file,
-        WallpaperManagerFlutter.lockScreen,
-      );
+      final result =
+          await platform.invokeMethod<String>('setLockScreenWallpaper', {
+        'imagePath': file.path,
+      });
 
-      if (result) {
+      if (result != null && result.contains('successfully')) {
         state = state.copyWith(
           status: CanvasExportStatus.success,
-          message: 'Set as lock screen wallpaper',
+          message: 'Set as home screen wallpaper',
         );
       } else {
         state = state.copyWith(
@@ -210,8 +229,10 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
     }
   }
 
-  Future<Uint8List?> _renderCanvasToBytes({
+  Future<Int8List?> _renderCanvasToBytes({
     required Size size,
+    required double dpr,
+    required int qltyValue,
     required Variation variation,
     required Template template,
   }) async {
@@ -232,12 +253,31 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
 
       final picture = recorder.endRecording();
 
+      // double height = size.height * dpr;
+      // double width = size.width * dpr;
+      // double fact = 1;
+      // final sizeHorizontal = size.width;
+
+      // if (qltyValue == 0) {
+      //   fact = 720 / sizeHorizontal;
+      //   height = height * fact;
+      //   width = width * fact;
+      // } else if (qltyValue == 1) {
+      //   fact = 1080 / sizeHorizontal;
+      //   height = height * fact;
+      //   width = width * fact;
+      // } else if (qltyValue == 2) {
+      //   fact = 2160 / sizeHorizontal;
+      //   height = height * fact;
+      //   width = width * fact;
+      // }
+
       final image = await picture.toImage(
         size.width.toInt(),
         size.height.toInt(),
       );
       final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-      return byteData?.buffer.asUint8List();
+      return byteData?.buffer.asInt8List();
     } catch (e) {
       rethrow;
     }

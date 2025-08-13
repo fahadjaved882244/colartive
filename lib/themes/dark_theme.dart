@@ -10,12 +10,6 @@ class DarkAppTheme {
   static final themeData = ThemeData.dark(useMaterial3: true).copyWith(
     colorScheme: _colorScheme,
     textTheme: _textTheme,
-    scaffoldBackgroundColor: _colorScheme.surface,
-    tabBarTheme: _tabBarTheme,
-    dividerTheme: _dividerTheme,
-    drawerTheme: _drawerTheme,
-    listTileTheme: _listTileTheme,
-    cardTheme: _cardTheme,
     inputDecorationTheme: _inputDecorationTheme,
   );
 
@@ -25,55 +19,13 @@ class DarkAppTheme {
     // surfaceVariant: const Color(0xff252525),
   );
 
-  static const _cardTheme = CardThemeData(
-    elevation: 0,
-    margin: EdgeInsets.all(0),
-  );
-
   // static final _overlayColor = ElevationOverlay.colorWithOverlay(
   //     _colorScheme.surface, _colorScheme.onSurface, 5);
 
   static final _textTheme = GoogleFonts.robotoSerifTextTheme().apply(
     bodyColor: _colorScheme.onSurface,
     displayColor: _colorScheme.onSurface,
-    fontFamily: 'SummerPixel',
-  );
-
-  static const _dividerTheme = DividerThemeData(
-    color: Color(0xff444746),
-    thickness: 1,
-    space: 16,
-  );
-
-  static final _drawerTheme = DrawerThemeData(
-    elevation: 5,
-    backgroundColor: _colorScheme.surface,
-    scrimColor: _colorScheme.inverseSurface.withValues(alpha: 0.4),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topRight: Radius.circular(16),
-        bottomRight: Radius.circular(16),
-      ),
-    ),
-  );
-
-  /////////// TabBar Theme //////////////
-  static final _tabBarTheme = TabBarThemeData(
-    labelColor: _colorScheme.primary,
-    unselectedLabelColor: _colorScheme.onSurfaceVariant,
-    indicatorSize: TabBarIndicatorSize.label,
-  );
-
-  static final _listTileTheme = ListTileThemeData(
-    contentPadding:
-        const EdgeInsets.only(left: 16, right: 24, top: 8, bottom: 8),
-    minVerticalPadding: 0,
-    minLeadingWidth: 24,
-    horizontalTitleGap: 16,
-    tileColor: AppColors.transparent,
-    selectedTileColor: _colorScheme.surface,
-    selectedColor: _colorScheme.onSurfaceVariant,
-    iconColor: _colorScheme.onSurfaceVariant,
+    // fontFamily: 'SummerPixel',
   );
 
   static final _inputDecorationTheme = InputDecorationTheme(
@@ -111,34 +63,5 @@ class DarkAppTheme {
       borderRadius: const BorderRadius.all(Radius.circular(Corners.tf)),
       borderSide: BorderSide(color: _colorScheme.error),
     ),
-    // filled: true,
-    // fillColor: _colorScheme.surfaceVariant,
-    // errorMaxLines: 3,
-    // contentPadding: const EdgeInsets.all(AppSizes.smallPadding),
-    // labelStyle:
-    //     _textTheme.labelLarge!.copyWith(color: _colorScheme.onSurfaceVariant),
-    // hintStyle:
-    //     _textTheme.labelLarge!.copyWith(color: _colorScheme.onSurfaceVariant),
-    // errorStyle: _textTheme.labelSmall!.copyWith(color: _colorScheme.error),
-    // helperStyle: _textTheme.labelSmall,
-    // counterStyle: _textTheme.labelSmall,
-    // border: const OutlineInputBorder(
-    //   borderRadius: BorderRadius.all(Radius.circular(AppSizes.textFieldRadius)),
-    //   borderSide: BorderSide.none,
-    // ),
-    // disabledBorder: const OutlineInputBorder(
-    //   borderRadius: BorderRadius.all(Radius.circular(AppSizes.textFieldRadius)),
-    //   borderSide: BorderSide.none,
-    // ),
-    // errorBorder: OutlineInputBorder(
-    //   borderRadius:
-    //       const BorderRadius.all(Radius.circular(AppSizes.textFieldRadius)),
-    //   borderSide: BorderSide(color: _colorScheme.error),
-    // ),
-    // focusedErrorBorder: OutlineInputBorder(
-    //   borderRadius:
-    //       const BorderRadius.all(Radius.circular(AppSizes.textFieldRadius)),
-    //   borderSide: BorderSide(color: _colorScheme.error),
-    // ),
   );
 }

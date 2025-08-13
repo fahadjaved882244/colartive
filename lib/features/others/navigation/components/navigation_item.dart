@@ -34,15 +34,19 @@ class CustomNavigationItem extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Transform.scale(
-            scale: isSelected ? iconScale : 1,
-            child: Icon(
-              item.icon,
-              size: 28,
-              color: Color.lerp(
-                isSelected ? item.color : inActiveColor.withValues(alpha: 0.7),
-                inActiveColor.withValues(alpha: 0.7),
-                curve,
+          Expanded(
+            child: Transform.scale(
+              scale: isSelected ? iconScale : 1,
+              child: Icon(
+                item.icon,
+                size: 28,
+                color: Color.lerp(
+                  isSelected
+                      ? item.color
+                      : inActiveColor.withValues(alpha: 0.7),
+                  inActiveColor.withValues(alpha: 0.7),
+                  curve,
+                ),
               ),
             ),
           ),

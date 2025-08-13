@@ -11,15 +11,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ionicons/ionicons.dart';
 
 class ProfileView extends StatelessWidget {
-  final String id;
-  final String name;
-  final String? photoUrl;
-
-  const ProfileView(
-      {super.key,
-      required this.id,
-      required this.name,
-      required this.photoUrl});
+  const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +29,7 @@ class ProfileView extends StatelessWidget {
             height: 200,
             child: Consumer(
               builder: (context, ref, child) {
-                return ref.watch(appUserStreamProvider(id)).when(
+                return ref.watch(appUserStreamProvider('id')).when(
                       data: (user) => Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -47,17 +39,17 @@ class ProfileView extends StatelessWidget {
                               Column(
                                 children: [
                                   AvatarImageText(
-                                    name: name,
-                                    photoUrl: photoUrl,
+                                    name: user.displayName,
+                                    photoUrl: user.profileImageUrl,
                                   ),
                                   Text(
-                                    name,
+                                    user.bio,
                                     style: context.textTheme.titleMedium,
                                   ),
                                 ],
                               ),
                               Text(user.contributions.toString()),
-                              Text(user.upvotes.toString()),
+                              Text(user.totalUpvotes.toString()),
                               Text(user.following.toString()),
                             ],
                           ),

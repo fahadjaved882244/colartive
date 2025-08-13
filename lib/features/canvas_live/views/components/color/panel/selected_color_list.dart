@@ -13,6 +13,7 @@ class SelectedColorList extends ConsumerWidget {
     final colors = ref.watch(canvasLiveControllerProvider).colors;
 
     return Card(
+      margin: EdgeInsets.zero,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(
           right: Radius.circular(12),

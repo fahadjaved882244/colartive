@@ -96,50 +96,54 @@ class CustomNavigationBarState extends State<CustomNavigationBar>
   ];
   @override
   Widget build(context) {
-    return Container(
-      height: 80,
-      width: double.maxFinite,
-      alignment: AlignmentDirectional.center,
-      padding: const EdgeInsets.symmetric(horizontal: Paddings.sm),
-      decoration: BoxDecoration(
-        color: context.colors.surface,
-        border: Border(
-          top: BorderSide(
-            width: 1,
-            color: context.colors.outline.withValues(alpha: 0.25),
+    return SafeArea(
+      bottom: true,
+      top: false,
+      child: Container(
+        height: 80,
+        width: double.maxFinite,
+        alignment: AlignmentDirectional.center,
+        padding: const EdgeInsets.symmetric(horizontal: Paddings.sm),
+        decoration: BoxDecoration(
+          color: context.colors.surface,
+          border: Border(
+            top: BorderSide(
+              width: 1,
+              color: context.colors.outline.withValues(alpha: 0.25),
+            ),
           ),
         ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: items.map((item) {
-          var itemIndex = items.indexOf(item);
-          return CustomPaint(
-            painter: BeaconPainter(
-              beaconRadius,
-              selectedIndex == itemIndex ? maxBeaconRadius : 0,
-              item.color,
-              isActive: selectedIndex == itemIndex,
-              offset: const Offset(36, 24),
-              bgColor: context.colors.surface,
-            ),
-            child: GestureDetector(
-              onTap: () async {
-                if (selectedIndex != itemIndex) {
-                  selectedIndex = itemIndex;
-                  controller.forward();
-                  widget.onChanged(itemIndex);
-                }
-              },
-              child: CustomNavigationItem(
-                item: item,
-                curve: curve.value,
-                iconScale: iconScale,
-                isSelected: itemIndex == selectedIndex,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: items.map((item) {
+            var itemIndex = items.indexOf(item);
+            return CustomPaint(
+              painter: BeaconPainter(
+                beaconRadius,
+                selectedIndex == itemIndex ? maxBeaconRadius : 0,
+                item.color,
+                isActive: selectedIndex == itemIndex,
+                offset: const Offset(36, 24),
+                bgColor: context.colors.surface,
               ),
-            ),
-          );
-        }).toList(),
+              child: GestureDetector(
+                onTap: () async {
+                  if (selectedIndex != itemIndex) {
+                    selectedIndex = itemIndex;
+                    controller.forward();
+                    widget.onChanged(itemIndex);
+                  }
+                },
+                child: CustomNavigationItem(
+                  item: item,
+                  curve: curve.value,
+                  iconScale: iconScale,
+                  isSelected: itemIndex == selectedIndex,
+                ),
+              ),
+            );
+          }).toList(),
+        ),
       ),
     );
   }

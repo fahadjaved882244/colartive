@@ -8,12 +8,14 @@ import 'package:colartive2/features/canvas_live/model/overlay_text.dart';
 
 @immutable
 class Variation {
+  final String id;
   final List<Color> colors;
   final double scaleFactor;
   final double rotationFactor;
   final double blurFactor;
   final List<OverlayText> overlayTexts;
   const Variation({
+    required this.id,
     required this.colors,
     required this.scaleFactor,
     required this.rotationFactor,
@@ -21,15 +23,17 @@ class Variation {
     required this.overlayTexts,
   });
 
-  //create a constructore for empty variation
+  //create a constructor for empty variation
   const Variation.empty()
-      : colors = const [],
+      : id = '',
+        colors = const [],
         scaleFactor = 1.0,
         rotationFactor = 0.0,
         blurFactor = 0.0,
         overlayTexts = const [];
 
   Variation copyWith({
+    String? id,
     List<Color>? colors,
     double? scaleFactor,
     double? rotationFactor,
@@ -37,6 +41,7 @@ class Variation {
     List<OverlayText>? overlayTexts,
   }) {
     return Variation(
+      id: id ?? this.id,
       colors: colors ?? this.colors,
       scaleFactor: scaleFactor ?? this.scaleFactor,
       rotationFactor: rotationFactor ?? this.rotationFactor,
@@ -47,6 +52,7 @@ class Variation {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'colors': colors.map((x) => x.toARGB32()).toList(),
       'scaleFactor': scaleFactor,
       'rotationFactor': rotationFactor,
@@ -57,6 +63,7 @@ class Variation {
 
   factory Variation.fromMap(Map<String, dynamic> map) {
     return Variation(
+      id: map['id'] as String,
       colors: List<Color>.from(
         (map['colors'] as List<int>).map<Color>(
           (x) => Color(x),
@@ -80,14 +87,15 @@ class Variation {
 
   @override
   String toString() {
-    return 'Variation(colors: $colors, scaleFactor: $scaleFactor, rotationFactor: $rotationFactor, blurFactor: $blurFactor, overlayTexts: $overlayTexts)';
+    return 'Variation(id: $id, colors: $colors, scaleFactor: $scaleFactor, rotationFactor: $rotationFactor, blurFactor: $blurFactor, overlayTexts: $overlayTexts)';
   }
 
   @override
   bool operator ==(covariant Variation other) {
     if (identical(this, other)) return true;
 
-    return listEquals(other.colors, colors) &&
+    return other.id == id &&
+        listEquals(other.colors, colors) &&
         other.scaleFactor == scaleFactor &&
         other.rotationFactor == rotationFactor &&
         other.blurFactor == blurFactor &&
@@ -96,7 +104,8 @@ class Variation {
 
   @override
   int get hashCode {
-    return colors.hashCode ^
+    return id.hashCode ^
+        colors.hashCode ^
         scaleFactor.hashCode ^
         rotationFactor.hashCode ^
         blurFactor.hashCode ^

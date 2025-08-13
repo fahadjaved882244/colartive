@@ -87,6 +87,7 @@ class ColorButtonGrid extends HookConsumerWidget {
     required ValueChanged<ColorSwatch?> notifyParent,
   }) {
     return Card(
+      margin: const EdgeInsets.all(0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(12),
@@ -114,6 +115,7 @@ class ColorButtonGrid extends HookConsumerWidget {
     required ValueChanged<ColorSwatch?> notifyParent,
   }) {
     return Card(
+      margin: const EdgeInsets.all(0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(12),

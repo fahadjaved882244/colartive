@@ -1,3 +1,4 @@
+import 'package:colartive2/features/others/navigation/components/navigation_bar.dart';
 import 'package:colartive2/routes/app_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -11,10 +12,10 @@ class NavigationView extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: child,
-      // bottomNavigationBar: CustomNavigationBar(
-      //   selectedIndex: _calculateSelectedIndex(context),
-      //   onChanged: (i) => _onItemTapped(i, context),
-      // ),
+      bottomNavigationBar: CustomNavigationBar(
+        selectedIndex: _calculateSelectedIndex(context),
+        onChanged: (i) => _onItemTapped(i, context),
+      ),
     );
   }
 

@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final canvasLiveControllerProvider =
-    AutoDisposeNotifierProvider<VariationNotifier, Variation>(() {
+    NotifierProvider.autoDispose<VariationNotifier, Variation>(() {
   return VariationNotifier();
 });
 
@@ -27,8 +27,6 @@ class VariationNotifier extends AutoDisposeNotifier<Variation> {
 
   @override
   set state(Variation value) {
-    print("Setting state");
-
     _undoStack.push(super.state);
     _redoStack.clear();
 
@@ -42,7 +40,7 @@ class VariationNotifier extends AutoDisposeNotifier<Variation> {
   }
 
   void updateColor(int index, Color color) {
-    state.colors[index] = color;
+    state.colors.replaceRange(index, index + 1, [color]);
     state = state.copyWith(colors: state.colors);
   }
 
@@ -159,7 +157,6 @@ class VariationNotifier extends AutoDisposeNotifier<Variation> {
       _redoStack.push(state);
       if (lastState != null) {
         super.state = lastState;
-        print(super.state);
       }
     }
   }

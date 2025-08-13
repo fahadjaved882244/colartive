@@ -9,8 +9,6 @@ class SelectedColorClearButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colors = ref.watch(canvasLiveControllerProvider).colors;
-
     return Card(
       elevation: 0,
       margin: EdgeInsets.zero,
@@ -23,6 +21,8 @@ class SelectedColorClearButton extends ConsumerWidget {
       child: InkWell(
         splashColor: Colors.redAccent,
         onTap: () async {
+          final colors = ref.read(canvasLiveControllerProvider).colors;
+
           if (colors.isNotEmpty) {
             await showCustomDialog(
               context: context,

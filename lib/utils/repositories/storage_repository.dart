@@ -24,6 +24,7 @@ class LocalStorageRepository {
   /// Save to local storage
   void saveDarkModeFlag(bool flag) async =>
       await _box.setBool(_darkModeKey, flag);
+
   void saveForceModeFlag(bool flag) async =>
       await _box.setBool(_forceModeKey, flag);
 

@@ -1,11 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.colartive.wallpapers">
+    package="com.colartive.async">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
     <uses-permission android:name="android.permission.WRITE_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.SET_WALLPAPER"/>
 
    <application
-        android:label="colartive2"
+        android:label="Colartive"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

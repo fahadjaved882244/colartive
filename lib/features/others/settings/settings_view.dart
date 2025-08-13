@@ -29,8 +29,8 @@ class SettingsView extends StatelessWidget {
                 child: Center(
               child: Text(
                 'ColArtive',
-                style: context.textTheme.displayMedium!
-                    .copyWith(fontFamily: "SummerPixel"),
+                style: context.textTheme.displayLarge!
+                    .copyWith(fontFamily: "Lobster"),
               ),
             )),
             const UserInfoCard(),

@@ -34,9 +34,7 @@ class CustomImageView extends StatelessWidget {
             width: width,
             fit: fit,
             fadeInDuration: const Duration(milliseconds: 100),
-            placeholder: isDarkBg
-                ? 'assets/general/darkPlaceholder.png'
-                : 'assets/general/placeholder.png',
+            placeholder: 'assets/general/placeholder.png',
             image: imagePath,
             imageErrorBuilder: (context, exception, stackTrace) {
               return DecoratedBox(

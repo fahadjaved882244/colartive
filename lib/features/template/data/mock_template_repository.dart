@@ -5,10 +5,9 @@ class MockTemplateRepository extends ITemplateRepository {
   @override
   Future<List<Template>> getAll() async {
     return [
-      const Template(
-        id: "1",
+      Template(
         fontFamily: "BabyYoda",
-        fontFilePath: "assets/templates/BabyYoda.ttf",
+        fontFileUrl: "assets/templates/BabyYoda.ttf",
         fontSize: 220,
         charCodes: [
           0xe800,
@@ -27,12 +26,14 @@ class MockTemplateRepository extends ITemplateRepository {
         ],
         maxColors: 11,
         name: "BabyYoda",
-        thumbnailPath: "www.firebase.com/asda/",
+        thumbnailUrl: "www.firebase.com/asda/",
+        createdAt: DateTime(1, 1, 2023),
+        isActive: true,
+        isPremium: false,
       ),
-      const Template(
-        id: "3",
+      Template(
         fontFamily: "Camelion",
-        fontFilePath: "assets/templates/Camlion.ttf",
+        fontFileUrl: "assets/templates/Camlion.ttf",
         fontSize: 220,
         charCodes: [
           0xe800,
@@ -47,12 +48,14 @@ class MockTemplateRepository extends ITemplateRepository {
         ],
         maxColors: 10,
         name: "Camelion",
-        thumbnailPath: "www.firebase.com/asda/",
+        thumbnailUrl: "www.firebase.com/asda/",
+        createdAt: DateTime(1, 1, 2023),
+        isActive: true,
+        isPremium: false,
       ),
-      const Template(
-        id: "2",
+      Template(
         fontFamily: "Deadpool",
-        fontFilePath: "assets/templates/DeadPoolMed.ttf",
+        fontFileUrl: "assets/templates/DeadPoolMed.ttf",
         fontSize: 220,
         charCodes: [
           0xe800,
@@ -61,12 +64,24 @@ class MockTemplateRepository extends ITemplateRepository {
           0xe803,
           0xe804,
           0xe805,
-          0xe806,
         ],
-        maxColors: 5,
+        maxColors: 6,
         name: "Deadpool",
-        thumbnailPath: "www.firebase.com/asda/",
+        thumbnailUrl: "www.firebase.com/asda/",
+        createdAt: DateTime(1, 1, 2023),
+        isActive: true,
+        isPremium: false,
       ),
     ];
+  }
+
+  @override
+  Future<Template> get(String id) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> loadFont(String path, String familyName) {
+    throw UnimplementedError();
   }
 }

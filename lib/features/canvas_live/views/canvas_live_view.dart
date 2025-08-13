@@ -28,8 +28,6 @@ class CanvasLiveView extends ConsumerWidget {
             appBar: AppBar(
               title: Text(template.name),
               centerTitle: true,
-              backgroundColor: Colors.transparent,
-              elevation: 0,
               actions: [
                 IconButton(
                   icon: const Icon(Icons.check),
