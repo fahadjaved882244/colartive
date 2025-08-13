@@ -50,7 +50,7 @@ class TemplateRepository implements ITemplateRepository {
   @override
   Future<void> loadFont(String path, String familyName) async {
     try {
-      final reference = FirebaseStorage.instance.ref().child(path);
+      final reference = FirebaseStorage.instance.ref(path);
       final Uint8List? bytes = await reference.getData(2 * 1024 * 1024);
       if (bytes != null) {
         await ui.loadFontFromList(bytes, fontFamily: familyName);

@@ -3,12 +3,12 @@ class RouteNames {
 ///////////////////////////////////////////////////////
 ///// Append '/' at the start of initial routes //////
 /////////////////////////////////////////////////////
-  static const String home = '/home';
-  static const String search = '/search';
-  static const String showcase = '/showcase';
+  static const String home = 'home';
+  static const String search = 'search';
+  static const String showcase = 'showcase';
 
   // Settings
-  static const String settings = '/settings';
+  static const String settings = 'settings';
 
   static const String updateLocale = 'update-locale';
 
@@ -23,7 +23,7 @@ class RouteNames {
   static const String updateEmail = 'update-email';
   static const String changePassword = 'change-password';
 
-  static const String canvasLive = '/canvas-live';
+  static const String canvasLive = 'canvas-live';
   static const String canvasFull = 'canvas-full';
 }
 
@@ -31,7 +31,7 @@ class RouteNames {
 // Full path from root to end-point
 class AppPaths {
   AppPaths._();
-  static const String home = RouteNames.home;
+  static const String home = '/';
   static const String search = RouteNames.search;
   static const String showcase = RouteNames.showcase;
   static const String settings = RouteNames.settings;

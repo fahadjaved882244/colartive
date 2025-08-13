@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,9 +28,15 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
-        return windows;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -40,19 +49,9 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDG1k71DEvBBs0PYQtTgu7cjSGbx5SM4vM',
-    appId: '1:819484733556:web:949bc4700ce3305009a121',
-    messagingSenderId: '819484733556',
-    projectId: 'colartive-1b793',
-    authDomain: 'colartive-1b793.firebaseapp.com',
-    storageBucket: 'colartive-1b793.firebasestorage.app',
-    measurementId: 'G-G388W3479N',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyB-79unTe17Q7INerwOvlJyjvR5OGPDYHY',
-    appId: '1:819484733556:android:d68019a27763018609a121',
+    appId: '1:819484733556:android:33942abdcc67455909a121',
     messagingSenderId: '819484733556',
     projectId: 'colartive-1b793',
     storageBucket: 'colartive-1b793.firebasestorage.app',
@@ -60,29 +59,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAGJEr3kBOazUhJ3Npu_1qv2HbwPZmvbDg',
-    appId: '1:819484733556:ios:19645ed03fb7d58509a121',
+    appId: '1:819484733556:ios:bb139873ab343b4c09a121',
     messagingSenderId: '819484733556',
     projectId: 'colartive-1b793',
     storageBucket: 'colartive-1b793.firebasestorage.app',
-    iosBundleId: 'com.colartive.wallpapers',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAGJEr3kBOazUhJ3Npu_1qv2HbwPZmvbDg',
-    appId: '1:819484733556:ios:19645ed03fb7d58509a121',
-    messagingSenderId: '819484733556',
-    projectId: 'colartive-1b793',
-    storageBucket: 'colartive-1b793.firebasestorage.app',
-    iosBundleId: 'com.colartive.wallpapers',
-  );
-
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyDG1k71DEvBBs0PYQtTgu7cjSGbx5SM4vM',
-    appId: '1:819484733556:web:ebcc0a51bddf831409a121',
-    messagingSenderId: '819484733556',
-    projectId: 'colartive-1b793',
-    authDomain: 'colartive-1b793.firebaseapp.com',
-    storageBucket: 'colartive-1b793.firebasestorage.app',
-    measurementId: 'G-PGPW6J4YQ3',
+    androidClientId: '819484733556-hm1sbfgd72dcmjj8hvijmmva2l2j2upv.apps.googleusercontent.com',
+    iosClientId: '819484733556-5139q5bif1pr8kgsosl1o8rl743eh93u.apps.googleusercontent.com',
+    iosBundleId: 'com.colartive.async',
   );
 }

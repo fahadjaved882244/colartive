@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>819484733556-5139q5bif1pr8kgsosl1o8rl743eh93u.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.819484733556-5139q5bif1pr8kgsosl1o8rl743eh93u</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>819484733556-hm1sbfgd72dcmjj8hvijmmva2l2j2upv.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyAGJEr3kBOazUhJ3Npu_1qv2HbwPZmvbDg</string>
 	<key>GCM_SENDER_ID</key>
@@ -9,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.colartive.wallpapers</string>
+	<string>com.colartive.async</string>
 	<key>PROJECT_ID</key>
 	<string>colartive-1b793</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:819484733556:ios:19645ed03fb7d58509a121</string>
+	<string>1:819484733556:ios:bb139873ab343b4c09a121</string>
 </dict>
 </plist>

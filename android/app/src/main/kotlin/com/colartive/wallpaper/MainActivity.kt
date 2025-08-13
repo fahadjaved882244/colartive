@@ -1,4 +1,4 @@
-package com.colartive.wallpapers
+package com.colartive.async
 
 import android.app.WallpaperManager
 import android.graphics.Bitmap
