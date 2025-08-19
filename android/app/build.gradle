@@ -36,7 +36,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace 'com.colartive.async'
     compileSdkVersion 35
-    ndkVersion flutter.ndkVersion
+    ndkVersion '27.3.13750724'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
@@ -74,6 +74,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
         release {
             signingConfig signingConfigs.release
             minifyEnabled true

@@ -3,7 +3,6 @@ import 'package:colartive2/firebase_options.dart';
 import 'package:colartive2/themes/theme_controller.dart';
 import 'package:colartive2/utils/core/app_colors.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,9 +27,6 @@ Future<void> main() async {
   );
 
   await FirebaseAppCheck.instance.activate(
-    // You can also use a `ReCaptchaEnterpriseProvider` provider instance as an
-    // argument for `webProvider`
-    // webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),
     // Default provider for Android is the Play Integrity provider. You can use the "AndroidProvider" enum to choose
     // your preferred provider. Choose from:
     // 1. Debug provider
@@ -45,8 +41,6 @@ Future<void> main() async {
     // 4. App Attest provider with fallback to Device Check provider (App Attest provider is only available on iOS 14.0+, macOS 14.0+)
     appleProvider: AppleProvider.appAttest,
   );
-
-  await FirebaseAuth.instance.signInAnonymously();
 
   runApp(
     ProviderScope(

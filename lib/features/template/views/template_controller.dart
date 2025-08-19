@@ -16,7 +16,7 @@ final templateDetailProvider =
   (ref, id) async {
     final repository = ref.watch(templateRepositoryProvider);
     final template = await repository.get(id);
-    if (!ref.read(fontListProvider).contains(template.fontFamily)) {
+    if (!ref.read(fontListProvider).contains(id)) {
       await repository.loadFont(template.fontFileUrl, template.fontFamily);
       ref.read(fontListProvider.notifier).state = [
         ...ref.read(fontListProvider),

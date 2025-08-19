@@ -10,9 +10,11 @@ class Template {
   final String fontFamily;
 
   final String fontFileUrl;
-  final double fontSize;
   final List<int> charCodes;
   final int maxColors;
+  final bool isLargerSize;
+  final double sizeRatio;
+  final bool useHeightSize;
 
   final String name;
   final String thumbnailUrl;
@@ -24,9 +26,11 @@ class Template {
   const Template({
     required this.fontFamily,
     required this.fontFileUrl,
-    required this.fontSize,
     required this.charCodes,
     required this.maxColors,
+    required this.isLargerSize,
+    required this.sizeRatio,
+    required this.useHeightSize,
     required this.name,
     required this.thumbnailUrl,
     required this.createdAt,
@@ -37,9 +41,11 @@ class Template {
   Template copyWith({
     String? fontFamily,
     String? fontFileUrl,
-    double? fontSize,
     List<int>? charCodes,
     int? maxColors,
+    bool? isLargerSize,
+    double? sizeRatio,
+    bool? useHeightSize,
     String? name,
     String? thumbnailUrl,
     DateTime? createdAt,
@@ -49,9 +55,11 @@ class Template {
     return Template(
       fontFamily: fontFamily ?? this.fontFamily,
       fontFileUrl: fontFileUrl ?? this.fontFileUrl,
-      fontSize: fontSize ?? this.fontSize,
       charCodes: charCodes ?? this.charCodes,
       maxColors: maxColors ?? this.maxColors,
+      isLargerSize: isLargerSize ?? this.isLargerSize,
+      sizeRatio: sizeRatio ?? this.sizeRatio,
+      useHeightSize: useHeightSize ?? this.useHeightSize,
       name: name ?? this.name,
       thumbnailUrl: thumbnailUrl ?? this.thumbnailUrl,
       createdAt: createdAt ?? this.createdAt,
@@ -64,9 +72,11 @@ class Template {
     return <String, dynamic>{
       'fontFamily': fontFamily,
       'fontFileUrl': fontFileUrl,
-      'fontSize': fontSize,
       'charCodes': charCodes,
       'maxColors': maxColors,
+      'isLargerSize': isLargerSize,
+      'sizeRatioValue': sizeRatio,
+      'useHeightSize': useHeightSize,
       'name': name,
       'thumbnailUrl': thumbnailUrl,
       'createdAt': Timestamp.fromDate(createdAt),
@@ -79,10 +89,12 @@ class Template {
     return Template(
       fontFamily: map['fontFamily'] as String,
       fontFileUrl: map['fontFileUrl'] as String,
-      fontSize: (map['fontSize'] ?? 0).toDouble(),
       charCodes:
           (map['charCodes'] as List?)?.map((x) => x as int).toList() ?? [],
       maxColors: map['maxColors'] as int,
+      isLargerSize: map['isLargerSize'] as bool? ?? false,
+      sizeRatio: (map['sizeRatioValue'] ?? 1).toDouble(),
+      useHeightSize: map['useHeightSize'] as bool? ?? false,
       name: map['name'] as String,
       thumbnailUrl: map['thumbnailUrl'] as String? ?? '',
       createdAt: (map['createdAt'] as Timestamp).toDate(),
@@ -98,7 +110,7 @@ class Template {
 
   @override
   String toString() {
-    return 'Template(fontFamily: $fontFamily, fontFileUrl: $fontFileUrl, fontSize: $fontSize, charCodes: $charCodes, maxColors: $maxColors, name: $name, thumbnailUrl: $thumbnailUrl, createdAt: $createdAt, isActive: $isActive, isPremium: $isPremium)';
+    return 'Template(fontFamily: $fontFamily, fontFileUrl: $fontFileUrl, charCodes: $charCodes, maxColors: $maxColors, name: $name, thumbnailUrl: $thumbnailUrl, createdAt: $createdAt, isActive: $isActive, isPremium: $isPremium)';
   }
 
   @override
@@ -107,9 +119,11 @@ class Template {
 
     return other.fontFamily == fontFamily &&
         other.fontFileUrl == fontFileUrl &&
-        other.fontSize == fontSize &&
         listEquals(other.charCodes, charCodes) &&
         other.maxColors == maxColors &&
+        other.isLargerSize == isLargerSize &&
+        other.sizeRatio == sizeRatio &&
+        other.useHeightSize == useHeightSize &&
         other.name == name &&
         other.thumbnailUrl == thumbnailUrl &&
         other.createdAt == createdAt &&
@@ -121,9 +135,11 @@ class Template {
   int get hashCode {
     return fontFamily.hashCode ^
         fontFileUrl.hashCode ^
-        fontSize.hashCode ^
         charCodes.hashCode ^
         maxColors.hashCode ^
+        isLargerSize.hashCode ^
+        sizeRatio.hashCode ^
+        useHeightSize.hashCode ^
         name.hashCode ^
         thumbnailUrl.hashCode ^
         createdAt.hashCode ^

@@ -62,7 +62,7 @@ class AuthRepository extends IAuthRepository {
       await _reAuthenticate(password);
       final user = _firebaseAuth.currentUser;
       if (user != null) {
-        await user.updateEmail(newEmail);
+        // await user.updateEmail(newEmail);
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == "email-already-in-use" || e.code == "invalid-email") {

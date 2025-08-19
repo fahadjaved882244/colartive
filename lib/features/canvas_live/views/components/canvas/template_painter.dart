@@ -55,11 +55,14 @@ class TemplatePainter extends CustomPainter {
         template.charCodes.map((e) => String.fromCharCode(e)).toList();
 
     // Paint the text
-    double fontSize = template.fontSize * variation.scaleFactor;
-    if (isCanvasFull) {
-      final canvasScale = size.width / (size.width * 0.65);
-      fontSize *= canvasScale;
+    double ratio = 1;
+    if (template.useHeightSize) {
+      ratio = size.height * template.sizeRatio;
+    } else {
+      ratio = size.width * template.sizeRatio;
     }
+    final fontSize = ratio * variation.scaleFactor;
+
     for (int i = 1; i < variation.colors.length && i <= layers.length; i++) {
       final textStyle = TextStyle(
         // template size scaled to canvas size
@@ -90,11 +93,18 @@ class TemplatePainter extends CustomPainter {
       );
 
       textPainter.layout();
-
-      final offset = Offset(
-        (size.width / 2) - (textPainter.width / 2),
-        (size.height / 2) - (textPainter.height / 2),
-      );
+      Offset offset = Offset.zero;
+      if (template.isLargerSize) {
+        offset = Offset(
+          (size.width / 2) - 10 * (textPainter.width / 2),
+          (size.height / 2) - 10 * (textPainter.height / 2),
+        );
+      } else {
+        offset = Offset(
+          (size.width / 2) - (textPainter.width / 2),
+          (size.height / 2) - (textPainter.height / 2),
+        );
+      }
 
       textPainter.paint(canvas, offset);
     }

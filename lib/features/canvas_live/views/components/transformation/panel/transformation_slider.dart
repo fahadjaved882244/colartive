@@ -38,7 +38,7 @@ class TransformationSlider extends ConsumerWidget {
       case CanvasLiveTransformationMode.scale:
         return Slider(
           min: 0.7,
-          max: 5,
+          max: 3.0,
           value: variation.scaleFactor,
           onChanged: (value) {
             ref

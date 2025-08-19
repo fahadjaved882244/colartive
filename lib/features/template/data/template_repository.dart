@@ -19,12 +19,16 @@ class TemplateRepository implements ITemplateRepository {
   Future<List<Template>> getAll() async {
     // Fetch templates from Firestore
     // only fetch templates that are active
-    final querySnapshot = await firestore.templateCollection
-        .where('isActive', isEqualTo: true)
-        .get();
-    return querySnapshot.docs
-        .map((doc) => Template.fromMap(doc.data()))
-        .toList();
+    try {
+      final querySnapshot = await firestore.templateCollection
+          .where('isActive', isEqualTo: true)
+          .get();
+      return querySnapshot.docs
+          .map((doc) => Template.fromMap(doc.data()))
+          .toList();
+    } catch (e) {
+      throw Exception("Error fetching templates: $e");
+    }
   }
 
   @override

@@ -8,7 +8,6 @@ class MockTemplateRepository extends ITemplateRepository {
       Template(
         fontFamily: "BabyYoda",
         fontFileUrl: "assets/templates/BabyYoda.ttf",
-        fontSize: 220,
         charCodes: [
           0xe800,
           0xe801,
@@ -30,11 +29,13 @@ class MockTemplateRepository extends ITemplateRepository {
         createdAt: DateTime(1, 1, 2023),
         isActive: true,
         isPremium: false,
+        isLargerSize: false,
+        sizeRatio: 0.85,
+        useHeightSize: false,
       ),
       Template(
         fontFamily: "Camelion",
         fontFileUrl: "assets/templates/Camlion.ttf",
-        fontSize: 220,
         charCodes: [
           0xe800,
           0xe801,
@@ -52,11 +53,13 @@ class MockTemplateRepository extends ITemplateRepository {
         createdAt: DateTime(1, 1, 2023),
         isActive: true,
         isPremium: false,
+        isLargerSize: false,
+        sizeRatio: 0.85,
+        useHeightSize: false,
       ),
       Template(
         fontFamily: "Deadpool",
         fontFileUrl: "assets/templates/DeadPoolMed.ttf",
-        fontSize: 220,
         charCodes: [
           0xe800,
           0xe801,
@@ -66,11 +69,14 @@ class MockTemplateRepository extends ITemplateRepository {
           0xe805,
         ],
         maxColors: 6,
+        isLargerSize: false,
         name: "Deadpool",
         thumbnailUrl: "www.firebase.com/asda/",
         createdAt: DateTime(1, 1, 2023),
         isActive: true,
         isPremium: false,
+        sizeRatio: 0.85,
+        useHeightSize: false,
       ),
     ];
   }
