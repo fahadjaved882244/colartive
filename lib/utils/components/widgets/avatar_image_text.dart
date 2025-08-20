@@ -19,7 +19,7 @@ class AvatarImageText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double radiusX = radius ?? AvatarRadius.md;
+    final double radiusX = radius ?? AvatarRadius.lg;
 
     return SizedBox(
       height: radiusX * 2,

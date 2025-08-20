@@ -1,8 +1,7 @@
-import 'package:colartive2/routes/app_paths.dart';
+import 'package:colartive2/routes/app_navigation.dart';
 import 'package:colartive2/utils/core/app_colors.dart';
 import 'package:colartive2/utils/core/app_strings.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../auth/views/auth_controller.dart';
@@ -26,13 +25,9 @@ class UserInfoCard extends ConsumerWidget {
         title: isLoggedIn ? user.name : AppStrings.login,
         subtitle: isLoggedIn ? user.email : AppStrings.contribute,
         implyTrailing: true,
-        onTap: () => isLoggedIn
-            ? context.go(Uri(path: AppPaths.userProfile, queryParameters: {
-                'id': user.id,
-                'name': user.name,
-                'photoUrl': user.photoUrl
-              }).toString())
-            : context.go(AppPaths.login),
+        onTap: () {
+          context.goUserProfile();
+        },
       ),
     );
   }

@@ -1,11 +1,12 @@
+import 'package:colartive2/features/auth/views/auth_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ionicons/ionicons.dart';
 
-import 'package:colartive2/routes/app_paths.dart';
+import 'package:colartive2/routes/app_navigation.dart';
 import 'package:colartive2/utils/core/app_sizes.dart';
 import 'package:colartive2/utils/core/app_strings.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../../../../utils/components/cards/custom_outlined_card.dart';
 import '../../../../../utils/components/popups/custom_dialog.dart';
 import '../../../../../utils/components/scaffolds/base_scaffold.dart';
@@ -37,21 +38,21 @@ class UpdateProfileView extends StatelessWidget {
                     title: AppStrings.editAcc,
                     leading: const Icon(Ionicons.person_circle),
                     implyTrailing: true,
-                    onTap: () => context.go(AppPaths.editName),
+                    onTap: () => context.goEditName(),
                   ),
                   divider,
                   CustomListTile(
                     title: AppStrings.updateEmail,
                     leading: const Icon(Ionicons.mail_outline),
                     implyTrailing: true,
-                    onTap: () => context.go(AppPaths.updateEmail),
+                    onTap: () => context.goUpdateEmail(),
                   ),
                   divider,
                   CustomListTile(
                     title: AppStrings.changePass,
                     leading: const Icon(Ionicons.lock_closed_outline),
                     implyTrailing: true,
-                    onTap: () => context.go(AppPaths.changePassword),
+                    onTap: () => context.goChangePassword(),
                   ),
                 ],
               ),
@@ -84,8 +85,11 @@ class UpdateProfileView extends StatelessWidget {
     );
     if (result && context.mounted) {
       // await GetStorage().erase();
-      // ref.read(authControllerProvider);
-      context.go(AppPaths.home);
+      ref.read(authRepoProvider).signOut().then((_) {
+        if (context.mounted) {
+          context.goHome();
+        }
+      });
     }
   }
 }

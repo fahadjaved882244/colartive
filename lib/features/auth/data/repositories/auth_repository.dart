@@ -11,7 +11,7 @@ class AuthRepository extends IAuthRepository {
 
   @override
   Stream<AuthUser?> get authStateChange =>
-      _firebaseAuth.userChanges().map((u) => u.toAppUser);
+      _firebaseAuth.authStateChanges().map((u) => u.toAppUser);
 
   @override
   Future<void> signup({
@@ -24,7 +24,8 @@ class AuthRepository extends IAuthRepository {
         email: email,
         password: password,
       );
-      await cred.user!.updateDisplayName(body['name']);
+      cred.user!.updateDisplayName(body['name']);
+      _firebaseAuth.currentUser?.sendEmailVerification();
     } on FirebaseAuthException catch (e) {
       if (e.code == "email-already-in-use") {
         throw EmailInUseException(code: e.code);
@@ -187,7 +188,7 @@ class AuthRepository extends IAuthRepository {
   }
 }
 
-extension AppUser on User? {
+extension AppUserX on User? {
   AuthUser? get toAppUser {
     if (this != null && this!.email != null && this!.displayName != null) {
       return AuthUser(

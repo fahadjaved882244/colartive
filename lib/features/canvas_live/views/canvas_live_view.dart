@@ -1,6 +1,5 @@
-import 'package:colartive2/routes/app_paths.dart';
+import 'package:colartive2/routes/app_navigation.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:colartive2/extensions/context_x.dart';
@@ -32,9 +31,8 @@ class CanvasLiveView extends ConsumerWidget {
                 IconButton(
                   icon: const Icon(Icons.check),
                   onPressed: () {
-                    context.goNamed(
-                      RouteNames.canvasFull,
-                      pathParameters: {'templateId': templateId},
+                    context.goCanvasFull(
+                      templateId: template.fontFamily,
                     );
                   },
                 ),

@@ -1,8 +1,8 @@
-import 'package:colartive2/features/template/model/template.dart';
-import 'package:colartive2/routes/app_paths.dart';
-import 'package:colartive2/utils/components/widgets/custom_image_view.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+
+import 'package:colartive2/features/template/model/template.dart';
+import 'package:colartive2/routes/app_navigation.dart';
+import 'package:colartive2/utils/components/widgets/custom_image_view.dart';
 
 class TemplateThumbnail extends StatelessWidget {
   final Template template;
@@ -14,10 +14,7 @@ class TemplateThumbnail extends StatelessWidget {
     return Column(children: [
       InkWell(
         onTap: () {
-          context.goNamed(
-            RouteNames.canvasLive,
-            pathParameters: {'templateId': template.fontFamily},
-          );
+          context.goCanvasLive(templateId: template.fontFamily);
         },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(32),

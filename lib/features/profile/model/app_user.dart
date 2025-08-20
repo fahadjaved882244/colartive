@@ -2,10 +2,10 @@ import 'dart:convert';
 
 class AppUser {
   final String id;
-  final String displayName;
+  final String? displayName;
   final String email;
-  final String profileImageUrl;
-  final String bio;
+  final String? profileImageUrl;
+  final String? bio;
   final int contributions;
   final int totalUpvotes;
   final int following;
@@ -17,8 +17,8 @@ class AppUser {
     required this.id,
     required this.displayName,
     required this.email,
-    required this.profileImageUrl,
-    required this.bio,
+    this.profileImageUrl,
+    this.bio,
     required this.contributions,
     required this.totalUpvotes,
     required this.following,
@@ -83,7 +83,8 @@ class AppUser {
       following: map['following']?.toInt() ?? 0,
       followers: map['followers']?.toInt() ?? 0,
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] ?? 0),
-      lastActiveAt: DateTime.fromMillisecondsSinceEpoch(map['lastActiveAt'] ?? 0),
+      lastActiveAt:
+          DateTime.fromMillisecondsSinceEpoch(map['lastActiveAt'] ?? 0),
     );
   }
 

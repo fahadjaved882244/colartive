@@ -1,8 +1,7 @@
 import 'package:colartive2/features/profile/model/app_user.dart';
 
 class ProfileRepository {
-  final String id = '213';
-  Stream<AppUser> watchAppUser() async* {
+  Stream<AppUser> watchAppUser(String id) async* {
     await Future.delayed(const Duration(seconds: 2));
     yield AppUser(
       id: id,
@@ -14,7 +13,7 @@ class ProfileRepository {
           "An enqusitic art lover with passion for illustration and minimilaistic designs.",
       displayName: 'Fahad Javed',
       email: 'fahad.javed@example.com',
-      profileImageUrl: '',
+      profileImageUrl: null,
       createdAt: DateTime.now(),
       lastActiveAt: DateTime.now(),
     );

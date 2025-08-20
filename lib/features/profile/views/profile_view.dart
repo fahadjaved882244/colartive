@@ -1,12 +1,10 @@
-import 'package:colartive2/extensions/context_x.dart';
 import 'package:colartive2/features/profile/views/profile_controller.dart';
-import 'package:colartive2/routes/app_paths.dart';
+import 'package:colartive2/routes/app_navigation.dart';
 import 'package:colartive2/utils/components/scaffolds/base_scaffold.dart';
 import 'package:colartive2/utils/components/widgets/avatar_image_text.dart';
 import 'package:colartive2/utils/core/app_colors.dart';
 import 'package:colartive2/utils/core/app_strings.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -19,14 +17,14 @@ class ProfileView extends StatelessWidget {
       title: AppStrings.profile,
       actions: [
         IconButton(
-          onPressed: () => context.go(AppPaths.updateProfile),
+          onPressed: () => context.goUpdateProfile(),
           icon: const Icon(Ionicons.settings_outline),
         ),
       ],
       child: Column(
         children: [
           SizedBox(
-            height: 200,
+            height: 150,
             child: Consumer(
               builder: (context, ref, child) {
                 return ref.watch(appUserStreamProvider('id')).when(
@@ -34,26 +32,37 @@ class ProfileView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   AvatarImageText(
-                                    name: user.displayName,
+                                    name: user.displayName ?? 'C',
                                     photoUrl: user.profileImageUrl,
                                   ),
-                                  Text(
-                                    user.bio,
-                                    style: context.textTheme.titleMedium,
-                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(user.displayName ?? 'Add a name'),
                                 ],
                               ),
-                              Text(user.contributions.toString()),
-                              Text(user.totalUpvotes.toString()),
-                              Text(user.following.toString()),
+                              headerSection(
+                                  user.contributions, 'Contributions'),
+                              headerSection(user.totalUpvotes, 'Upvotes'),
+                              headerSection(user.followers, 'Followers'),
                             ],
                           ),
-                          Text(user.bio)
+                          SizedBox(height: 8),
+                          SizedBox(
+                            height: 48,
+                            child: Text(
+                              user.bio ?? 'Add a bio',
+                              style: TextStyle(
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                       loading: () => const Center(
@@ -68,6 +77,28 @@ class ProfileView extends StatelessWidget {
           Expanded(child: Container(color: AppColors.darkGray)),
         ],
       ),
+    );
+  }
+
+  Widget headerSection(int count, String name) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        SizedBox(
+          height: 64,
+          child: Center(
+            child: Text(
+              count.toString(),
+              style: const TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 8),
+        Text(name),
+      ],
     );
   }
 }

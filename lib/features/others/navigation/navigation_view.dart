@@ -1,4 +1,5 @@
 import 'package:colartive2/features/others/navigation/components/navigation_bar.dart';
+import 'package:colartive2/routes/app_navigation.dart';
 import 'package:colartive2/routes/app_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -36,16 +37,16 @@ class NavigationView extends StatelessWidget {
   void _onItemTapped(int index, BuildContext context) {
     switch (index) {
       case 0:
-        context.go(AppPaths.home);
+        context.goHome();
         break;
       case 1:
-        context.go(AppPaths.showcase);
+        context.goHome();
         break;
       case 2:
-        context.go(AppPaths.search);
+        context.goHome();
         break;
       case 3:
-        context.go(AppPaths.settings);
+        context.goHome();
         break;
     }
   }

@@ -1,8 +1,8 @@
-import 'package:colartive2/routes/app_paths.dart';
+import 'package:flutter/material.dart';
+
+import 'package:colartive2/routes/app_navigation.dart';
 import 'package:colartive2/utils/components/widgets/custom_text.dart';
 import 'package:colartive2/utils/core/app_sizes.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class ErrorView extends StatelessWidget {
   final String message;
@@ -14,6 +14,7 @@ class ErrorView extends StatelessWidget {
       appBar: AppBar(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             message,
@@ -22,7 +23,7 @@ class ErrorView extends StatelessWidget {
           const SizedBox(height: Paddings.sm),
           FilledButton(
             child: const CustomText('Back to home'),
-            onPressed: () => context.go(AppPaths.home),
+            onPressed: () => context.goHome(),
           )
         ],
       ),

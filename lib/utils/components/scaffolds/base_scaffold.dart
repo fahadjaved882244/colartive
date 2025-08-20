@@ -63,14 +63,16 @@ class BaseScaffold extends StatelessWidget {
         bottom: bottom,
       ),
       drawer: drawer,
-      body: Padding(
-        padding: !noPadding
-            ? const EdgeInsets.symmetric(
-                vertical: Paddings.xs,
-                horizontal: Paddings.sm,
-              )
-            : EdgeInsets.zero,
-        child: child,
+      body: SafeArea(
+        child: Padding(
+          padding: !noPadding
+              ? const EdgeInsets.symmetric(
+                  vertical: Paddings.xs,
+                  horizontal: Paddings.sm,
+                )
+              : EdgeInsets.zero,
+          child: child,
+        ),
       ),
       bottomSheet: bottomSheet,
       bottomNavigationBar: bottomNavigationBar,

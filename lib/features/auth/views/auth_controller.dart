@@ -14,6 +14,6 @@ final _authStreamProvider = StreamProvider<AuthUser?>((ref) {
 });
 
 final authStateProvider = StateProvider<AuthUser?>((ref) {
-  final authRepo = ref.watch(_authStreamProvider);
-  return authRepo.valueOrNull;
+  final authStream = ref.watch(_authStreamProvider);
+  return authStream.valueOrNull;
 });

@@ -61,6 +61,7 @@ class App extends ConsumerWidget {
     final themeMode = ref.read(themeControllerProvider.notifier).themeMode;
     final brightness = ref.read(themeControllerProvider.notifier).brightness;
     final locale = ref.watch(localeControllerProvider);
+    final router = ref.watch(goRouterProvider);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
@@ -71,7 +72,7 @@ class App extends ConsumerWidget {
             brightness == Brightness.dark ? Brightness.light : Brightness.dark,
       ),
       child: MaterialApp.router(
-        routerConfig: AppRouter.router,
+        routerConfig: router,
         title: 'Colartive',
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,

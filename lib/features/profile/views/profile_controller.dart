@@ -9,5 +9,5 @@ final appUserRepoProvider = Provider<ProfileRepository>((ref) {
 
 final appUserStreamProvider =
     StreamProvider.autoDispose.family<AppUser, String>((ref, id) {
-  return ref.watch(appUserRepoProvider).watchAppUser();
+  return ref.watch(appUserRepoProvider).watchAppUser(id);
 });

@@ -53,7 +53,7 @@ class AppStrings {
   static const String errUserUpdated = 'errUserUpdated';
   static const String current = 'current';
   static const String currentPass = 'currentPass';
-  static const String neww = 'neww';
+  static const String neww = 'new';
   static const String newPass = 'newPass';
   static const String passUpdated = 'passUpdated';
 
@@ -104,7 +104,7 @@ class AppStrings {
       passDontMatch: "Passwords don't match",
       email: "Email",
       password: "Password",
-      confirmPass: "confirm Password",
+      confirmPass: "Confirm Password",
       name: "Name",
       bio: "Bio",
       signup: 'Sign Up',
@@ -128,7 +128,7 @@ class AppStrings {
       emailUpdated: 'Email updated!',
       userUpdated: 'User updated!',
       errUserUpdated: 'Error! failed to updated user.',
-      current: 'Current',
+      current: 'current',
       currentPass: 'Current Password',
       neww: 'New',
       newPass: 'New Password',

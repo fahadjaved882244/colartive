@@ -1,8 +1,8 @@
+import 'package:colartive2/routes/app_navigation.dart';
 import 'package:colartive2/utils/components/widgets/custom_text.dart';
 import 'package:colartive2/utils/core/app_colors.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'package:colartive2/routes/app_paths.dart';
 import 'package:colartive2/utils/core/app_sizes.dart';
 import 'package:colartive2/utils/core/app_strings.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +33,7 @@ class LoginFormCard extends HookConsumerWidget {
         if (!next.isRefreshing && next.hasError) {
           AuthErrorHandler.handleError(context, next.error!);
         } else if (!next.isRefreshing && next.hasValue) {
-          context.go(AppPaths.settings);
+          context.pop();
         }
       },
     );
@@ -50,6 +50,7 @@ class LoginFormCard extends HookConsumerWidget {
     }
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const Row(children: [
           Expanded(child: Divider()),
@@ -91,12 +92,12 @@ class LoginFormCard extends HookConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             TextButton(
-              onPressed: () => context.go(AppPaths.resetPassword),
+              onPressed: () => context.goResetPassword(),
               child: const CustomText(AppStrings.forgPass),
             ),
           ],
         ),
-        const SizedBox(height: Paddings.xs),
+        const SizedBox(height: Paddings.sm),
         FilledButton(
           onPressed: !state.isLoading ? onSubmitted : null,
           child: state.isLoading
@@ -109,7 +110,7 @@ class LoginFormCard extends HookConsumerWidget {
           children: [
             const CustomText(AppStrings.loginNotMember),
             TextButton(
-              onPressed: () => context.go(AppPaths.signup),
+              onPressed: () => context.goSignup(),
               child: const CustomText(AppStrings.signup),
             ),
           ],
