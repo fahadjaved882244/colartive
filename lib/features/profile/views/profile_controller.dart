@@ -1,13 +1,17 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../data/profile_repository.dart';
-import '../model/app_user.dart';
+import '../../auth/model/app_user.dart';
+import '../../auth/views/auth_controller.dart';
 
-final appUserRepoProvider = Provider<ProfileRepository>((ref) {
-  return ProfileRepository();
+final userProfileProvider = FutureProvider<AppUser?>((ref) {
+  final authState = ref.watch(authStateProvider);
+  if (authState != null) {
+    return ref.watch(userRepositoryProvider).read(authState.id);
+  }
+  return Future.value(null);
 });
 
-final appUserStreamProvider =
-    StreamProvider.autoDispose.family<AppUser, String>((ref, id) {
-  return ref.watch(appUserRepoProvider).watchAppUser(id);
+final otherProfileProvider =
+    FutureProvider.autoDispose.family<AppUser?, String>((ref, id) {
+  return ref.watch(userRepositoryProvider).read(id);
 });

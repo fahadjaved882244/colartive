@@ -85,7 +85,7 @@ class UpdateProfileView extends StatelessWidget {
     );
     if (result && context.mounted) {
       // await GetStorage().erase();
-      ref.read(authRepoProvider).signOut().then((_) {
+      ref.read(authRepositoryProvider).signOut().then((_) {
         if (context.mounted) {
           context.goHome();
         }

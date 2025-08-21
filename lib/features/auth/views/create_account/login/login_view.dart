@@ -2,7 +2,7 @@ import 'package:colartive2/utils/core/app_strings.dart';
 import 'package:flutter/material.dart';
 import '../../../../../utils/components/scaffolds/base_scaffold.dart';
 import 'components/login_form_card.dart';
-import 'components/external_login_card.dart';
+// import 'components/external_login_card.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -15,7 +15,7 @@ class LoginView extends StatelessWidget {
       isCancel: true,
       child: ListView(
         children: [
-          const ExternalLoginCard(),
+          // const ExternalLoginCard(),
           LoginFormCard(),
         ],
       ),

@@ -1,7 +1,8 @@
-import 'package:colartive2/features/auth/views/auth_controller.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:colartive2/features/auth/views/auth_controller.dart';
 import 'package:colartive2/features/auth/views/create_account/login/login_view.dart';
 import 'package:colartive2/features/auth/views/create_account/reset_password/reset_password_view.dart';
 import 'package:colartive2/features/auth/views/create_account/signup/signup_view.dart';
@@ -9,13 +10,12 @@ import 'package:colartive2/features/auth/views/update_account/change_password/ch
 import 'package:colartive2/features/auth/views/update_account/edit_name/edit_name_view.dart';
 import 'package:colartive2/features/auth/views/update_account/update_email/update_email_view.dart';
 import 'package:colartive2/features/auth/views/update_account/update_profile/update_profile_view.dart';
-import 'package:colartive2/features/canvas_full/canvas_full_view.dart';
-import 'package:colartive2/features/canvas_live/views/canvas_live_view.dart';
+import 'package:colartive2/features/canvas/views/canvas_full/canvas_full_view.dart';
+import 'package:colartive2/features/canvas/views/canvas_live/canvas_live_view.dart';
 import 'package:colartive2/features/others/settings/settings_view.dart';
 import 'package:colartive2/features/profile/views/profile_view.dart';
 import 'package:colartive2/features/template/views/template_list_view.dart';
 import 'package:colartive2/utils/components/widgets/error_view.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'app_paths.dart';
 

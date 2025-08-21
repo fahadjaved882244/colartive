@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../../data/repositories/i_auth_repository.dart';
+import '../../../service/auth_service.dart';
 import '../../auth_controller.dart';
 
 final signupControllerProvider =
     StateNotifierProvider.autoDispose<SignupController, AsyncValue<void>>(
         (ref) {
-  final authRepo = ref.watch(authRepoProvider);
-  return SignupController(authRepo);
+  final authService = ref.watch(authServiceProvider);
+  return SignupController(authService);
 });
 
 class SignupController extends StateNotifier<AsyncValue<void>> {
-  final IAuthRepository _authRepo;
-  SignupController(this._authRepo) : super(const AsyncData(null));
+  final AuthService _authService;
+  SignupController(this._authService) : super(const AsyncData(null));
 
   Future<void> signup({
     required String email,
@@ -23,7 +23,7 @@ class SignupController extends StateNotifier<AsyncValue<void>> {
 
     state = const AsyncLoading();
     state = await AsyncValue.guard(
-      () => _authRepo.signup(
+      () => _authService.signup(
         email: email,
         password: password,
         body: {"name": name},
