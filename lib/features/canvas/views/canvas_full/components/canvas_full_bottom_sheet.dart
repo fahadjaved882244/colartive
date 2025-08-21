@@ -194,7 +194,7 @@ class CanvasFullBottomSheet extends HookConsumerWidget {
                           );
                         },
                         'Share to\nCommunity',
-                        Icons.file_download,
+                        Icons.groups_3_outlined,
                       ),
                       SizedBox(width: 16),
                       bottomSheetItem(

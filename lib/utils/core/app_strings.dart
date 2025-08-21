@@ -120,7 +120,7 @@ class AppStrings {
           'Enter your email address and we will send you instructions to reset your password.',
       forgPassEmailSent: 'Check your email to reset password.',
       userAcc: 'User Account',
-      editAcc: 'Edit Account',
+      editAcc: 'Edit Details',
       updateEmail: 'Update Email',
       changePass: 'Change Password',
       logout: 'Logout',

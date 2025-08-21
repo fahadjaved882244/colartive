@@ -79,11 +79,11 @@ class AppUser {
 
   factory AppUser.fromMap(Map<String, dynamic> map) {
     return AppUser(
-      id: map['id'] ?? '',
-      name: map['name'] ?? '',
-      email: map['email'] ?? '',
-      imageUrl: map['imageUrl'] ?? '',
-      bio: map['bio'] ?? '',
+      id: map['id'],
+      email: map['email'],
+      name: map['name'],
+      imageUrl: map['imageUrl'],
+      bio: map['bio'],
       contributions: map['contributions']?.toInt() ?? 0,
       totalUpvotes: map['totalUpvotes']?.toInt() ?? 0,
       following: map['following']?.toInt() ?? 0,

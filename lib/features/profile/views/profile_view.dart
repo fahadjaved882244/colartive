@@ -37,6 +37,7 @@ class ProfileView extends StatelessWidget {
                         }
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
