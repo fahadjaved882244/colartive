@@ -78,7 +78,9 @@ class TemplatePainter extends CustomPainter {
           // ..strokeCap = StrokeCap.round
           // ..strokeWidth = 1
           ..color = i == hintIndex
-              ? variation.colors[i].withValues(alpha: hintOpacity)
+              ? variation.colors[i] == Colors.transparent
+                  ? Colors.grey.withValues(alpha: hintOpacity)
+                  : variation.colors[i].withValues(alpha: hintOpacity)
               : variation.colors[i]
           ..maskFilter =
               MaskFilter.blur(BlurStyle.normal, variation.blurFactor),

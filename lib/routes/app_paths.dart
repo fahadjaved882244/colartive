@@ -12,6 +12,9 @@ class AppPaths {
   static const String canvasFull = 'canvas-full';
   static const String canvasFullPath = '$canvasLivePath/$canvasFull';
 
+  static const String canvasShare = 'canvas-share';
+  static const String canvasSharePath = '$canvasFullPath/$canvasShare';
+
   static const String settings = 'settings';
   static const String settingsPath = '/$settings';
 

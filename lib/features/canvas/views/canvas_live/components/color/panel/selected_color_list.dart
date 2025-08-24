@@ -18,6 +18,7 @@ class SelectedColorList extends ConsumerWidget {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(
           right: Radius.circular(12),
+          left: Radius.circular(12),
         ),
       ),
       child: LayoutBuilder(builder: (context, constraints) {

@@ -26,7 +26,7 @@ class CanvasLiveCard extends HookConsumerWidget {
         useAnimationController(duration: const Duration(milliseconds: 600));
 
     final animation = useAnimation(animationController.drive(
-      Tween(begin: 0.3, end: 1.0),
+      Tween(begin: 0.1, end: 1.0),
     ));
 
     useEffect(() {

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:colartive2/extensions/string_x.dart';
 
 class AppUser {
   final String id;
@@ -82,7 +83,7 @@ class AppUser {
       id: map['id'],
       email: map['email'],
       name: map['name'],
-      imageUrl: map['imageUrl'],
+      imageUrl: (map['imageUrl'] as String?)?.nullIfEmpty,
       bio: map['bio'],
       contributions: map['contributions']?.toInt() ?? 0,
       totalUpvotes: map['totalUpvotes']?.toInt() ?? 0,

@@ -18,6 +18,11 @@ extension AppNavigation on BuildContext {
         .toString());
   }
 
+  void goCanvasShare({required String templateId}) {
+    go(Uri.parse("${AppPaths.canvasSharePath}?templateId=$templateId")
+        .toString());
+  }
+
   /// Navigate to the settings page.
   void goSettings() {
     go(AppPaths.settingsPath);

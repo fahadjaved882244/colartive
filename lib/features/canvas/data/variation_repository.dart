@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:colartive2/extensions/firebase_x.dart';
 import 'package:colartive2/features/canvas/data/i_variation_repository.dart';
 import 'package:colartive2/features/canvas/model/shared_variation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -7,22 +9,32 @@ final variationRepositoryProvider = Provider<IVariationRepository>((ref) {
 });
 
 class VariationRepository implements IVariationRepository {
+  final _firestore = FirebaseFirestore.instance;
   @override
   Future<List<SharedVariation>> getAll() {
-    // TODO: implement getAll
-    throw UnimplementedError();
+    return _firestore.variationCollection.get().then((querySnapshot) {
+      return querySnapshot.docs
+          .map((doc) => SharedVariation.fromMap(doc.data()))
+          .toList();
+    });
   }
 
   @override
   Future<SharedVariation> get(String id) {
-    // TODO: implement get
-    throw UnimplementedError();
+    return _firestore.variationCollection.doc(id).get().then((doc) {
+      if (doc.exists) {
+        return SharedVariation.fromMap(doc.data()!);
+      } else {
+        throw Exception("Variation not found");
+      }
+    });
   }
 
   @override
   Future<void> add(SharedVariation variation) {
-    // TODO: implement addVariation
-    throw UnimplementedError();
+    return _firestore.variationCollection
+        .doc(variation.id)
+        .set(variation.toMap());
   }
 
   @override

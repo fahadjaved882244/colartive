@@ -23,7 +23,7 @@ class CustomDropdownFormField<T extends Object> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<T>(
-      value: value,
+      initialValue: value,
       onChanged: onChanged,
       validator: validator,
       items: items.map((i) {

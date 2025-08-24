@@ -87,11 +87,7 @@ class CanvasFullBottomSheet extends HookConsumerWidget {
           children: <Widget>[
             Radio(
               value: value,
-              groupValue: qualityState.value,
               activeColor: Colors.white,
-              onChanged: (value) {
-                if (value != null) qualityState.value = value;
-              },
             ),
             Text(
               title,
@@ -197,10 +193,14 @@ class CanvasFullBottomSheet extends HookConsumerWidget {
                                 .saveVariation(variation);
                             if (context.mounted) {
                               final redirect = Uri.parse(
-                                      "${AppPaths.canvasFullPath}?templateId=${template.fontFamily}")
+                                      "${AppPaths.canvasSharePath}?templateId=${template.fontFamily}")
                                   .toString();
                               context.goLogin(redirect);
                             }
+                          } else {
+                            context.goCanvasShare(
+                              templateId: template.fontFamily,
+                            );
                           }
                         },
                         'Share to\nCommunity',
@@ -265,12 +265,20 @@ class CanvasFullBottomSheet extends HookConsumerWidget {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 16),
-                      child: Row(
-                        children: [
-                          qualityItem('HD', 0),
-                          qualityItem('FHD', 1),
-                          qualityItem('4K', 2),
-                        ],
+                      child: RadioGroup<int>(
+                        groupValue: qualityState.value,
+                        onChanged: (value) {
+                          if (value != null) {
+                            qualityState.value = value;
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            qualityItem('HD', 0),
+                            qualityItem('FHD', 1),
+                            qualityItem('4K', 2),
+                          ],
+                        ),
                       ),
                     ),
                   ),

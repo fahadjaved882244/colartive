@@ -4,7 +4,7 @@ import 'package:colartive2/features/canvas/model/shared_variation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final loginControllerProvider =
+final canvasShareControllerProvider =
     StateNotifierProvider.autoDispose<CanvasShareController, AsyncValue<void>>(
         (ref) {
   final authService = ref.watch(variationRepositoryProvider);

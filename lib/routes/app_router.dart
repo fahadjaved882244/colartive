@@ -1,3 +1,4 @@
+import 'package:colartive2/features/canvas/views/canvas_share/canvas_share_view.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -64,6 +65,21 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                   }
                   return CanvasFullView(templateId: templateId);
                 },
+                routes: [
+                  GoRoute(
+                    path: AppPaths.canvasShare,
+                    builder: (BuildContext context, GoRouterState state) {
+                      final templateId =
+                          state.uri.queryParameters['templateId'];
+                      if (templateId == null) {
+                        return const ErrorView(
+                          message: 'Template ID not found!',
+                        );
+                      }
+                      return CanvasShareView(templateId: templateId);
+                    },
+                  ),
+                ],
               ),
             ],
           ),

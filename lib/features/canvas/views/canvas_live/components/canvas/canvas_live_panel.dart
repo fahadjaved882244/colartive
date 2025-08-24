@@ -41,7 +41,7 @@ class CanvasLivePanel extends ConsumerWidget {
   }) {
     switch (mode) {
       case CanvasLiveMode.color:
-        return const SelectedColorPanel();
+        return SelectedColorPanel(template: template);
       case CanvasLiveMode.transformation:
         return TransformationPanel();
       case CanvasLiveMode.text:

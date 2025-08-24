@@ -55,9 +55,8 @@ class ProfileView extends StatelessWidget {
                                     Text(user.name ?? 'Add a name'),
                                   ],
                                 ),
-                                headerSection(
-                                    user.contributions, 'Contributions'),
-                                headerSection(user.totalUpvotes, 'Upvotes'),
+                                headerSection(user.contributions, 'Posts'),
+                                headerSection(user.totalUpvotes, 'Likes'),
                                 headerSection(user.followers, 'Followers'),
                               ],
                             ),

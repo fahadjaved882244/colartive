@@ -40,7 +40,14 @@ class SelectedColorButton extends ConsumerWidget {
       child: Material(
         color: colors[index],
         clipBehavior: Clip.antiAlias,
-        shape: const CircleBorder(),
+        shape: CircleBorder(
+          side: colors[index] == Colors.transparent
+              ? BorderSide(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  width: 2,
+                )
+              : BorderSide.none,
+        ),
         child: InkWell(
           onTap: () {
             if (isSelected) {
