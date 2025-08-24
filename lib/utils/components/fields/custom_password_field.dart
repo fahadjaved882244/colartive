@@ -33,6 +33,7 @@ class CustomPasswordField extends HookWidget {
     final isObscure = useState(true);
 
     return TextFormField(
+      autofillHints: [AutofillHints.password],
       controller: controller,
       focusNode: focusNode,
       validator: (value) {

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../../data/repositories/i_auth_repository.dart';
+import '../../../service/auth_service.dart';
 import '../../auth_controller.dart';
 
 final updateEmailControllerProvider =
     StateNotifierProvider.autoDispose<UpdateEmailController, AsyncValue<void>>(
         (ref) {
-  final authRepo = ref.watch(authRepoProvider);
-  return UpdateEmailController(authRepo);
+  final authService = ref.watch(authServiceProvider);
+  return UpdateEmailController(authService);
 });
 
 class UpdateEmailController extends StateNotifier<AsyncValue<void>> {
-  final IAuthRepository _authRepo;
-  UpdateEmailController(this._authRepo) : super(const AsyncData(null));
+  final AuthService _authService;
+  UpdateEmailController(this._authService) : super(const AsyncData(null));
 
   Future<void> updateEmail(
       {required String email, required String password}) async {
@@ -20,7 +20,7 @@ class UpdateEmailController extends StateNotifier<AsyncValue<void>> {
 
     state = const AsyncLoading();
     state = await AsyncValue.guard(
-      () => _authRepo.updateEmail(newEmail: email, password: password),
+      () => _authService.updateEmail(newEmail: email, password: password),
     );
   }
 }

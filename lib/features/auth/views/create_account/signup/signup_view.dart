@@ -1,4 +1,4 @@
-import 'package:colartive2/routes/app_paths.dart';
+import 'package:colartive2/routes/app_navigation.dart';
 import 'package:colartive2/utils/core/app_sizes.dart';
 import 'package:colartive2/utils/core/app_strings.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,8 @@ import '../../../data/utils/auth_error_handler.dart';
 import 'signup_controller.dart';
 
 class SignupView extends HookConsumerWidget {
-  const SignupView({super.key});
+  final String? redirect;
+  const SignupView({super.key, this.redirect});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,7 +34,11 @@ class SignupView extends HookConsumerWidget {
         if (!next.isRefreshing && next.hasError) {
           AuthErrorHandler.handleError(context, next.error!);
         } else if (!next.isRefreshing && next.hasValue) {
-          context.go(AppPaths.settings);
+          if (redirect != null) {
+            context.go(redirect!);
+          } else {
+            context.goHome();
+          }
         }
       },
     );

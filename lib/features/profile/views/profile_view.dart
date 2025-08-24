@@ -1,14 +1,13 @@
-import 'package:colartive2/extensions/context_x.dart';
-import 'package:colartive2/features/profile/views/profile_controller.dart';
-import 'package:colartive2/routes/app_paths.dart';
+import 'package:colartive2/routes/app_navigation.dart';
 import 'package:colartive2/utils/components/scaffolds/base_scaffold.dart';
 import 'package:colartive2/utils/components/widgets/avatar_image_text.dart';
 import 'package:colartive2/utils/core/app_colors.dart';
 import 'package:colartive2/utils/core/app_strings.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ionicons/ionicons.dart';
+
+import 'profile_controller.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -19,43 +18,61 @@ class ProfileView extends StatelessWidget {
       title: AppStrings.profile,
       actions: [
         IconButton(
-          onPressed: () => context.go(AppPaths.updateProfile),
+          onPressed: () => context.goUpdateProfile(),
           icon: const Icon(Ionicons.settings_outline),
         ),
       ],
       child: Column(
         children: [
           SizedBox(
-            height: 200,
+            height: 150,
             child: Consumer(
               builder: (context, ref, child) {
-                return ref.watch(appUserStreamProvider('id')).when(
-                      data: (user) => Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                children: [
-                                  AvatarImageText(
-                                    name: user.displayName,
-                                    photoUrl: user.profileImageUrl,
-                                  ),
-                                  Text(
-                                    user.bio,
-                                    style: context.textTheme.titleMedium,
-                                  ),
-                                ],
+                return ref.watch(userProfileProvider).when(
+                      data: (user) {
+                        if (user == null) {
+                          return Center(
+                            child: Text('User not found'),
+                          );
+                        }
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    AvatarImageText(
+                                      name: user.name ?? 'C',
+                                      photoUrl: user.imageUrl,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(user.name ?? 'Add a name'),
+                                  ],
+                                ),
+                                headerSection(user.contributions, 'Posts'),
+                                headerSection(user.totalUpvotes, 'Likes'),
+                                headerSection(user.followers, 'Followers'),
+                              ],
+                            ),
+                            SizedBox(height: 8),
+                            SizedBox(
+                              height: 48,
+                              child: Text(
+                                user.bio ?? 'Add a bio',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                ),
                               ),
-                              Text(user.contributions.toString()),
-                              Text(user.totalUpvotes.toString()),
-                              Text(user.following.toString()),
-                            ],
-                          ),
-                          Text(user.bio)
-                        ],
-                      ),
+                            ),
+                          ],
+                        );
+                      },
                       loading: () => const Center(
                         child: CircularProgressIndicator.adaptive(),
                       ),
@@ -68,6 +85,28 @@ class ProfileView extends StatelessWidget {
           Expanded(child: Container(color: AppColors.darkGray)),
         ],
       ),
+    );
+  }
+
+  Widget headerSection(int count, String name) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        SizedBox(
+          height: 64,
+          child: Center(
+            child: Text(
+              count.toString(),
+              style: const TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 8),
+        Text(name),
+      ],
     );
   }
 }

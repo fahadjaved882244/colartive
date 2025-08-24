@@ -46,4 +46,18 @@ class LocalStorageRepository {
       _box.setString(_countryKey, locale.countryCode!);
     }
   }
+
+  //////////////////////////
+  ///////// Variation /////////
+  /////////////////////////
+  static const _variationKey = 'variation';
+  String? get variation => _box.getString(_variationKey);
+
+  Future<void> saveVariation(String variation) async {
+    await _box.setString(_variationKey, variation);
+  }
+
+  Future<void> clearVariation() async {
+    await _box.remove(_variationKey);
+  }
 }

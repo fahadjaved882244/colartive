@@ -28,6 +28,7 @@ class CustomEmailField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofillHints: [AutofillHints.email, AutofillHints.username],
       controller: controller,
       focusNode: focusNode,
       validator: TextValidator.emailValidator,

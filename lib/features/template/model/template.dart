@@ -86,17 +86,25 @@ class Template {
   }
 
   factory Template.fromMap(Map<String, dynamic> map) {
+    if ((map['fontFamily'] == null || map['fontFamily'] is! String) ||
+        (map['fontFileUrl'] == null || map['fontFileUrl'] is! String) ||
+        (map['charCodes'] == null || map['charCodes'] is! List) ||
+        (map['maxColors'] == null || map['maxColors'] is! int) ||
+        (map['name'] == null || map['name'] is! String) ||
+        (map['createdAt'] == null || map['createdAt'] is! Timestamp) ||
+        (map['thumbnailUrl'] == null || map['thumbnailUrl'] is! String)) {
+      throw Exception('Invalid map data for Template');
+    }
     return Template(
       fontFamily: map['fontFamily'] as String,
       fontFileUrl: map['fontFileUrl'] as String,
-      charCodes:
-          (map['charCodes'] as List?)?.map((x) => x as int).toList() ?? [],
+      charCodes: (map['charCodes'] as List).map((x) => x as int).toList(),
       maxColors: map['maxColors'] as int,
       isLargerSize: map['isLargerSize'] as bool? ?? false,
       sizeRatio: (map['sizeRatioValue'] ?? 1).toDouble(),
       useHeightSize: map['useHeightSize'] as bool? ?? false,
       name: map['name'] as String,
-      thumbnailUrl: map['thumbnailUrl'] as String? ?? '',
+      thumbnailUrl: map['thumbnailUrl'] as String,
       createdAt: (map['createdAt'] as Timestamp).toDate(),
       isActive: map['isActive'] as bool? ?? false,
       isPremium: map['isPremium'] as bool? ?? false,

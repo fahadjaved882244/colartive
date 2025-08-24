@@ -18,8 +18,8 @@ class UpdateUserImage extends ConsumerWidget {
             alignment: Alignment.bottomRight,
             children: [
               AvatarImageText(
-                name: user.name,
-                photoUrl: user.photoUrl,
+                name: user.name ?? 'C',
+                photoUrl: user.imageUrl,
                 radius: 65,
               ),
               IconButton.filled(
@@ -37,7 +37,7 @@ class UpdateUserImage extends ConsumerWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: Paddings.md),
               child: Text(
-                user.name,
+                user.name ?? '',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headlineSmall,
               ),

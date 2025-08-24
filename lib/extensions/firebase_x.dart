@@ -12,6 +12,9 @@ extension FirestoreX on FirebaseFirestore {
 
   CollectionReference<Map<String, dynamic>> get templateCollection =>
       collection('templates');
+
+  CollectionReference<Map<String, dynamic>> get variationCollection =>
+      collection('variations');
 }
 
 extension DocumentReferenceX on DocumentReference {

@@ -1,3 +1,4 @@
+import 'package:colartive2/features/template/views/components/profile_button.dart';
 import 'package:colartive2/features/template/views/components/template_thumbnail.dart';
 import 'package:colartive2/features/template/views/template_controller.dart';
 import 'package:colartive2/utils/components/widgets/async_switcher.dart';
@@ -23,10 +24,18 @@ class TemplateListView extends ConsumerWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(16),
-                  child: SearchBar(
-                    elevation: WidgetStateProperty.all(0.0),
-                    leading: Icon(Icons.search),
-                    hintText: "Search templates...",
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: SearchBar(
+                          elevation: WidgetStateProperty.all(0.0),
+                          leading: Icon(Icons.search),
+                          hintText: "Search templates...",
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      ProfileButton(),
+                    ],
                   ),
                 ),
                 SizedBox(height: 8),

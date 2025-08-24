@@ -21,17 +21,21 @@ class ChangeLocaleView extends ConsumerWidget {
     return BaseScaffold(
       noPadding: true,
       title: AppStrings.language,
-      child: ListView.separated(
-        itemCount: languages.length,
-        itemBuilder: (context, index) => RadioListTile<Locale>(
-          value: languages[index].locale,
-          groupValue: state,
-          onChanged: (value) => onChanged(ref, value),
-          title: Text(languages[index].name),
-          subtitle: Text(
-              "${languages[index].locale.languageCode} ${languages[index].locale.countryCode ?? ''}"),
+      child: RadioGroup<Locale>(
+        groupValue: state,
+        onChanged: (value) {
+          onChanged(ref, value);
+        },
+        child: ListView.separated(
+          itemCount: languages.length,
+          itemBuilder: (context, index) => RadioListTile<Locale>(
+            value: languages[index].locale,
+            title: Text(languages[index].name),
+            subtitle: Text(
+                "${languages[index].locale.languageCode} ${languages[index].locale.countryCode ?? ''}"),
+          ),
+          separatorBuilder: (_, __) => const Divider(),
         ),
-        separatorBuilder: (_, __) => const Divider(),
       ),
     );
   }

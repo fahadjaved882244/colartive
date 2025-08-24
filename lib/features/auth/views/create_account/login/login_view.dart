@@ -2,10 +2,11 @@ import 'package:colartive2/utils/core/app_strings.dart';
 import 'package:flutter/material.dart';
 import '../../../../../utils/components/scaffolds/base_scaffold.dart';
 import 'components/login_form_card.dart';
-import 'components/external_login_card.dart';
+// import 'components/external_login_card.dart';
 
 class LoginView extends StatelessWidget {
-  const LoginView({super.key});
+  final String? redirect;
+  const LoginView({super.key, this.redirect});
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +16,10 @@ class LoginView extends StatelessWidget {
       isCancel: true,
       child: ListView(
         children: [
-          const ExternalLoginCard(),
-          LoginFormCard(),
+          // const ExternalLoginCard(),
+          LoginFormCard(
+            redirect: redirect,
+          ),
         ],
       ),
     );

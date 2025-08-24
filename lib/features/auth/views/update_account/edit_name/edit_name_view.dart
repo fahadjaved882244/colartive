@@ -24,9 +24,10 @@ class EditNameView extends HookConsumerWidget {
       title: AppStrings.editAcc,
       isLoading: state.isLoading,
       onSubmitted: () {
-        ref
-            .read(editNameControllerProvider.notifier)
-            .updateName(name: nameController.text.trim());
+        ref.read(editNameControllerProvider.notifier).updateDetails(
+              name: nameController.text.trim(),
+              bio: bioController.text.trim(),
+            );
       },
       children: [
         const Text(AppStrings.name),
