@@ -123,13 +123,15 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: AppPaths.login,
                 builder: (context, state) {
-                  return const LoginView();
+                  final redirect = state.uri.queryParameters['redirect'];
+                  return LoginView(redirect: redirect);
                 },
                 routes: [
                   GoRoute(
                     path: AppPaths.signup,
                     builder: (context, state) {
-                      return const SignupView();
+                      final redirect = state.uri.queryParameters['redirect'];
+                      return SignupView(redirect: redirect);
                     },
                   ),
                   GoRoute(

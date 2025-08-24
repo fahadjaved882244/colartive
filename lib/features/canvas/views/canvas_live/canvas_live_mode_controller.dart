@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// The `CanvasLiveMode` enum represents the different modes available in the
@@ -48,11 +47,6 @@ final canvasLiveColorModeProvider =
 final canvasLiveHintProvider = AutoDisposeStateProvider<int?>((ref) {
   return null;
 });
-
-final canvasLiveAnimatedListKeyProvider =
-    AutoDisposeProvider<GlobalKey<AnimatedListState>>(
-  (ref) => GlobalKey<AnimatedListState>(),
-);
 
 // Transformation Mode
 enum CanvasLiveTransformationMode {

@@ -51,14 +51,14 @@ class CanvasLiveCard extends HookConsumerWidget {
                 builder: (context, child) {
                   return CustomPaint(
                     size: size,
+                    willChange: true,
                     painter: TemplatePainter(
                       variation: variation,
                       template: template,
                       hintIndex: hint,
                       hintOpacity: animation,
-                      isCanvasFull: false,
+                      isCanvasLive: true,
                     ),
-                    willChange: true,
                   );
                 })
             : const Card(

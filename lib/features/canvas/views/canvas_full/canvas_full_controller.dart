@@ -68,34 +68,21 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
         return;
       }
 
-      final bytes = await _renderCanvasToBytes(
+      file = await _saveImageToFile(
         size: size,
         dpr: dpr,
         qltyValue: qltyValue,
         variation: variation,
         template: template,
       );
+      if (file != null) {
+        await Gal.putImage(file.path);
 
-      if (bytes == null) {
         state = state.copyWith(
-          status: CanvasExportStatus.error,
-          message: 'Failed to render canvas',
+          status: CanvasExportStatus.success,
+          message: 'Canvas downloaded successfully',
         );
-        return;
       }
-
-      final tempDir = await getTemporaryDirectory();
-      final path =
-          '${tempDir.path}/canvas_${DateTime.now().millisecondsSinceEpoch}.png';
-
-      file = await File(path).writeAsBytes(bytes);
-
-      await Gal.putImage(file.path);
-
-      state = state.copyWith(
-        status: CanvasExportStatus.success,
-        message: 'Canvas downloaded successfully',
-      );
     } on GalException catch (e) {
       state = state.copyWith(
         status: CanvasExportStatus.error,
@@ -123,7 +110,7 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
     state = state.copyWith(status: CanvasExportStatus.loading);
     File? file;
     try {
-      final bytes = await _renderCanvasToBytes(
+      file = await _saveImageToFile(
         size: size,
         dpr: dpr,
         qltyValue: qltyValue,
@@ -131,29 +118,18 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
         template: template,
       );
 
-      if (bytes == null) {
-        state = state.copyWith(
-          status: CanvasExportStatus.error,
-          message: 'Failed to render canvas',
-        );
-        return;
-      }
+      if (file != null) {
+        final result =
+            await platform.invokeMethod<String>('setHomeScreenWallpaper', {
+          'imagePath': file.path,
+        });
 
-      final tempDir = await getTemporaryDirectory();
-      file = File(
-          '${tempDir.path}/wallpaper_${DateTime.now().millisecondsSinceEpoch}.png');
-      await file.writeAsBytes(bytes);
-
-      final result =
-          await platform.invokeMethod<String>('setHomeScreenWallpaper', {
-        'imagePath': file.path,
-      });
-
-      if (result != null && result.contains('successfully')) {
-        state = state.copyWith(
-          status: CanvasExportStatus.success,
-          message: 'Set as home screen wallpaper',
-        );
+        if (result != null && result.contains('successfully')) {
+          state = state.copyWith(
+            status: CanvasExportStatus.success,
+            message: 'Set as home screen wallpaper',
+          );
+        }
       }
     } on PlatformException catch (e) {
       state = state.copyWith(
@@ -182,7 +158,7 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
     state = state.copyWith(status: CanvasExportStatus.loading);
     File? file;
     try {
-      final bytes = await _renderCanvasToBytes(
+      file = await _saveImageToFile(
         size: size,
         dpr: dpr,
         qltyValue: qltyValue,
@@ -190,34 +166,23 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
         template: template,
       );
 
-      if (bytes == null) {
-        state = state.copyWith(
-          status: CanvasExportStatus.error,
-          message: 'Failed to render canvas',
-        );
-        return;
-      }
+      if (file != null) {
+        final result =
+            await platform.invokeMethod<String>('setLockScreenWallpaper', {
+          'imagePath': file.path,
+        });
 
-      final tempDir = await getTemporaryDirectory();
-      file = File(
-          '${tempDir.path}/wallpaper_${DateTime.now().millisecondsSinceEpoch}.png');
-      await file.writeAsBytes(bytes);
-
-      final result =
-          await platform.invokeMethod<String>('setLockScreenWallpaper', {
-        'imagePath': file.path,
-      });
-
-      if (result != null && result.contains('successfully')) {
-        state = state.copyWith(
-          status: CanvasExportStatus.success,
-          message: 'Set as home screen wallpaper',
-        );
-      } else {
-        state = state.copyWith(
-          status: CanvasExportStatus.error,
-          message: 'Failed to set wallpaper',
-        );
+        if (result != null && result.contains('successfully')) {
+          state = state.copyWith(
+            status: CanvasExportStatus.success,
+            message: 'Set as home screen wallpaper',
+          );
+        } else {
+          state = state.copyWith(
+            status: CanvasExportStatus.error,
+            message: 'Failed to set wallpaper',
+          );
+        }
       }
     } catch (e) {
       state = state.copyWith(
@@ -247,8 +212,6 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
         template: template,
         hintIndex: null,
         hintOpacity: 1.0,
-        paintOverlay: true,
-        isCanvasFull: true,
       );
 
       painter.paint(canvas, size);
@@ -283,6 +246,36 @@ class CanvasExportNotifier extends AutoDisposeNotifier<CanvasExportState> {
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future<File?> _saveImageToFile({
+    required Size size,
+    required double dpr,
+    required int qltyValue,
+    required Variation variation,
+    required Template template,
+  }) async {
+    final bytes = await _renderCanvasToBytes(
+      size: size,
+      dpr: dpr,
+      qltyValue: qltyValue,
+      variation: variation,
+      template: template,
+    );
+
+    if (bytes == null) {
+      state = state.copyWith(
+        status: CanvasExportStatus.error,
+        message: 'Failed to render canvas',
+      );
+      return null;
+    }
+
+    final tempDir = await getTemporaryDirectory();
+    final path =
+        '${tempDir.path}/colartive_${template.name}_${DateTime.now().millisecondsSinceEpoch}.png';
+
+    return await File(path).writeAsBytes(bytes);
   }
 
   Future<bool> _requestStoragePermission() async {

@@ -5,24 +5,30 @@ import 'package:colartive2/utils/core/stack_collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../../utils/repositories/storage_repository.dart';
+
 final canvasLiveControllerProvider =
     NotifierProvider.autoDispose<VariationNotifier, Variation>(() {
   return VariationNotifier();
 });
 
 class VariationNotifier extends AutoDisposeNotifier<Variation> {
+  late final LocalStorageRepository _localDB;
+
   late final GlobalKey<AnimatedListState> animatedListKey;
 
   late final StackCollection<Variation> _undoStack;
   late final StackCollection<Variation> _redoStack;
   @override
   Variation build() {
-    animatedListKey = ref.watch(canvasLiveAnimatedListKeyProvider);
+    _localDB = ref.read(localStorageRepositoryProvider);
+
+    animatedListKey = GlobalKey<AnimatedListState>();
 
     _undoStack = StackCollection<Variation>();
     _redoStack = StackCollection<Variation>();
 
-    return const Variation.empty();
+    return loadVariation();
   }
 
   @override
@@ -147,7 +153,38 @@ class VariationNotifier extends AutoDisposeNotifier<Variation> {
     _redoStack.clear();
   }
 
-  // Undo/Redo methods
+  ///////////////////////////////////
+  ///////// Local DB ///////
+  ////////////////////////////////////
+
+  Future<void> saveVariation(Variation variation) async {
+    await _localDB.saveVariation(variation.toJson());
+  }
+
+  Variation loadVariation() {
+    late Variation variation;
+    final json = _localDB.variation;
+    if (json != null && json.isNotEmpty) {
+      variation = Variation.fromJson(json);
+
+      // Load the colors into the animated list
+      for (int i = 0; i < variation.colors.length; i++) {
+        animatedListKey.currentState?.insertItem(i);
+      }
+
+      // clear saved variation from local DB
+      _localDB.clearVariation();
+    } else {
+      variation = const Variation.empty();
+    }
+
+    return variation;
+  }
+
+  ///////////////////////////////////
+  ///////// Undo/Redo methods ///////
+  ////////////////////////////////////
+
   bool get canUndo => _undoStack.isNotEmpty;
   bool get canRedo => _redoStack.isNotEmpty;
 

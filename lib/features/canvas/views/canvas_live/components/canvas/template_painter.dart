@@ -1,3 +1,4 @@
+import 'package:colartive2/features/canvas/model/overlay_text.dart';
 import 'package:colartive2/features/canvas/model/variation.dart';
 import 'package:flutter/material.dart';
 
@@ -8,17 +9,19 @@ class TemplatePainter extends CustomPainter {
   final Template template;
   final int? hintIndex;
   final double hintOpacity;
-  final bool paintOverlay;
-  final bool isCanvasFull;
+  final bool isCanvasLive;
   TemplatePainter({
     super.repaint,
     required this.variation,
     required this.template,
     required this.hintIndex,
     required this.hintOpacity,
-    required this.isCanvasFull,
-    this.paintOverlay = false,
+    this.isCanvasLive = false,
   });
+
+  static double calculateFontSize(Size canvasSize, OverlayText text) {
+    return (canvasSize.width * 0.07) * text.fontSize;
+  }
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -44,7 +47,7 @@ class TemplatePainter extends CustomPainter {
 
     canvas.restore();
 
-    if (paintOverlay) {
+    if (!isCanvasLive && variation.overlayTexts.isNotEmpty) {
       paintOverlayText(canvas, size);
     }
   }
@@ -112,14 +115,11 @@ class TemplatePainter extends CustomPainter {
 
   // paint the overlay text
   void paintOverlayText(Canvas canvas, Size size) {
-    double scale = 1;
-    if (isCanvasFull) {
-      scale = size.width / (size.width * 0.65);
-    }
     for (final overlay in variation.overlayTexts) {
+      final fontSize = calculateFontSize(size, overlay);
       final textStyle = TextStyle(
         color: overlay.color,
-        fontSize: overlay.fontSize * scale,
+        fontSize: fontSize,
         fontFamily: overlay.fontFamily,
         fontWeight: FontWeight.bold,
       );

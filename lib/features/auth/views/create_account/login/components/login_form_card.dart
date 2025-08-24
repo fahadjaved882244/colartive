@@ -1,6 +1,7 @@
 import 'package:colartive2/routes/app_navigation.dart';
 import 'package:colartive2/utils/components/widgets/custom_text.dart';
 import 'package:colartive2/utils/core/app_colors.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:colartive2/utils/core/app_sizes.dart';
@@ -15,7 +16,8 @@ import '../../../../data/utils/auth_error_handler.dart';
 import '../login_controller.dart';
 
 class LoginFormCard extends HookConsumerWidget {
-  LoginFormCard({super.key});
+  final String? redirect;
+  LoginFormCard({super.key, required this.redirect});
 
   final _formKey = GlobalKey<FormState>();
 
@@ -33,7 +35,14 @@ class LoginFormCard extends HookConsumerWidget {
         if (!next.isRefreshing && next.hasError) {
           AuthErrorHandler.handleError(context, next.error!);
         } else if (!next.isRefreshing && next.hasValue) {
-          context.pop();
+          TextInput.finishAutofillContext();
+          if (redirect != null) {
+            context.go(redirect!);
+          } else if (context.canPop()) {
+            context.pop();
+          } else {
+            context.goHome();
+          }
         }
       },
     );
@@ -71,21 +80,23 @@ class LoginFormCard extends HookConsumerWidget {
         Form(
           key: _formKey,
           autovalidateMode: autoValidateMode.value,
-          child: Column(
-            children: [
-              CustomEmailField(
-                labelText: AppStrings.email,
-                controller: emailController,
-              ),
-              const SizedBox(height: Paddings.sm),
-              CustomPasswordField(
-                labelText: AppStrings.password,
-                controller: passwordController,
-                validator: TextValidator.optionalPasswordValidator,
-                textInputAction: TextInputAction.done,
-                onSubmitted: (_) => onSubmitted(),
-              ),
-            ],
+          child: AutofillGroup(
+            child: Column(
+              children: [
+                CustomEmailField(
+                  labelText: AppStrings.email,
+                  controller: emailController,
+                ),
+                const SizedBox(height: Paddings.sm),
+                CustomPasswordField(
+                  labelText: AppStrings.password,
+                  controller: passwordController,
+                  validator: TextValidator.optionalPasswordValidator,
+                  textInputAction: TextInputAction.done,
+                  onSubmitted: (_) => onSubmitted(),
+                ),
+              ],
+            ),
           ),
         ),
         Row(
@@ -110,7 +121,7 @@ class LoginFormCard extends HookConsumerWidget {
           children: [
             const CustomText(AppStrings.loginNotMember),
             TextButton(
-              onPressed: () => context.goSignup(),
+              onPressed: () => context.goSignup(redirect),
               child: const CustomText(AppStrings.signup),
             ),
           ],

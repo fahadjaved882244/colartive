@@ -1,3 +1,5 @@
+import 'package:colartive2/features/canvas/views/canvas_live/canvas_live_controller.dart';
+import 'package:colartive2/features/template/views/template_controller.dart';
 import 'package:colartive2/routes/app_navigation.dart';
 import 'package:colartive2/utils/core/app_sizes.dart';
 import 'package:colartive2/utils/core/app_strings.dart';
@@ -13,20 +15,21 @@ import '../../../../../utils/components/fields/custom_text_form_field.dart';
 import '../../../../../utils/components/scaffolds/form_scaffold.dart';
 import '../../../../../utils/core/text_validator.dart';
 import '../../../data/utils/auth_error_handler.dart';
+import '../canvas_live/components/canvas/template_painter.dart';
 import 'signup_controller.dart';
 
-class SignupView extends HookConsumerWidget {
-  final String? redirect;
-  const SignupView({super.key, this.redirect});
+class CanvasShareView extends HookConsumerWidget {
+  final String templateId;
+  const CanvasShareView({super.key, required this.templateId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final asyncTemplate = ref.watch(templateDetailProvider(templateId));
+    final variation = ref.watch(canvasLiveControllerProvider);
+
     final state = ref.watch(signupControllerProvider);
 
-    final nameController = useTextEditingController();
-    final emailController = useTextEditingController();
-    final passwordController = useTextEditingController();
-    final confirmPasswordController = useTextEditingController();
+    final textController = useTextEditingController();
 
     ref.listen<AsyncValue>(
       signupControllerProvider,
@@ -43,6 +46,10 @@ class SignupView extends HookConsumerWidget {
       },
     );
 
+    final canvasSize = Size(
+      MediaQuery.of(context).size.width * 0.5,
+      MediaQuery.of(context).size.height * 0.5,
+    );
     const spacer = SizedBox(height: Paddings.md);
     return FormScaffold(
       title: AppStrings.signupTitle,
@@ -56,34 +63,29 @@ class SignupView extends HookConsumerWidget {
             );
       },
       children: [
-        CustomTextFormField(
-          labelText: AppStrings.name,
-          controller: nameController,
-          prefixIcon: const Icon(Ionicons.person_outline),
-          keyboardType: TextInputType.name,
-          validator: TextValidator.nameValidator,
+        RepaintBoundary(
+          child: CustomPaint(
+            size: canvasSize,
+            willChange: false,
+            painter: TemplatePainter(
+              variation: variation,
+              template: template,
+              hintIndex: null,
+              hintOpacity: 1.0,
+            ),
+          ),
         ),
         spacer,
-        CustomEmailField(
-          labelText: AppStrings.email,
-          controller: emailController,
-        ),
-        const SizedBox(height: Paddings.sm),
-        CustomPasswordField(
-          labelText: AppStrings.password,
-          controller: passwordController,
-          validator: TextValidator.passwordValidator,
-        ),
-        const SizedBox(height: Paddings.sm),
-        CustomPasswordField(
-          labelText: AppStrings.confirmPass,
-          controller: confirmPasswordController,
-          validator: (a) {
-            if (passwordController.text == a) {
-              return null;
-            }
-            return AppStrings.passDontMatch;
-          },
+        TextFormField(
+          controller: textController,
+          textInputAction: TextInputAction.newline,
+          keyboardType: TextInputType.multiline,
+          maxLines: 50,
+          maxLength: 999,
+          decoration: const InputDecoration(
+            hintText: 'Share your creative thoughts...',
+            border: OutlineInputBorder(),
+          ),
         ),
       ],
     );

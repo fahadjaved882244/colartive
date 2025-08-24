@@ -42,7 +42,7 @@ Firestore Database: colartive-app
 │       ├── id: string
 │       ├── displayName: string
 │       ├── email: string
-│       ├── profileImageUrl: string (Firebase Storage URL)
+│       ├── imageUrl: string (Firebase Storage URL)
 │       ├── bio: string
 │       ├── contributions: number
 │       ├── totalUpvotes: number
@@ -60,7 +60,6 @@ Firestore Database: colartive-app
 │               │   ├── rotationFactor: number
 │               │   ├── blurFactor: number
 │               │   └── overlayTexts: array<object>
-│               ├── title: string
 │               ├── description: string
 │               ├── upvoteCount: number
 │               ├── commentCount: number
@@ -79,7 +78,6 @@ Firestore Database: colartive-app
 │       │   ├── rotationFactor: number
 │       │   ├── blurFactor: number
 │       │   └── overlayTexts: array<object>
-│       ├── title: string
 │       ├── description: string
 │       ├── upvoteCount: number
 │       ├── commentCount: number
@@ -145,7 +143,7 @@ erDiagram
         string id PK
         string displayName
         string email
-        string profileImageUrl
+        string imageUrl
         string bio
         number contributions
         number totalUpvotes
@@ -173,7 +171,6 @@ erDiagram
         string templateId FK
         string userId FK
         object variation
-        string title
         string description
         number upvoteCount
         number commentCount

@@ -1,3 +1,4 @@
+import 'package:colartive2/features/canvas/views/canvas_live/components/canvas/template_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -58,8 +59,10 @@ class OverlayTextWidget extends HookConsumerWidget {
     final double height = MediaQuery.of(context).size.height;
     final center = Offset(canvasSize.width / 2, canvasSize.height / 2);
 
-    final textSize = calculateTextSize(text);
+    final textSize = calculateTextSize(text, canvasSize);
     final isSelected = ref.watch(canvasLiveSelectedTextProvider) == index;
+
+    final fontSize = TemplatePainter.calculateFontSize(canvasSize, text);
 
     return Positioned(
       left: (text.posX * canvasSize.width) - textSize.width * 0.625,
@@ -133,7 +136,7 @@ class OverlayTextWidget extends HookConsumerWidget {
               textInputAction: TextInputAction.newline,
               style: TextStyle(
                 color: text.color,
-                fontSize: text.fontSize,
+                fontSize: fontSize,
                 fontFamily: text.fontFamily,
                 fontWeight: FontWeight.bold,
               ),
@@ -144,10 +147,12 @@ class OverlayTextWidget extends HookConsumerWidget {
     );
   }
 
-  Size calculateTextSize(OverlayText text) {
+  Size calculateTextSize(OverlayText text, Size size) {
+    final fontSize = TemplatePainter.calculateFontSize(size, text);
+
     final textStyle = TextStyle(
       color: text.color,
-      fontSize: text.fontSize,
+      fontSize: fontSize,
       fontFamily: text.fontFamily,
       fontWeight: FontWeight.bold,
     );

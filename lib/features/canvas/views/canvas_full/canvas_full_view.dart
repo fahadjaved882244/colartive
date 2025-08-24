@@ -42,8 +42,6 @@ class CanvasFullView extends ConsumerWidget {
                       template: template,
                       hintIndex: null,
                       hintOpacity: 1.0,
-                      paintOverlay: true,
-                      isCanvasFull: true,
                     ),
                   ),
                 ),

@@ -54,8 +54,8 @@ class OverlayTextSlider extends ConsumerWidget {
     switch (mode) {
       case CanvasLiveTextMode.fontSize:
         return Slider(
-          min: 12,
-          max: 100,
+          min: 1,
+          max: 4,
           value: overlayText.fontSize,
           onChanged: (value) {
             ref

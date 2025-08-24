@@ -25,7 +25,7 @@ class OverlayText {
   // Create a constructor for empty OverlayText
   const OverlayText.empty()
       : text = 'Sample',
-        fontSize = 24.0,
+        fontSize = 1.5,
         fontFamily = 'Arial',
         color = const Color(0xFFF0F0F0),
         rotation = 0.0,

@@ -49,17 +49,18 @@ extension AppNavigation on BuildContext {
   }
 
   /// Navigate to the login page.
-  void goLogin() {
-    go(AppPaths.loginPath);
+  void goLogin([String? redirect]) {
+    go(Uri.parse('${AppPaths.loginPath}?redirect=$redirect').toString());
   }
 
   /// Navigate to the signup page.
-  void goSignup() {
-    go(AppPaths.signupPath);
+  void goSignup([String? redirect]) {
+    go(Uri.parse('${AppPaths.signupPath}?redirect=$redirect').toString());
   }
 
   /// Navigate to the reset password page.
-  void goResetPassword() {
-    go(AppPaths.resetPasswordPath);
+  void goResetPassword([String? redirect]) {
+    go(Uri.parse('${AppPaths.resetPasswordPath}?redirect=$redirect')
+        .toString());
   }
 }

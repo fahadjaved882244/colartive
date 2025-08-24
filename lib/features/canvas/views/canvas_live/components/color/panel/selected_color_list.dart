@@ -1,4 +1,3 @@
-import 'package:colartive2/features/canvas/views/canvas_live/canvas_live_mode_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -10,7 +9,8 @@ class SelectedColorList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final animatedListKey = ref.watch(canvasLiveAnimatedListKeyProvider);
+    final animatedListKey =
+        ref.read(canvasLiveControllerProvider.notifier).animatedListKey;
     final colors = ref.watch(canvasLiveControllerProvider).colors;
 
     return Card(

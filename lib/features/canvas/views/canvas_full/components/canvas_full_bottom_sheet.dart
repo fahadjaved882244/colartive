@@ -1,12 +1,17 @@
 import 'dart:io';
 
 import 'package:colartive2/features/canvas/model/variation.dart';
+import 'package:colartive2/routes/app_navigation.dart';
+import 'package:colartive2/routes/app_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:colartive2/features/canvas/views/canvas_full/canvas_full_controller.dart';
 import 'package:colartive2/features/template/model/template.dart';
+
+import '../../../../auth/views/auth_controller.dart';
+import '../../canvas_live/canvas_live_controller.dart';
 
 class CanvasFullBottomSheet extends HookConsumerWidget {
   final Size canvasSize;
@@ -184,14 +189,19 @@ class CanvasFullBottomSheet extends HookConsumerWidget {
                   Row(
                     children: [
                       bottomSheetItem(
-                        () {
-                          exportNotifier.downloadCanvas(
-                            size: canvasSize,
-                            dpr: dpr,
-                            qltyValue: qualityState.value,
-                            variation: variation,
-                            template: template,
-                          );
+                        () async {
+                          final isAuth = ref.read(authStateProvider) != null;
+                          if (!isAuth) {
+                            await ref
+                                .read(canvasLiveControllerProvider.notifier)
+                                .saveVariation(variation);
+                            if (context.mounted) {
+                              final redirect = Uri.parse(
+                                      "${AppPaths.canvasFullPath}?templateId=${template.fontFamily}")
+                                  .toString();
+                              context.goLogin(redirect);
+                            }
+                          }
                         },
                         'Share to\nCommunity',
                         Icons.groups_3_outlined,
