@@ -1,0 +1,2 @@
+- i am using MVC architechure with feature first approach. For example my canvas folder has a model directory for storing data models, a data directory for storing repositories (abstract and implemented), views folder for controller and view. views folder also has a components subfolder for complex and widgets that holds some kinf of state. You can create multiple subviews folder under view directory with their componets like canvas_live, canvas_full etc.
+- I am using hooks_riverpod for state management and go_router for routing.

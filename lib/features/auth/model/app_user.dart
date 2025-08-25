@@ -3,6 +3,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:colartive2/extensions/string_x.dart';
 
 class AppUser {
+  static const String idField = 'id';
+  static const String emailField = 'email';
+  static const String nameField = 'name';
+  static const String imageUrlField = 'imageUrl';
+  static const String bioField = 'bio';
+  static const String contributionsField = 'contributions';
+  static const String totalUpvotesField = 'totalUpvotes';
+  static const String followingField = 'following';
+  static const String followersField = 'followers';
+  static const String isVerifiedField = 'isVerified';
+  static const String createdAtField = 'createdAt';
+  static const String lastActiveAtField = 'lastActiveAt';
+
   final String id;
   final String email;
   final String? name;
@@ -63,35 +76,35 @@ class AppUser {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'name': name,
-      'email': email,
-      'imageUrl': imageUrl,
-      'bio': bio,
-      'contributions': contributions,
-      'totalUpvotes': totalUpvotes,
-      'following': following,
-      'followers': followers,
-      'isVerified': isVerified,
-      'createdAt': Timestamp.fromDate(createdAt),
-      'lastActiveAt': Timestamp.fromDate(lastActiveAt),
+      idField: id,
+      nameField: name,
+      emailField: email,
+      imageUrlField: imageUrl,
+      bioField: bio,
+      contributionsField: contributions,
+      totalUpvotesField: totalUpvotes,
+      followingField: following,
+      followersField: followers,
+      isVerifiedField: isVerified,
+      createdAtField: Timestamp.fromDate(createdAt),
+      lastActiveAtField: Timestamp.fromDate(lastActiveAt),
     };
   }
 
   factory AppUser.fromMap(Map<String, dynamic> map) {
     return AppUser(
-      id: map['id'],
-      email: map['email'],
-      name: map['name'],
-      imageUrl: (map['imageUrl'] as String?)?.nullIfEmpty,
-      bio: map['bio'],
-      contributions: map['contributions']?.toInt() ?? 0,
-      totalUpvotes: map['totalUpvotes']?.toInt() ?? 0,
-      following: map['following']?.toInt() ?? 0,
-      followers: map['followers']?.toInt() ?? 0,
-      isVerified: map['isVerified'] ?? false,
-      createdAt: (map['createdAt'] as Timestamp).toDate(),
-      lastActiveAt: (map['lastActiveAt'] as Timestamp).toDate(),
+      id: map[idField],
+      email: map[emailField],
+      name: map[nameField],
+      imageUrl: (map[imageUrlField] as String?)?.nullIfEmpty,
+      bio: map[bioField],
+      contributions: map[contributionsField]?.toInt() ?? 0,
+      totalUpvotes: map[totalUpvotesField]?.toInt() ?? 0,
+      following: map[followingField]?.toInt() ?? 0,
+      followers: map[followersField]?.toInt() ?? 0,
+      isVerified: map[isVerifiedField] ?? false,
+      createdAt: (map[createdAtField] as Timestamp).toDate(),
+      lastActiveAt: (map[lastActiveAtField] as Timestamp).toDate(),
     );
   }
 

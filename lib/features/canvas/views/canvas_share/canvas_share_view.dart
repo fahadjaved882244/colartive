@@ -4,7 +4,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:uuid/uuid.dart';
-import 'package:uuid/v4.dart';
 
 import 'package:colartive2/extensions/string_x.dart';
 import 'package:colartive2/features/auth/views/auth_controller.dart';
@@ -42,7 +41,8 @@ class CanvasShareView extends HookConsumerWidget {
           showCustomSnackBar(
               context, next.error?.toString() ?? 'Error occurred!');
         } else if (!next.isRefreshing && next.hasValue) {
-          context.goHome();
+          context.pop();
+          showCustomSnackBar(context, 'Artwork shared successfully!');
         }
       },
     );

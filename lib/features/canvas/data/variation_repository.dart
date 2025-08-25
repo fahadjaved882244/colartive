@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:colartive2/extensions/firebase_x.dart';
+import 'package:colartive2/features/auth/model/app_user.dart';
 import 'package:colartive2/features/canvas/data/i_variation_repository.dart';
 import 'package:colartive2/features/canvas/model/shared_variation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -12,7 +13,10 @@ class VariationRepository implements IVariationRepository {
   final _firestore = FirebaseFirestore.instance;
   @override
   Future<List<SharedVariation>> getAll() {
-    return _firestore.variationCollection.get().then((querySnapshot) {
+    return _firestore.variationCollection
+        .where('isPublic', isEqualTo: true)
+        .get()
+        .then((querySnapshot) {
       return querySnapshot.docs
           .map((doc) => SharedVariation.fromMap(doc.data()))
           .toList();
@@ -31,10 +35,20 @@ class VariationRepository implements IVariationRepository {
   }
 
   @override
-  Future<void> add(SharedVariation variation) {
-    return _firestore.variationCollection
-        .doc(variation.id)
-        .set(variation.toMap());
+  Future<void> add(SharedVariation variation) async {
+    await _firestore.runTransaction((transaction) async {
+      // Add the variation
+      transaction.set(
+        _firestore.variationCollection.doc(variation.id),
+        variation.toMap(),
+      );
+
+      // Increment user's contribution count
+      transaction.update(
+        _firestore.userCollection.doc(variation.userId),
+        {AppUser.contributionsField: FieldValue.increment(1)},
+      );
+    });
   }
 
   @override

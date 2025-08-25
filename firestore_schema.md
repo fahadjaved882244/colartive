@@ -2,7 +2,7 @@
 
 ## 🗄️ Database Structure Overview
 
-### **Option 1: Subcollections (Recommended)**
+### **Simplified Collection Structure**
 
 ```
 Firestore Database: colartive-app
@@ -18,24 +18,7 @@ Firestore Database: colartive-app
 │       ├── maxColors: number
 │       ├── thumbnailUrl: string (Firebase Storage URL)
 │       ├── createdAt: timestamp
-│       ├── isActive: boolean
-│       └── 📁 variations/ (subcollection)
-│           └── 📄 {variationId}
-│               ├── id: string
-│               ├── userId: string (→ users/{userId})
-│               ├── variation: object
-│               │   ├── colors: array<int> (ARGB values)
-│               │   ├── scaleFactor: number
-│               │   ├── rotationFactor: number
-│               │   ├── blurFactor: number
-│               │   └── overlayTexts: array<object>
-│               ├── title: string
-│               ├── description: string
-│               ├── upvoteCount: number
-│               ├── commentCount: number
-│               ├── createdAt: timestamp
-│               ├── updatedAt: timestamp
-│               └── isPublic: boolean
+│       └── isActive: boolean
 │
 ├── 📁 users/
 │   └── 📄 {userId} (Auth UID)
@@ -49,25 +32,9 @@ Firestore Database: colartive-app
 │       ├── following: number
 │       ├── followers: number
 │       ├── createdAt: timestamp
-│       ├── lastActiveAt: timestamp
-│       └── 📁 variations/ (subcollection)
-│           └── 📄 {variationId}
-│               ├── id: string
-│               ├── templateId: string (→ templates/{templateId})
-│               ├── variation: object
-│               │   ├── colors: array<int> (ARGB values)
-│               │   ├── scaleFactor: number
-│               │   ├── rotationFactor: number
-│               │   ├── blurFactor: number
-│               │   └── overlayTexts: array<object>
-│               ├── description: string
-│               ├── upvoteCount: number
-│               ├── commentCount: number
-│               ├── createdAt: timestamp
-│               ├── updatedAt: timestamp
-│               └── isPublic: boolean
+│       └── lastActiveAt: timestamp
 │
-├── 📁 sharedVariations/ (Global feed - public variations only)
+├── 📁 variations/
 │   └── 📄 {variationId}
 │       ├── id: string
 │       ├── templateId: string (→ templates/{templateId})
@@ -78,27 +45,24 @@ Firestore Database: colartive-app
 │       │   ├── rotationFactor: number
 │       │   ├── blurFactor: number
 │       │   └── overlayTexts: array<object>
+│       ├── title: string
 │       ├── description: string
 │       ├── upvoteCount: number
 │       ├── commentCount: number
 │       ├── createdAt: timestamp
-│       └── updatedAt: timestamp
-│
-├── 📁 upvotes/
-│   └── 📄 {upvoteId}
-│       ├── id: string
-│       ├── userId: string (→ users/{userId})
-│       ├── variationId: string (→ sharedVariations/{variationId})
-│       └── createdAt: timestamp
-│
-├── 📁 comments/
-│   └── 📄 {commentId}
-│       ├── id: string
-│       ├── variationId: string (→ sharedVariations/{variationId})
-│       ├── userId: string (→ users/{userId})
-│       ├── text: string
-│       ├── createdAt: timestamp
-│       └── updatedAt: timestamp
+│       ├── updatedAt: timestamp
+│       ├── isPublic: boolean
+│       ├── 📁 upvotes/ (subcollection)
+│       │   └── 📄 {userId}
+│       │       ├── userId: string (→ users/{userId})
+│       │       └── createdAt: timestamp
+│       └── 📁 comments/ (subcollection)
+│           └── 📄 {commentId}
+│               ├── id: string
+│               ├── userId: string (→ users/{userId})
+│               ├── text: string
+│               ├── createdAt: timestamp
+│               └── updatedAt: timestamp
 │
 └── 📁 follows/
     └── 📄 {followId}
@@ -108,36 +72,21 @@ Firestore Database: colartive-app
         └── createdAt: timestamp
 ```
 
-### **Option 2: Collection Groups**
-Keep single `sharedVariations` collection but use collection groups for cross-collection queries.
-
-### **Option 3: Denormalized Arrays**
-Store variation IDs in template and user documents (suitable for smaller datasets).
-
-```
-templates/{templateId}
-├── variationIds: array<string>
-└── variationCount: number
-
-users/{userId}  
-├── variationIds: array<string>
-└── variationCount: number
-```
 
 ## 🔗 Relationships Diagram
 
 ```mermaid
 erDiagram
-    USERS ||--o{ SHARED_VARIATIONS : creates
-    USERS ||--o{ LIKES : gives
+    USERS ||--o{ VARIATIONS : creates
+    USERS ||--o{ UPVOTES : gives
     USERS ||--o{ COMMENTS : writes
     USERS ||--o{ FOLLOWS : follower
     USERS ||--o{ FOLLOWS : following
     
-    TEMPLATES ||--o{ SHARED_VARIATIONS : "used in"
+    TEMPLATES ||--o{ VARIATIONS : "used in"
     
-    SHARED_VARIATIONS ||--o{ LIKES : receives
-    SHARED_VARIATIONS ||--o{ COMMENTS : "has comments"
+    VARIATIONS ||--o{ UPVOTES : receives
+    VARIATIONS ||--o{ COMMENTS : "has comments"
     
     USERS {
         string id PK
@@ -166,11 +115,12 @@ erDiagram
         boolean isActive
     }
     
-    SHARED_VARIATIONS {
+    VARIATIONS {
         string id PK
         string templateId FK
         string userId FK
         object variation
+        string title
         string description
         number upvoteCount
         number commentCount
@@ -179,16 +129,13 @@ erDiagram
         boolean isPublic
     }
     
-    LIKES {
-        string id PK
-        string userId FK
-        string variationId FK
+    UPVOTES {
+        string userId PK
         timestamp createdAt
     }
     
     COMMENTS {
         string id PK
-        string variationId FK
         string userId FK
         string text
         timestamp createdAt
@@ -208,14 +155,6 @@ erDiagram
 ```javascript
 // Firestore Composite Indexes
 {
-  // For unique likes per user per variation
-  collection: "likes",
-  fields: [
-    { fieldPath: "userId", order: "ASCENDING" },
-    { fieldPath: "variationId", order: "ASCENDING" }
-  ]
-},
-{
   // For unique follows per user relationship
   collection: "follows", 
   fields: [
@@ -225,7 +164,7 @@ erDiagram
 },
 {
   // For querying variations by template
-  collection: "sharedVariations",
+  collection: "variations",
   fields: [
     { fieldPath: "templateId", order: "ASCENDING" },
     { fieldPath: "createdAt", order: "DESCENDING" }
@@ -233,7 +172,7 @@ erDiagram
 },
 {
   // For querying user's variations
-  collection: "sharedVariations",
+  collection: "variations",
   fields: [
     { fieldPath: "userId", order: "ASCENDING" },
     { fieldPath: "createdAt", order: "DESCENDING" }
@@ -241,17 +180,18 @@ erDiagram
 },
 {
   // For querying public variations
-  collection: "sharedVariations",
+  collection: "variations",
   fields: [
     { fieldPath: "isPublic", order: "ASCENDING" },
     { fieldPath: "createdAt", order: "DESCENDING" }
   ]
 },
 {
-  // For querying comments by variation
-  collection: "comments",
+  // For querying public variations by template
+  collection: "variations",
   fields: [
-    { fieldPath: "variationId", order: "ASCENDING" },
+    { fieldPath: "templateId", order: "ASCENDING" },
+    { fieldPath: "isPublic", order: "ASCENDING" },
     { fieldPath: "createdAt", order: "DESCENDING" }
   ]
 }
@@ -281,8 +221,6 @@ Instead of storing variation images, render them on-demand:
 
 ## 🚀 Optimized Query Examples
 
-### **Option 1: Subcollections (Recommended)**
-
 #### Home View - Get All Templates
 ```dart
 FirebaseFirestore.instance
@@ -292,26 +230,22 @@ FirebaseFirestore.instance
   .get()
 ```
 
-#### Canvas Live - Get Variations for Specific Template (FAST! 🚀)
+#### Canvas Live - Get Variations for Specific Template
 ```dart
-// Direct subcollection query - no scanning!
 FirebaseFirestore.instance
-  .collection('templates')
-  .doc(templateId)
   .collection('variations')
+  .where('templateId', isEqualTo: templateId)
   .where('isPublic', isEqualTo: true)
   .orderBy('createdAt', descending: true)
   .limit(20)
   .get()
 ```
 
-#### Profile View - Get User's Variations (FAST! 🚀)
+#### Profile View - Get User's Variations
 ```dart
-// Direct subcollection query - no scanning!
 FirebaseFirestore.instance
-  .collection('users')
-  .doc(userId)
   .collection('variations')
+  .where('userId', isEqualTo: userId)
   .orderBy('createdAt', descending: true)
   .get()
 ```
@@ -319,7 +253,8 @@ FirebaseFirestore.instance
 #### Global Feed - All Public Variations
 ```dart
 FirebaseFirestore.instance
-  .collection('sharedVariations')  // Only public variations
+  .collection('variations')
+  .where('isPublic', isEqualTo: true)
   .orderBy('createdAt', descending: true)
   .limit(50)
   .get()
@@ -328,21 +263,22 @@ FirebaseFirestore.instance
 #### Social Features - Check if User Liked Variation
 ```dart
 FirebaseFirestore.instance
+  .collection('variations')
+  .doc(variationId)
   .collection('upvotes')
-  .where('userId', isEqualTo: currentUserId)
-  .where('variationId', isEqualTo: variationId)
+  .doc(currentUserId)
   .get()
 ```
 
-
-### **Performance Comparison**
-
-| Query Type | Current Schema | Subcollections | Performance Gain |
-|------------|---------------|----------------|------------------|
-| Template variations | Scan all docs | Direct path | **100x faster** |
-| User variations | Scan all docs | Direct path | **100x faster** |
-| Global feed | Single query | Single query | Same |
-| Write operations | 1 write | 2-3 writes | Slightly slower |
+#### Get Comments for a Variation
+```dart
+FirebaseFirestore.instance
+  .collection('variations')
+  .doc(variationId)
+  .collection('comments')
+  .orderBy('createdAt', descending: true)
+  .get()
+```
 
 ## ✍️ Optimized Write Strategy (No Image Storage)
 
@@ -364,31 +300,13 @@ final variationData = {
   'isPublic': isPublic,
 };
 
-// 1. Write to user's subcollection
+// 1. Write to variations collection
 await FirebaseFirestore.instance
-  .collection('users')
-  .doc(userId)
   .collection('variations')
   .doc(variationId)
   .set(variationData);
 
-// 2. Write to template's subcollection  
-await FirebaseFirestore.instance
-  .collection('templates')
-  .doc(templateId)
-  .collection('variations')
-  .doc(variationId)
-  .set(variationData);
-
-// 3. If public, write to global feed
-if (isPublic) {
-  await FirebaseFirestore.instance
-    .collection('sharedVariations')
-    .doc(variationId)
-    .set(variationData);
-}
-
-// 4. Update counters using transactions
+// 2. Update user's contribution counter using transactions
 await FirebaseFirestore.instance.runTransaction((transaction) async {
   transaction.update(
     FirebaseFirestore.instance.collection('users').doc(userId),
@@ -397,65 +315,19 @@ await FirebaseFirestore.instance.runTransaction((transaction) async {
 });
 ```
 
-### **Benefits of Dynamic Rendering + Subcollections:**
-✅ **Lightning Fast Queries** - Direct path, no scanning
+### **Benefits of Dynamic Rendering + Single Collection:**
+✅ **Simple Architecture** - Single variations collection, easy to manage
 ✅ **Zero Image Storage Cost** - No Firebase Storage usage for variations
 ✅ **Instant Sharing** - No image upload delays  
 ✅ **Always Fresh** - No stale cached images
-✅ **Automatic Organization** - Data naturally grouped  
-✅ **Scalable** - Each subcollection can have millions of docs
-✅ **Security** - Granular rules per subcollection
+✅ **Efficient Queries** - Composite indexes for fast filtering
 ✅ **Real-time Canvas** - Paint variations on-demand
+✅ **Organized Social Features** - Upvotes and comments as subcollections
 
 ### **Trade-offs:**
-❌ **Multiple Writes** - 2-3 writes per variation share
-❌ **Data Duplication** - Same variation stored multiple times  
-❌ **Complexity** - Need to keep subcollections in sync
+❌ **Query Complexity** - Need composite indexes for multi-field queries
 ❌ **CPU Usage** - Canvas painting on each view (minimal impact)
 
-## 🔒 Security Rules Structure
-
-```javascript
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    // Users can read/write their own profile
-    match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-      allow read: if request.auth != null; // Others can read profiles
-    }
-    
-    // Templates are read-only for users
-    match /templates/{templateId} {
-      allow read: if request.auth != null;
-    }
-    
-    // Shared variations
-    match /sharedVariations/{variationId} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null && request.auth.uid == resource.data.userId;
-    }
-    
-    // Likes - users can only manage their own likes
-    match /likes/{likeId} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null && request.auth.uid == resource.data.userId;
-    }
-    
-    // Comments - users can manage their own comments
-    match /comments/{commentId} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null && request.auth.uid == resource.data.userId;
-    }
-    
-    // Follows - users can manage their own follow relationships
-    match /follows/{followId} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null && request.auth.uid == resource.data.followerId;
-    }
-  }
-}
-```
 
 ## 📊 Optimized Data Flow Summary
 
@@ -477,8 +349,8 @@ Template (font + charCodes) + Variation (colors + transforms)
 ```
 
 This optimized schema provides:
-- **🚀 100x faster queries** with subcollections
+- **🏗️ Simple architecture** with single variations collection
 - **💰 Zero storage cost** for variation images  
 - **⚡ Instant sharing** with no upload delays
 - **🔄 Always fresh** dynamic rendering
-- **📈 Infinite scalability** for variations
+- **📊 Organized social features** with subcollections for upvotes and comments
